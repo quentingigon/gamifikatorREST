@@ -1,6 +1,6 @@
-package mongoconnection.servlets;
+package Gamifikator.mongoconnection.servlets;
 
-import mongoconnection.dao.MongoConnection;
+import Gamifikator.mongoconnection.dao.MongoConnection;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

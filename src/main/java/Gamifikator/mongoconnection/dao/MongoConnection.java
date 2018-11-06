@@ -1,7 +1,7 @@
-package mongoconnection.dao;
+package Gamifikator.mongoconnection.dao;
 
 import com.mongodb.*;
-import mongoconnection.models.MongoDataObject;
+import Gamifikator.mongoconnection.models.MongoDataObject;
 import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -95,4 +95,27 @@ public class MongoConnection {
 	public static MongoConnection getInstance() {
 		return instance;
 	}
+
+	// Examples
+/*
+	MongoConnection conn = MongoConnection.getInstance();
+	dao = new CupDao(conn.getDatastore());
+
+	get("/api/getAll", (req, res) -> {
+		return dao.find().asList();
+	}, gson::toJson);
+
+	post("/api/insert", (req, res) -> {
+		CupDO cup = gson.fromJson(req.body(), CupDO.class);
+		DBObject tmp = conn.getMorphia().toDBObject(cup);
+
+		WriteResult wResult = dao.getCollection().insert(tmp);
+
+		return wResult.getUpsertedId();
+	}, gson::toJson);
+
+	after((req, res) -> {
+		res.header("content-type", "application/json");
+	});
+	*/
 }

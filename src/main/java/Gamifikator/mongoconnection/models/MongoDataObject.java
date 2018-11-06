@@ -1,4 +1,4 @@
-package mongoconnection.models;
+package Gamifikator.mongoconnection.models;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Id;

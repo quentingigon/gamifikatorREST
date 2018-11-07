@@ -5,7 +5,7 @@
          version="4.0">
 
     <listener>
-        <listener-class>main.java.mongoconnection.servlets.MongoConnectionServlet</listener-class>
+        <listener-class>gamifikator.mongoconnection.servlets.MongoConnectionServlet</listener-class>
     </listener>
 </web-app>
 

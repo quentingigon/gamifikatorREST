@@ -1,15 +1,15 @@
-package Gamifikator;
+package gamifikator;
 
-import Gamifikator.mongoconnection.dao.MongoConnection;
-import Gamifikator.mongoconnection.dao.UserDAO;
-import Gamifikator.mongoconnection.models.UserDO;
 import com.mongodb.DBObject;
-import com.mongodb.WriteResult;
+import gamifikator.mongoconnection.dao.MongoConnection;
+import gamifikator.mongoconnection.dao.UserDAO;
+import gamifikator.mongoconnection.models.UserDO;
 
 public class Main {
 
 	public static void main(String...args) {
 
+		/* Testing DB */
 		UserDAO userDao;
 
 		MongoConnection conn = MongoConnection.getInstance();
@@ -18,12 +18,8 @@ public class Main {
 		UserDO user = new UserDO("test", "test");
 		DBObject tmp = conn.getMorphia().toDBObject(user);
 
-		WriteResult wResult = userDao.getCollection().insert(tmp);
-
-		System.out.println(wResult.getUpsertedId());
+		userDao.getCollection().insert(tmp);
 
 		System.out.println(userDao.find().asList().get(0).getFirstName());
 	}
-
-
 }

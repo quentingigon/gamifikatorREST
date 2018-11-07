@@ -1,7 +1,7 @@
-package Gamifikator.mongoconnection.dao;
+package gamifikator.mongoconnection.dao;
 
 import com.mongodb.*;
-import Gamifikator.mongoconnection.models.MongoDataObject;
+import gamifikator.mongoconnection.models.MongoDataObject;
 import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;

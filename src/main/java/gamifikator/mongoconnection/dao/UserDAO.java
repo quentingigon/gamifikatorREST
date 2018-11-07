@@ -1,6 +1,6 @@
-package Gamifikator.mongoconnection.dao;
+package gamifikator.mongoconnection.dao;
 
-import Gamifikator.mongoconnection.models.UserDO;
+import gamifikator.mongoconnection.models.UserDO;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.dao.BasicDAO;

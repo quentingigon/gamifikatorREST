@@ -1,4 +1,4 @@
-package Gamifikator.client;
+package gamifikator.client;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class RegistrationServlet extends javax.servlet.http.HttpServlet {
+public class LoginServlet extends javax.servlet.http.HttpServlet {
 
-	public final String REGISTER_JSP = "register.jsp";
+	public final String LOGIN_JSP = "login.jsp";
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -17,6 +17,6 @@ public class RegistrationServlet extends javax.servlet.http.HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher(REGISTER_JSP).forward(req, resp);
+		req.getRequestDispatcher(LOGIN_JSP).forward(req, resp);
 	}
 }

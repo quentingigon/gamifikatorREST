@@ -1,9 +1,9 @@
 package gamifikator.client;
 
 import com.mongodb.DBObject;
-import gamifikator.mongoconnection.dao.MongoConnection;
-import gamifikator.mongoconnection.dao.UserDAO;
-import gamifikator.mongoconnection.models.UserDO;
+import gamifikator.model.User;
+import gamifikator.services.MongoConnection;
+import gamifikator.services.UserDAO;
 import org.mongodb.morphia.query.Query;
 
 import javax.servlet.ServletConfig;
@@ -31,7 +31,9 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		super.doPost(req, resp);
 
-		UserDO user = new UserDO(
+		User user = new User(
+			req.getParameter("lastName"),
+			req.getParameter("firstName"),
 			req.getParameter("email"),
 			req.getParameter("password")
 		);
@@ -39,7 +41,7 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
 		MongoConnection conn = MongoConnection.getInstance();
 		UserDAO userDao = new UserDAO(conn.getDatastore());
 
-		Query query = conn.getDatastore().createQuery(UserDO.class)
+		Query query = conn.getDatastore().createQuery(User.class)
 			.field("email").equal(user.getEmail())
 			.field("password").equal(user.getPassword());
 

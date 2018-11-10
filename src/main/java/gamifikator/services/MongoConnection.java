@@ -1,7 +1,10 @@
-package gamifikator.mongoconnection.dao;
+package gamifikator.services;
 
-import com.mongodb.*;
-import gamifikator.mongoconnection.models.MongoDataObject;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientURI;
+import com.mongodb.WriteConcern;
+import gamifikator.model.MongoDBObject;
 import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -51,8 +54,8 @@ public class MongoConnection {
 			logger.debug("Starting Morphia");
 			morphia = new Morphia();
 
-			logger.debug(format("Mapping packages for clases within %s", MongoDataObject.class.getName()));
-			morphia.mapPackageFromClass(MongoDataObject.class);
+			logger.debug(format("Mapping packages for clases within %s", MongoDBObject.class.getName()));
+			morphia.mapPackageFromClass(MongoDBObject.class);
 		}
 
 		return morphia;

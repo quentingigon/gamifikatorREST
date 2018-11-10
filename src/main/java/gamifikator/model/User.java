@@ -1,11 +1,13 @@
-package main.java.Gamifikator.model;
+package gamifikator.model;
 
-public class User {
+public class User extends MongoDBObject {
 
 	private String lastName;
 	private String firstName;
 	private String email;
 	private String password;
+
+	public User() {}
 
 	public User(String lastName, String firstName, String email, String password) {
 		this.lastName = lastName;

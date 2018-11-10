@@ -1,9 +1,9 @@
 package gamifikator.client;
 
 import com.mongodb.DBObject;
-import gamifikator.mongoconnection.dao.MongoConnection;
-import gamifikator.mongoconnection.dao.UserDAO;
-import gamifikator.mongoconnection.models.UserDO;
+import gamifikator.model.User;
+import gamifikator.services.MongoConnection;
+import gamifikator.services.UserDAO;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -31,7 +31,7 @@ public class RegistrationServlet extends javax.servlet.http.HttpServlet {
 
 		String passwordConf = req.getParameter("passwordConf");
 
-		UserDO user = new UserDO(
+		User user = new User(
 			req.getParameter("firstName"),
 			req.getParameter("lastName"),
 			req.getParameter("email"),

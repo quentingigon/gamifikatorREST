@@ -1,9 +1,9 @@
 package gamifikator;
 
 import com.mongodb.DBObject;
-import gamifikator.mongoconnection.dao.MongoConnection;
-import gamifikator.mongoconnection.dao.UserDAO;
-import gamifikator.mongoconnection.models.UserDO;
+import gamifikator.model.User;
+import gamifikator.services.MongoConnection;
+import gamifikator.services.UserDAO;
 
 public class Main {
 
@@ -15,11 +15,11 @@ public class Main {
 		MongoConnection conn = MongoConnection.getInstance();
 		userDao = new UserDAO(conn.getDatastore());
 
-		UserDO user = new UserDO("test", "test");
+		User user = new User("test", "test", "test", "test");
 		DBObject tmp = conn.getMorphia().toDBObject(user);
 
 		userDao.getCollection().insert(tmp);
 
-		System.out.println(userDao.find().asList().get(0).getFirstName());
+		System.out.println(userDao.find().asList());
 	}
 }

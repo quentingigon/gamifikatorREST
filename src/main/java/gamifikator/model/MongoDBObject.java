@@ -1,16 +1,16 @@
-package gamifikator.mongoconnection.models;
+package gamifikator.model;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
 
-public class MongoDataObject {
+public class MongoDBObject {
 
 	@Id
 	@Property("id")
 	private ObjectId id;
 
-	public MongoDataObject() {
+	public MongoDBObject() {
 		super();
 	}
 
@@ -21,5 +21,4 @@ public class MongoDataObject {
 	public void setId(ObjectId id) {
 		this.id = id;
 	}
-
 }

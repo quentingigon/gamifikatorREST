@@ -5,6 +5,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.dao.BasicDAO;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -12,6 +13,9 @@ import javax.ejb.TransactionAttributeType;
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class UserDAO extends BasicDAO<User, ObjectId> implements UserDAOLocal {
+
+	@EJB
+	UserDAOLocal userDAO;
 
 	public UserDAO(Datastore ds) {
 		super(ds);

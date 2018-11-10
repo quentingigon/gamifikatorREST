@@ -4,18 +4,26 @@ import com.mongodb.DBObject;
 import gamifikator.model.User;
 import gamifikator.services.MongoConnection;
 import gamifikator.services.UserDAO;
+import gamifikator.services.UserDAOLocal;
 import org.mongodb.morphia.query.Query;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends javax.servlet.http.HttpServlet {
 
 	private final String LOGIN_JSP = "login.jsp";
 	private final String HOME_JSP = "home.jsp";
+
+	@EJB
+	UserDAOLocal userDAO;
+
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -39,7 +47,7 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
 		);
 
 		MongoConnection conn = MongoConnection.getInstance();
-		UserDAO userDao = new UserDAO(conn.getDatastore());
+		userDAO = new UserDAO(conn.getDatastore());
 
 		Query query = conn.getDatastore().createQuery(User.class)
 			.field("email").equal(user.getEmail())

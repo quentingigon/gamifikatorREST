@@ -4,17 +4,24 @@ import com.mongodb.DBObject;
 import gamifikator.model.User;
 import gamifikator.services.MongoConnection;
 import gamifikator.services.UserDAO;
+import gamifikator.services.UserDAOLocal;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet(name = "RegistrationServlet", urlPatterns = "/register")
 public class RegistrationServlet extends javax.servlet.http.HttpServlet {
 
 	private final String REGISTER_JSP = "register.jsp";
 	private final String LOGIN_JSP = "login.jsp";
+
+	@EJB
+	UserDAOLocal userDAO;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -40,11 +47,11 @@ public class RegistrationServlet extends javax.servlet.http.HttpServlet {
 
 		if (user.getPassword().equals(passwordConf)) {
 			MongoConnection conn = MongoConnection.getInstance();
-			UserDAO userDao = new UserDAO(conn.getDatastore());
+			userDAO = new UserDAO(conn.getDatastore());
 
 			DBObject tmp = conn.getMorphia().toDBObject(user);
 
-			userDao.getCollection().insert(tmp);
+			((UserDAO) userDAO).getCollection().insert(tmp);
 
 			resp.sendRedirect(req.getContextPath() + LOGIN_JSP);
 		}

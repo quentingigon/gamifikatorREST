@@ -7,8 +7,8 @@ import javax.ejb.Local;
 @Local
 public interface UserDAOLocal {
 
-	User getUser();
+	User getUser(String email);
 
-	boolean addUser();
+	boolean addUser(User user);
 
 }

@@ -9,8 +9,11 @@ import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
+import javax.ejb.Singleton;
+
 import static java.lang.String.format;
 
+@Singleton
 public class MongoConnection {
 
 	private static Logger logger = Logger.getLogger(MongoConnection.class);

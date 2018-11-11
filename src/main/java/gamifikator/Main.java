@@ -18,8 +18,10 @@ public class Main {
 		User user = new User("test", "test", "test", "test");
 		DBObject tmp = conn.getMorphia().toDBObject(user);
 
-		userDao.getCollection().insert(tmp);
+		userDao.addUser(user);
 
-		System.out.println(userDao.find().asList());
+		//userDao.getCollection().insert(tmp);
+
+		System.out.println(userDao.getUser("test").getFirstName());
 	}
 }

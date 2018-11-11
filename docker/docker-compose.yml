@@ -1,0 +1,8 @@
+version: '3'
+services:
+    webapp:
+        build: ./images/glassfish 
+        links: 
+            - "database:db"
+    database:
+        image: ./images/mongodb

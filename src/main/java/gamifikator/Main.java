@@ -10,23 +10,11 @@ public class Main {
 
 	public static void main(String...args) {
 
-		/* Testing DB */
-		UserDAO userDao;
-
-		MongoConnection conn = MongoConnection.getInstance();
-		userDao = new UserDAO(conn.getDatastore());
-
-		User user = new User("test", "test", "test", "test");
-		DBObject tmp = conn.getMorphia().toDBObject(user);
-
-		userDao.addUser(user);
-
-		//userDao.getCollection().insert(tmp);
+		TestUserDAO test = new TestUserDAO();
 
 		System.out.println(userDao.getUser("test").getFirstName());
 
-		/*Testing appsDeployer*/
-		AppsDeployer appsDeployer = new AppsDeployer();
-		appsDeployer.undeployUserApp("prout56487");
+		test.testDAO();
+
 	}
 }

@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="gamifikator:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="gamifikator.war">
-      <element id="artifact" artifact-name="gamifikator:war exploded" />
-    </root>
-  </artifact>
-</component>

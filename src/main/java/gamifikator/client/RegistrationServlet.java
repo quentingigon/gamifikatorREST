@@ -1,8 +1,6 @@
 package gamifikator.client;
 
-import com.mongodb.DBObject;
 import gamifikator.model.User;
-import gamifikator.services.MongoConnection;
 import gamifikator.services.UserDAO;
 import gamifikator.services.UserDAOLocal;
 
@@ -46,12 +44,9 @@ public class RegistrationServlet extends javax.servlet.http.HttpServlet {
 		);
 
 		if (user.getPassword().equals(passwordConf)) {
-			MongoConnection conn = MongoConnection.getInstance();
-			userDAO = new UserDAO(conn.getDatastore());
+			userDAO = new UserDAO();
 
-			DBObject tmp = conn.getMorphia().toDBObject(user);
-
-			((UserDAO) userDAO).getCollection().insert(tmp);
+			userDAO.create(user);
 
 			resp.sendRedirect(req.getContextPath() + LOGIN_JSP);
 		}

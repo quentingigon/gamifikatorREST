@@ -10,4 +10,6 @@ public interface ApplicationDAOLocal {
 	Application getApp(String name);
 
 	boolean addApp(Application app);
+
+	boolean deleteApp(String name);
 }

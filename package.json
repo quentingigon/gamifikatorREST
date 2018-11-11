@@ -1,0 +1,24 @@
+{
+  "name": "gamifikator",
+  "version": "1.0.0",
+  "description": "There are many SaaS services that target application developers, just like our gamification service. The workflow is always the same:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quentingigon/gamifikator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quentingigon/gamifikator/issues"
+  },
+  "homepage": "https://github.com/quentingigon/gamifikator#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "node-cmd": "^3.0.0",
+    "path": "^0.12.7"
+  }
+}

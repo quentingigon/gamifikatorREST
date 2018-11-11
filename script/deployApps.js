@@ -10,18 +10,17 @@ Usage:
 const fs = require('fs');
 var cmd = require('node-cmd');
 
-const pathSrc = '../appToDeploy'; 
-var absolutePath;
+const pathSrc = '../appsToDeploy'; 
 
-
-const pathSrc2 = 'C:/Users/Cloud/Documents/Git/AMT/gamifikator/appToDeploy'   
 
 fs.readdir(pathSrc, function(err, items) {
    
+    var absolutePath;
+
     //For each app to deploy
     for (var i=0; i<items.length; i++) {
 
-        absolutePath = __dirname + '\\..\\appToDeploy\\' + items[i];
+        absolutePath = __dirname + '\\..\\appsToDeploy\\' + items[i];
         absolutePath = absolutePath.replace(/\\/g, '/');
         cmd.run('docker cp ' + absolutePath + ' topologyamt_payara_1:/opt/payara/glassfish/domains/domain1/autodeploy');
     }

@@ -1,11 +1,8 @@
 package gamifikator.client;
 
-import com.mongodb.DBObject;
 import gamifikator.model.User;
-import gamifikator.services.MongoConnection;
 import gamifikator.services.UserDAO;
 import gamifikator.services.UserDAOLocal;
-import org.mongodb.morphia.query.Query;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletConfig;
@@ -46,15 +43,9 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
 			req.getParameter("password")
 		);
 
-		MongoConnection conn = MongoConnection.getInstance();
-		userDAO = new UserDAO(conn.getDatastore());
+		userDAO = new UserDAO();
 
-		Query query = conn.getDatastore().createQuery(User.class)
-			.field("email").equal(user.getEmail())
-			.field("password").equal(user.getPassword());
-
-		if (query.asList().size() == 1) {
-			DBObject tmp = conn.getMorphia().toDBObject(user);
+		if (userDAO.findByEmail(user.getEmail()).getPassword().equals(user.getPassword())) {
 
 			// set token here ? httpsession ? cookies ?
 

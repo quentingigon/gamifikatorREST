@@ -1,8 +1,16 @@
 package gamifikator.model;
 
-public class Application extends MongoDBObject {
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import java.io.Serializable;
+
+@Entity
+@Table(name="applications")
+public class Application extends AbstractObject implements Serializable {
 
 	private String name;
+	@ManyToOne
 	private String creator;
 	private String description;
 	private String apiKey;

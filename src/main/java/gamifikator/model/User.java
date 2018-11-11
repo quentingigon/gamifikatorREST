@@ -1,6 +1,10 @@
 package gamifikator.model;
 
-public class User extends MongoDBObject {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class User extends AbstractObject<Long> {
 
 	private String lastName;
 	private String firstName;

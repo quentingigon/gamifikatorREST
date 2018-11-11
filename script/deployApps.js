@@ -22,6 +22,6 @@ fs.readdir(pathSrc, function(err, items) {
 
         absolutePath = __dirname + '\\..\\appsToDeploy\\' + items[i];
         absolutePath = absolutePath.replace(/\\/g, '/');
-        cmd.run('docker cp ' + absolutePath + ' topologyamt_payara_1:/opt/payara/glassfish/domains/domain1/autodeploy');
+        cmd.run('docker cp ' + absolutePath + ' docker_payara_1:/opt/payara/glassfish/domains/domain1/autodeploy');
     }
 });

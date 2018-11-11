@@ -1,9 +1,11 @@
 package gamifikator.services;
 
+import com.mongodb.DBObject;
 import gamifikator.model.User;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.dao.BasicDAO;
+import org.mongodb.morphia.query.Query;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -15,19 +17,34 @@ import javax.ejb.TransactionAttributeType;
 public class UserDAO extends BasicDAO<User, ObjectId> implements UserDAOLocal {
 
 	@EJB
-	UserDAOLocal userDAO;
+	private UserDAOLocal userDAO;
 
 	public UserDAO(Datastore ds) {
 		super(ds);
 	}
 
 	@Override
-	public User getUser() {
-		return null;
+	public User getUser(String email) {
+		MongoConnection conn = MongoConnection.getInstance();
+
+		Query<User> query = conn.getDatastore().createQuery(User.class)
+			.field("email").equal(email);
+
+		return findOne(query);
 	}
 
 	@Override
-	public boolean addUser() {
-		return false;
+	public boolean addUser(User user) {
+		MongoConnection conn = MongoConnection.getInstance();
+
+		DBObject tmp = conn.getMorphia().toDBObject(user);
+
+		getCollection().insert(tmp);
+
+		Query<User> query = conn.getDatastore().createQuery(User.class)
+			.field("email").equal(user.getEmail())
+			.field("password").equal(user.getPassword());
+
+		return exists(query);
 	}
 }

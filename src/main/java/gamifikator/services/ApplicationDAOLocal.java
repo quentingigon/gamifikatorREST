@@ -7,7 +7,7 @@ import javax.ejb.Local;
 @Local
 public interface ApplicationDAOLocal {
 
-	Application getApp();
+	Application getApp(String name);
 
-	boolean addApp();
+	boolean addApp(Application app);
 }

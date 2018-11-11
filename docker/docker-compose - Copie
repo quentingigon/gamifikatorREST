@@ -7,3 +7,9 @@ services:
         ports:
         - "8080:8080"
         - "4848:4848"
+    webapp:
+        build: ./images/glassfish 
+        links: 
+            - "database:db"
+    database:
+        image: ./images/mongodb

@@ -1,8 +1,9 @@
-package gamifikator.client;
+package ch.heigvd.amt.mvcsimple.client;
 
-import gamifikator.model.User;
+
+/*import gamifikator.services.MongoConnection;
 import gamifikator.services.UserDAO;
-import gamifikator.services.UserDAOLocal;
+import gamifikator.services.UserDAOLocal; */
 
 import javax.ejb.EJB;
 import javax.servlet.ServletConfig;
@@ -15,44 +16,39 @@ import java.io.IOException;
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends javax.servlet.http.HttpServlet {
 
-	private final String LOGIN_JSP = "login.jsp";
-	private final String HOME_JSP = "home.jsp";
+    private final String LOGIN_JSP = "login.jsp";
+    private final String HOME_JSP = "home.jsp";
 
-	@EJB
-	UserDAOLocal userDAO;
+/*	@EJB
+	UserDAOLocal userDAO; */
 
 
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
-	}
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+    }
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher(LOGIN_JSP).forward(req, resp);
-	}
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher(LOGIN_JSP).forward(req, resp);
+    }
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.doPost(req, resp);
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("fieldPassword");
+      //  User user = userService.find(username, password);
 
-		User user = new User(
-			req.getParameter("lastName"),
-			req.getParameter("firstName"),
-			req.getParameter("email"),
-			req.getParameter("password")
-		);
+        String user = "test";
+        if (user != null) {
+            request.getSession().setAttribute("name", username);
+            request.getSession().setAttribute("password", password);
 
-		userDAO = new UserDAO();
-
-		if (userDAO.findByEmail(user.getEmail()).getPassword().equals(user.getPassword())) {
-
-			// set token here ? httpsession ? cookies ?
-
-			this.getServletContext().getRequestDispatcher(HOME_JSP).forward(req, resp);
-		}
-		else {
-			this.getServletContext().getRequestDispatcher(LOGIN_JSP).forward(req, resp);
-		}
-	}
+            request.getRequestDispatcher(HOME_JSP).forward(request, response);
+        }
+        else {
+            request.setAttribute("error", "Unknown user, please try again");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }
+    }
 }

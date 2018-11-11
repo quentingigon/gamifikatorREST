@@ -1,15 +1,17 @@
 package gamifikator;
 
 import gamifikator.model.User;
-import gamifikator.services.UserDAO;
+import gamifikator.services.UserDAOLocal;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
+@Stateless
 public class TestUserDAO {
 
 	@EJB
-	UserDAO userDao;
+	UserDAOLocal userDao;
 
 	@PostConstruct
 	public void testDAO() {
@@ -17,11 +19,11 @@ public class TestUserDAO {
 
 		userDao.create(user);
 
-		System.out.println("user " + userDao.findById(user.getId()));
+		System.out.println("user " + userDao.findByEmail(user.getEmail()));
 
 		userDao.delete(user);
 
-		System.out.println(userDao.findById(user.getId()));
+		System.out.println(userDao.findByEmail(user.getEmail()));
 	}
 
 

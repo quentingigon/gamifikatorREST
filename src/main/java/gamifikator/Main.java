@@ -7,7 +7,5 @@ public class Main {
 		TestUserDAO test = new TestUserDAO();
 
 		test.testDAO();
-
-
 	}
 }

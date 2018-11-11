@@ -1,10 +1,15 @@
 package gamifikator.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class User extends AbstractObject<Long> {
+
+	@Id
+	@GeneratedValue
+	private Long iD;
 
 	private String lastName;
 	private String firstName;

@@ -6,11 +6,13 @@
 
     <persistence-unit name="gamifikator" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>jdbc:sqlite:/gamifikator</jta-data-source>
+        <jta-data-source>gamifikator</jta-data-source>
+        <class>gamifikator.model.User</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <shared-cache-mode>NONE</shared-cache-mode>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
         </properties>
     </persistence-unit>
 </persistence>

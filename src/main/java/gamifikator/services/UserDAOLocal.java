@@ -5,7 +5,7 @@ import gamifikator.model.User;
 import javax.ejb.Local;
 
 @Local
-public interface UserDAOLocal extends IGenericDAO<User, Long>{
+public interface UserDAOLocal extends IGenericDAO<User>{
 
 	User findByEmail(String email);
 

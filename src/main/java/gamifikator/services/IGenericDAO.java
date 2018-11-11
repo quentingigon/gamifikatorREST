@@ -1,13 +1,11 @@
 package gamifikator.services;
 
-import gamifikator.model.AbstractObject;
-
 import javax.ejb.Local;
 
 @Local
-public interface IGenericDAO<T extends AbstractObject, PK> {
+public interface IGenericDAO<T> {
 
-	PK create(T t);
+	boolean create(T t);
 
 	void update(T t);
 
@@ -15,6 +13,6 @@ public interface IGenericDAO<T extends AbstractObject, PK> {
 
 	long count();
 
-	T findById(PK id);
+	T findById(T id);
 
 }

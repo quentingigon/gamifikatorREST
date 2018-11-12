@@ -2,36 +2,34 @@ package gamifikator.services;
 
 import gamifikator.model.User;
 
-import javax.annotation.Resource;
 import javax.ejb.Stateless;
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 @Stateless
-public class UserDAO implements UserDAOLocal{
+public class UserDAO extends GenericDAO implements UserDAOLocal{
 
-	@Resource(name = "jdbc/gamifikator")
-	DataSource dataSource;
+	/*@Resource(name = "gamifikator")
+	DataSource dataSource;*/
 
 	@Override
-	public boolean create(User user) {
-		boolean added = false;
+	public boolean create(User user) throws Exception {
+
+		em.persist(user);
+		em.flush();
+		return true;
+
+		/*boolean added = false;
 
 		try (Connection connection = dataSource.getConnection()) {
 
 			// if user doesnt already exists
 			if (findByEmail(user.getEmail()).getEmail().equals("")) {
-				String addQuery = "INSERT INTO users(lastName ,firstName , email, password) VALUES(?,?,?,?)";
+				String addQuery = "INSERT INTO users(userName , email, password) VALUES(?,?,?)";
 
 				PreparedStatement ps = connection.prepareStatement(addQuery);
 
-				ps.setString(1, user.getLastName());
-				ps.setString(2, user.getFirstName());
-				ps.setString(3, user.getEmail());
-				ps.setString(4, user.getPassword());
+				ps.setString(1, user.getUserName());
+				ps.setString(2, user.getEmail());
+				ps.setString(3, user.getPassword());
 
 				added = true;
 			}
@@ -39,17 +37,23 @@ public class UserDAO implements UserDAOLocal{
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		return added;
+		return added;*/
 	}
 
 	@Override
 	public void update(User user) {
-
+		findById(user);
+		em.merge(user);
 	}
 
 	@Override
 	public void delete(User user) {
-		String query = "DELETE FROM users WHERE email = " + user.getEmail();
+
+		if (!em.contains(user)) {
+			user = findById(user);
+		}
+		em.remove(user);
+		/*String query = "DELETE FROM users WHERE email = " + user.getEmail();
 
 		try (Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStmt = connection.prepareStatement(query);
@@ -57,7 +61,7 @@ public class UserDAO implements UserDAOLocal{
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}
+		}*/
 	}
 
 	@Override
@@ -70,8 +74,15 @@ public class UserDAO implements UserDAOLocal{
 		return null;
 	}
 
-	public User findByEmail(String email) {
-		String query = "SELECT * FROM users WHERE email = " + email;
+	public User findByEmail(String email) throws Exception {
+
+		if (em.find(User.class, email) == null) {
+			throw new Exception("User with email " + email + " not found");
+		}
+		else
+			return em.find(User.class, email);
+
+		/*String query = "SELECT * FROM users WHERE email = " + email;
 
 		User user = new User();
 
@@ -82,14 +93,13 @@ public class UserDAO implements UserDAOLocal{
 			rs.next();
 			user.setEmail(rs.getString("email"));
 			user.setPassword(rs.getString("password"));
-			user.setFirstName(rs.getString("firstName"));
-			user.setLastName(rs.getString("lastName"));
+			user.setUserName(rs.getString("username"));
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 
-		return user;
+		return user;*/
 	}
 
 	/*

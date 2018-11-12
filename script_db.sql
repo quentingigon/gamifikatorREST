@@ -1,3 +1,5 @@
+USE gamifikator;
+
 create table users(
 	  email varchar(50),
     firstName varchar(50) NOT NULL,

@@ -1,6 +1,7 @@
 package gamifikator.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -9,16 +10,17 @@ import java.io.Serializable;
 @Table(name="applications")
 public class Application extends AbstractObject implements Serializable {
 
+	@Id
 	private String name;
 	@ManyToOne
-	private String creator;
+	private User creator;
 	private String description;
 	private String apiKey;
 	private String apiSecret;
 
 	public Application() {}
 
-	public Application(String name, String creator, String description, String apiKey, String apiSecret) {
+	public Application(String name, User creator, String description, String apiKey, String apiSecret) {
 		this.name = name;
 		this.creator = creator;
 		this.description = description;
@@ -26,7 +28,7 @@ public class Application extends AbstractObject implements Serializable {
 		this.apiSecret = apiSecret;
 	}
 
-	public Application(String name, String creator) {
+	public Application(String name, User creator) {
 		this.name = name;
 		this.creator = creator;
 	}
@@ -35,7 +37,7 @@ public class Application extends AbstractObject implements Serializable {
 		return name;
 	}
 
-	public String getCreator() {
+	public User getCreator() {
 		return creator;
 	}
 
@@ -55,7 +57,7 @@ public class Application extends AbstractObject implements Serializable {
 		this.name = name;
 	}
 
-	public void setCreator(String creator) {
+	public void setCreator(User creator) {
 		this.creator = creator;
 	}
 

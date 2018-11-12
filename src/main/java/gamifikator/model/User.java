@@ -1,36 +1,27 @@
 package gamifikator.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class User extends AbstractObject<Long> {
+public class User {
 
+
+	private String userName;
 	@Id
-	@GeneratedValue
-	private Long iD;
-
-	private String lastName;
-	private String firstName;
 	private String email;
 	private String password;
 
 	public User() {}
 
-	public User(String lastName, String firstName, String email, String password) {
-		this.lastName = lastName;
-		this.firstName = firstName;
+	public User(String email, String userName, String password) {
+		this.userName = userName;
 		this.email = email;
 		this.password = password;
 	}
 
-	public String getLastName() {
-		return lastName;
-	}
-
-	public String getFirstName() {
-		return firstName;
+	public String getUserName() {
+		return userName;
 	}
 
 	public String getEmail() {
@@ -49,11 +40,7 @@ public class User extends AbstractObject<Long> {
 		this.password = password;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

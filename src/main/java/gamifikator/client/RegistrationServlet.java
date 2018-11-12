@@ -1,7 +1,6 @@
 package gamifikator.client;
 
 import gamifikator.model.User;
-import gamifikator.services.UserDAO;
 import gamifikator.services.UserDAOLocal;
 
 import javax.ejb.EJB;
@@ -19,7 +18,7 @@ public class RegistrationServlet extends javax.servlet.http.HttpServlet {
 	private final String LOGIN_JSP = "login.jsp";
 
 	@EJB
-	UserDAOLocal userDAO;
+	private UserDAOLocal userDAO;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -36,17 +35,16 @@ public class RegistrationServlet extends javax.servlet.http.HttpServlet {
 
 		String passwordConf = req.getParameter("passwordConf");
 
-		User user = new User(
-			req.getParameter("firstName"),
-			req.getParameter("lastName"),
-			req.getParameter("email"),
-			req.getParameter("password")
-		);
-
-		if (user.getPassword().equals(passwordConf)) {
-			userDAO = new UserDAO();
-
-			userDAO.create(user);
+		if (req.getParameter("password").equals(passwordConf)) {
+			try {
+				userDAO.create(new User(
+					req.getParameter("username"),
+					req.getParameter("email"),
+					req.getParameter("password")
+				));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 			resp.sendRedirect(req.getContextPath() + LOGIN_JSP);
 		}

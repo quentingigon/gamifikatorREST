@@ -5,7 +5,7 @@ import javax.ejb.Local;
 @Local
 public interface IGenericDAO<T> {
 
-	boolean create(T t);
+	boolean create(T t) throws Exception;
 
 	void update(T t);
 

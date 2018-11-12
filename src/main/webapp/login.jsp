@@ -34,6 +34,7 @@
                 </div>
                 <div class="profile__footer">
                     <input type="submit" class="btn">
+                    <span id="error"></span>
                 </div>
             </div>
         </form>

@@ -29,8 +29,8 @@
                     <label for="username" class="label">Username</label>
                 </div>
                 <div class="field">
-                    <input type="password" id="fieldPassword" name="fieldPassword" class="input" required pattern=.*\S.* />
-                    <label for="fieldPassword" class="label">Password</label>
+                    <input type="password" id="password" name="password" class="input" required pattern=.*\S.* />
+                    <label for="password" class="label">Password</label>
                 </div>
                 <div class="profile__footer">
                     <input type="submit" class="btn">

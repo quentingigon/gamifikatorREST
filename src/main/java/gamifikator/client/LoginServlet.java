@@ -61,7 +61,7 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
 			e.printStackTrace();
 		}
 
-        if (user != null) {
+        if (user.getEmail() != null) {
 
 			request.getSession().setAttribute("name", username);
             request.getSession().setAttribute("password", password);

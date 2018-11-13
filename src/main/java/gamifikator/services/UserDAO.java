@@ -11,9 +11,8 @@ public class UserDAO extends GenericDAO implements UserDAOLocal{
 	DataSource dataSource;*/
 
 	@Override
-	public boolean create(User user) throws Exception {
-
-		em.persist(user);
+	public boolean create(User users) throws Exception {
+		em.persist(users);
 		em.flush();
 		return true;
 

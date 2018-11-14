@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
 
-<div class="menuTop"><a href="/logout"> <i class="fas fa-sign-out-alt"></i> Log out</a>  <a href="/admin"> <i class="fas fa-cogs"></i> Admin</a> <div class="holder">     <img src="logos/logo2.png" alt="Avatar" />
+<div class="menuTop"><a href="logout"> <i class="fas fa-sign-out-alt"></i> Log out</a>  <a href="admin"> <i class="fas fa-cogs"></i> Admin</a> <div class="holder">     <img src="logos/logo2.png" alt="Avatar" />
     &nbsp;</div>  </div>
 <div class="containerHome">
     <h2>Gamifikator - profile et applications</h2>

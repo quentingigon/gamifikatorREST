@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Stateless
@@ -19,13 +20,11 @@ public class LogoutServlet extends GenericServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher(LOGOUT_JSP).forward(req, resp);
-	}
+		req.getRequestDispatcher(LOGIN_JSP).forward(req, resp);
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getSession().invalidate();
+		req.getSession().setAttribute("user", null);
 
-		req.getRequestDispatcher(HOME_JSP).forward(req, resp);
+		HttpSession session= req.getSession();
+		session.invalidate();
 	}
 }

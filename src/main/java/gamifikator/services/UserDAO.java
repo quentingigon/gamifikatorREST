@@ -3,6 +3,7 @@ package gamifikator.services;
 import gamifikator.model.User;
 
 import javax.ejb.Stateless;
+import java.util.List;
 
 @Stateless
 public class UserDAO extends GenericDAO implements UserDAOLocal {
@@ -63,5 +64,10 @@ public class UserDAO extends GenericDAO implements UserDAOLocal {
 			throw new Exception("Bad password");
 		else
 			return true;
+	}
+
+	@Override
+	public List getAllUsers() {
+		return em.createQuery("SELECT u FROM " + User.class.getSimpleName() + " u").getResultList();
 	}
 }

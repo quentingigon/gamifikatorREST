@@ -1,7 +1,7 @@
 CREATE OR REPLACE DATABASE gamifikator;
 USE gamifikator;
 
-CREATE TABLE user
+CREATE TABLE USER
 (
   email VARCHAR(50) NOT NULL,
   username VARCHAR(50) NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE user
   PRIMARY KEY (email)
 );
 
-CREATE TABLE application
+CREATE TABLE APPLICATION
 (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
@@ -20,5 +20,5 @@ CREATE TABLE application
 	api_token VARCHAR(36) UNIQUE,
   api_key VARCHAR(36) UNIQUE,
   PRIMARY KEY (id),
-	FOREIGN KEY (owner) REFERENCES user(email)
+	FOREIGN KEY (owner) REFERENCES USER(email)
 );

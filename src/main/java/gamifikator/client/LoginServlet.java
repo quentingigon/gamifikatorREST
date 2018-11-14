@@ -39,7 +39,8 @@ public class LoginServlet extends GenericServlet {
 		}
 
 		if (user.isSuspended()) {
-
+			req.setAttribute("error", "You have been suspended! Do not come and tell us it was a mistake, you surely deserved it.");
+			req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
 		}
 
         if (user.getEmail() != null) {

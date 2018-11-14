@@ -19,7 +19,7 @@ public class LogoutServlet extends GenericServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		checkCredentialsInSession(req, resp, LOGOUT_JSP, LOGIN_JSP);
+		req.getRequestDispatcher(LOGOUT_JSP).forward(req, resp);
 	}
 
 	@Override

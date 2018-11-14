@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Stateless
@@ -22,8 +21,7 @@ public class LoginServlet extends GenericServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		checkCredentialsInSession(req, resp, HOME_JSP, LOGIN_JSP);
-    }
+		req.getRequestDispatcher(LOGIN_JSP).forward(req, resp);    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,11 +42,10 @@ public class LoginServlet extends GenericServlet {
 		}
 
         if (user.getEmail() != null) {
-			HttpSession session = req.getSession(true); // revalidate the session if invalidated
-			session.setAttribute("email", email);
-			session.setAttribute("password", password);
+			req.getSession().setAttribute("user", user);
 
-            req.getRequestDispatcher(HOME_JSP).forward(req, resp);
+            // req.getRequestDispatcher(HOME_JSP).forward(req, resp);
+			resp.sendRedirect("/gamifikator/home");
         }
         else {
             req.setAttribute("error", "Unknown user, please try again");

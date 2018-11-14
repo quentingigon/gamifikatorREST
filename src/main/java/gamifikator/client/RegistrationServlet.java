@@ -10,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Stateless
@@ -27,7 +26,7 @@ public class RegistrationServlet extends GenericServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		checkCredentialsInSession(req, resp, HOME_JSP, REGISTER_JSP);
+		req.getRequestDispatcher(REGISTER_JSP).forward(req, resp);
 	}
 
 	@Override
@@ -39,28 +38,27 @@ public class RegistrationServlet extends GenericServlet {
 		String email = req.getParameter("email");
 
 		if (password.equals(passwordConf)) {
+			User user = new User(
+				email,
+				username,
+				password,
+				false,
+				false
+			);
+
 			try {
-				userDAO.create(new User(
-					email,
-					username,
-					password,
-					false,
-					false
-				));
+				userDAO.create(user);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
-			HttpSession session = req.getSession(true); // revalidate the session if invalidated
-			session.setAttribute("email", email);
-			session.setAttribute("password", password);
+			req.getSession().setAttribute("user", user);
 
-			req.getRequestDispatcher(HOME_JSP).forward(req, resp);
+			// req.getRequestDispatcher(HOME_JSP).forward(req, resp);
+			resp.sendRedirect("/gamifikator/home");
 		}
 		else {
 			this.getServletContext().getRequestDispatcher(REGISTER_JSP).forward(req, resp);
 		}
-
-
 	}
 }

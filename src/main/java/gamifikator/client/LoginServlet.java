@@ -39,7 +39,7 @@ public class LoginServlet extends GenericServlet {
 		}
 
 		if (user.isSuspended()) {
-			
+
 		}
 
         if (user.getEmail() != null) {

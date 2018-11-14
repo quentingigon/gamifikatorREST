@@ -5,7 +5,8 @@ import gamifikator.model.User;
 import javax.ejb.Stateless;
 
 @Stateless
-public class UserDAO extends GenericDAO implements UserDAOLocal{
+public class UserDAO extends GenericDAO implements UserDAOLocal {
+
 	@Override
 	public boolean create(User user) throws Exception {
 		if (user.getEmail() == null)

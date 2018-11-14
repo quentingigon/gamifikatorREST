@@ -11,6 +11,7 @@ import java.io.IOException;
 
 @Stateless
 public class GenericServlet extends javax.servlet.http.HttpServlet {
+
 	final String LOGIN_JSP = "login.jsp";
 	final String HOME_JSP = "home.jsp";
 	final String REGISTER_JSP = "register.jsp";

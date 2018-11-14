@@ -33,7 +33,7 @@ public class RegistrationServlet extends GenericServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String passwordConf = req.getParameter("passwordConf");
+		String passwordConf = req.getParameter("confirm_password");
 		String password = req.getParameter("password");
 		String username = req.getParameter("username");
 		String email = req.getParameter("email");
@@ -41,8 +41,8 @@ public class RegistrationServlet extends GenericServlet {
 		if (password.equals(passwordConf)) {
 			try {
 				userDAO.create(new User(
-					username,
 					email,
+					username,
 					password
 				));
 			} catch (Exception e) {
@@ -50,7 +50,7 @@ public class RegistrationServlet extends GenericServlet {
 			}
 
 			HttpSession session = req.getSession(true); // revalidate the session if invalidated
-			session.setAttribute("username", username);
+			session.setAttribute("email", email);
 			session.setAttribute("password", password);
 
 			req.getRequestDispatcher(HOME_JSP).forward(req, resp);

@@ -6,71 +6,41 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class UserDAO extends GenericDAO implements UserDAOLocal{
-
-	/*@Resource(name = "gamifikator")
-	DataSource dataSource;*/
-
 	@Override
-	public boolean create(User users) throws Exception {
-		em.persist(users);
+	public boolean create(User user) throws Exception {
+		if (user.getEmail() == null)
+			throw new Exception("email can not be null !");
+		em.persist(user);
 		em.flush();
 		return true;
-
-		/*boolean added = false;
-
-		try (Connection connection = dataSource.getConnection()) {
-
-			// if user doesnt already exists
-			if (findByEmail(user.getEmail()).getEmail().equals("")) {
-				String addQuery = "INSERT INTO users(userName , email, password) VALUES(?,?,?)";
-
-				PreparedStatement ps = connection.prepareStatement(addQuery);
-
-				ps.setString(1, user.getUserName());
-				ps.setString(2, user.getEmail());
-				ps.setString(3, user.getPassword());
-
-				added = true;
-			}
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		return added;*/
 	}
 
 	@Override
-	public void update(User user) {
+	public void update(User user) throws Exception {
 		findById(user);
 		em.merge(user);
 	}
 
 	@Override
-	public void delete(User user) {
-
+	public void delete(User user) throws Exception {
 		if (!em.contains(user)) {
 			user = findById(user);
 		}
 		em.remove(user);
-		/*String query = "DELETE FROM users WHERE email = " + user.getEmail();
-
-		try (Connection connection = dataSource.getConnection()) {
-			PreparedStatement preparedStmt = connection.prepareStatement(query);
-			preparedStmt.execute();
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}*/
 	}
 
 	@Override
 	public long count() {
-		return 0;
+		return (long) em.createQuery("Select count(t) from " + User.class.getSimpleName() + " t").getSingleResult();
 	}
 
 	@Override
-	public User findById(User id) {
-		return null;
+	public User findById(User id) throws Exception {
+		User result = em.find(User.class, id);
+		if (result == null) {
+			throw new Exception("Entity with id " + id + " not found");
+		}
+		return em.find(User.class, id);
 	}
 
 	public User findByEmail(String email) throws Exception {
@@ -80,96 +50,17 @@ public class UserDAO extends GenericDAO implements UserDAOLocal{
 		}
 		else
 			return em.find(User.class, email);
-
-		/*String query = "SELECT * FROM users WHERE email = " + email;
-
-		User user = new User();
-
-		try (Connection connection = dataSource.getConnection()) {
-			ResultSet rs = connection
-				.prepareStatement(query)
-				.executeQuery();
-			rs.next();
-			user.setEmail(rs.getString("email"));
-			user.setPassword(rs.getString("password"));
-			user.setUserName(rs.getString("username"));
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-
-		return user;*/
-	}
-
-	/*
-	@Override
-	public User getUser(String email) {
-		String query = "SELECT * FROM users WHERE email = " + email;
-
-		User user = new User();
-
-		try (Connection connection = dataSource.getConnection()) {
-			ResultSet rs = connection
-				.prepareStatement(query)
-				.executeQuery();
-			rs.next();
-			user.setEmail(rs.getString("email"));
-			user.setPassword(rs.getString("password"));
-			user.setFirstName(rs.getString("firstName"));
-			user.setLastName(rs.getString("lastName"));
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-
-		return user;
-
 	}
 
 	@Override
-	public boolean addUser(User user) {
-
-		String searchQuery = "SELECT email FROM users WHERE email = " + user;
-		boolean added = false;
-
-		try (Connection connection = dataSource.getConnection()) {
-
-			// if user doesnt already exists
-			if (getUser(user.getEmail()).getEmail().equals("")) {
-				String addQuery = "INSERT INTO users(lastName ,firstName , email, password) VALUES(?,?,?,?)";
-
-				PreparedStatement ps = connection.prepareStatement(addQuery);
-
-				ps.setString(1, user.getLastName());
-				ps.setString(2, user.getFirstName());
-				ps.setString(3, user.getEmail());
-				ps.setString(4, user.getPassword());
-
-				added = true;
-			}
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
+	public boolean isValidUser(String email, String password) throws Exception {
+		User user = em.find(User.class, email);
+		if (user == null) {
+			throw new Exception("User with email " + email + " not found");
 		}
-		return added;
-
+		else if (!user.getPassword().equals(password))
+			throw new Exception("Bad password");
+		else
+			return true;
 	}
-
-	@Override
-	public boolean deleteUser(String email) {
-
-		String query = "DELETE FROM users WHERE email = " + email;
-		boolean deleted = false;
-
-		try (Connection connection = dataSource.getConnection()) {
-			PreparedStatement preparedStmt = connection.prepareStatement(query);
-			preparedStmt.execute();
-			deleted = true;
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		return deleted;
-
-	}*/
 }

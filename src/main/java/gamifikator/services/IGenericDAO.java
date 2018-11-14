@@ -7,12 +7,12 @@ public interface IGenericDAO<T> {
 
 	boolean create(T t) throws Exception;
 
-	void update(T t);
+	void update(T t) throws Exception;
 
-	void delete(T t);
+	void delete(T t) throws Exception;
 
 	long count();
 
-	T findById(T id);
+	T findById(T id) throws Exception;
 
 }

@@ -4,18 +4,18 @@ import gamifikator.model.User;
 import gamifikator.services.UserDAOLocal;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@Stateless
 @WebServlet(name = "RegistrationServlet", urlPatterns = "/register")
-public class RegistrationServlet extends javax.servlet.http.HttpServlet {
-
-	private final String REGISTER_JSP = "register.jsp";
-	private final String LOGIN_JSP = "login.jsp";
+public class RegistrationServlet extends GenericServlet {
 
 	@EJB
 	private UserDAOLocal userDAO;
@@ -27,26 +27,33 @@ public class RegistrationServlet extends javax.servlet.http.HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher(REGISTER_JSP).forward(req, resp);
+		checkCredentialsInSession(req, resp, HOME_JSP, REGISTER_JSP);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String passwordConf = req.getParameter("passwordConf");
+		String password = req.getParameter("password");
+		String username = req.getParameter("username");
+		String email = req.getParameter("email");
 
-		if (req.getParameter("password").equals(passwordConf)) {
+		if (password.equals(passwordConf)) {
 			try {
 				userDAO.create(new User(
-					req.getParameter("username"),
-					req.getParameter("email"),
-					req.getParameter("password")
+					username,
+					email,
+					password
 				));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
-			resp.sendRedirect(req.getContextPath() + LOGIN_JSP);
+			HttpSession session = req.getSession(true); // revalidate the session if invalidated
+			session.setAttribute("username", username);
+			session.setAttribute("password", password);
+
+			req.getRequestDispatcher(HOME_JSP).forward(req, resp);
 		}
 		else {
 			this.getServletContext().getRequestDispatcher(REGISTER_JSP).forward(req, resp);

@@ -3,12 +3,10 @@ package gamifikator.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name="applications")
-public class Application extends AbstractObject implements Serializable {
+public class Application implements Serializable {
 
 	@Id
 	private String name;

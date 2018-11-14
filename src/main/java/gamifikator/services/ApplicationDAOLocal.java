@@ -5,11 +5,7 @@ import gamifikator.model.Application;
 import javax.ejb.Local;
 
 @Local
-public interface ApplicationDAOLocal {
+public interface ApplicationDAOLocal extends IGenericDAO<Application>{
 
-	Application getApp(String name);
-
-	boolean addApp(Application app);
-
-	boolean deleteApp(String name);
+	Application findAppByName(String name) throws Exception;
 }

@@ -20,7 +20,9 @@
 <div class="container">
     <div class="profile">
         <button class="profile__avatar" id="toggleProfile">
-            <img src="https://api.ning.com/files/*54juLYOTrMdu4eBaIkD5urGoLY-RZV7WCPaEMInPMnHNVM-k0nOmyGbBgR0pPONCf-vv7xrdDzY2efL-2SoM6jbvSFWFSn4/Gamification_head.png" alt="Avatar" />
+            <img class="bottom" src="logos/logoWB.png" />
+
+
         </button>
         <form action="login" method="post" class="profile__form">
             <div class="profile__fields">
@@ -33,14 +35,17 @@
                     <label for="password" class="label">Password</label>
                 </div>
                 <div class="profile__footer">
-                    <input type="submit" value="Login" class="btn">
-
+                    <input type="submit" id="bSubmit" value="Login" class="btn">
 
                     <span id="error"></span>
                 </div>
             </div>
+            <a href="register" id="regist">Not yet a member ?</a>
+
         </form>
+
     </div>
+
 </div>
 
 

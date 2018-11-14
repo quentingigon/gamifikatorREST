@@ -42,7 +42,7 @@
                     <label for="confirm_password" class="label">Password Verification</label>
                 </div>
                 <div class="profile__footer">
-                    <input type="submit" value="register" class="btn">
+                    <input type="submit" id="bSubmit" value="register" class="btn">
 
 
                     <span id="message"></span>

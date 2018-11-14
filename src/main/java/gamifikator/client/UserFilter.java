@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter("/*")
+@WebFilter("/gamifikator/*")
 public class UserFilter implements Filter {
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException { }
@@ -18,16 +18,21 @@ public class UserFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		HttpSession session = request.getSession(false);
+
 		String loginURI = request.getContextPath() + "/login";
+		String registerURI = request.getContextPath() + "/register";
+		String elasticURI = request.getContextPath() + "/elastic";
 
 		boolean loggedIn = session != null && session.getAttribute("user") != null;
-		boolean loginRequest = request.getRequestURI().equals(loginURI);
+		boolean loginOrRegisterRequest = request.getRequestURI().equals(loginURI)
+										|| request.getRequestURI().equals(registerURI)
+										|| request.getRequestURI().equals(elasticURI);
 
-		if (loggedIn || loginRequest) {
+		if (loggedIn || loginOrRegisterRequest) {
 			filterChain.doFilter(req, resp);
 		}
 		else {
-			response.sendRedirect(loginURI);
+			req.getRequestDispatcher("login.jsp").forward(req, resp);
 		}
 	}
 

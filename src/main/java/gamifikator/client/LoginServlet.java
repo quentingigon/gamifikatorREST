@@ -47,7 +47,7 @@ public class LoginServlet extends GenericServlet {
         }
         else {
             req.setAttribute("error", "Unknown user, please try again");
-            req.getRequestDispatcher("/login.jsp").forward(req, resp);
+			resp.sendRedirect("/gamifikator/login");
         }
     }
 }

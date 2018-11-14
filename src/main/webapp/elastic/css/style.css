@@ -103,9 +103,39 @@ button {
     height:4em;
     float: left;
 }
-
+a#regist{
+    color: #999;
+    text-decoration: none;
+    position: absolute;
+    bottom:1%;
+    right:1%;
+}
 h2{
     position: center;
+}
+.logo1{
+    position: absolute;
+    clip: rect(0, 100px, 900px, 500px);
+}
+
+#cf {
+    position:relative;
+    height:281px;
+    width:450px;
+    margin:0 auto;
+}
+
+#cf img {
+    position:absolute;
+    left:0;
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+}
+
+#cf img.top:hover {
+    opacity:0;
 }
 /******************LOGIN*********************/
 

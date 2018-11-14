@@ -13,7 +13,7 @@ import java.io.IOException;
 @WebServlet(name = "AdminServlet", urlPatterns = "/admin")
 public class AdminServlet extends GenericServlet {
 
-	public int test = 5;
+	public String test = "5";
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -21,8 +21,8 @@ public class AdminServlet extends GenericServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		checkCredentialsInSession(req, resp, ADMIN_JSP, LOGIN_JSP);
-		req.setAttribute("test",test); //Setting UsernameLabel to mes_add_pageTitle
+	//	checkCredentialsInSession(req, resp, ADMIN_JSP, LOGIN_JSP);
+	//	req.setAttribute("test",test); //Setting UsernameLabel to mes_add_pageTitle
 
 		req.getRequestDispatcher(ADMIN_JSP).forward(req,resp);  //forwarded to welcome.jsp
 	}

@@ -38,7 +38,7 @@
                     <label for="password" class="label">Password</label>
                 </div>
                 <div class="field">
-                    <input type="text" id="confirm_password" name="confirm_password" class="input" onkeyup="checkPasswords();" required pattern=.*\S.* />
+                    <input type="password" id="confirm_password" name="confirm_password" class="input" onkeyup="checkPasswords();" required pattern=.*\S.* />
                     <label for="confirm_password" class="label">Password Verification</label>
                 </div>
                 <div class="profile__footer">

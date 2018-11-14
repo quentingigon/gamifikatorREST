@@ -35,7 +35,7 @@
                     <label for="password" class="label">Password</label>
                 </div>
                 <div class="profile__footer">
-                    <input type="submit" value="Login" class="btn">
+                    <input type="submit" id="bSubmit" value="Login" class="btn">
 
                     <span id="error"></span>
                 </div>

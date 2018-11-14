@@ -43,7 +43,9 @@ public class RegistrationServlet extends GenericServlet {
 				userDAO.create(new User(
 					email,
 					username,
-					password
+					password,
+					false,
+					false
 				));
 			} catch (Exception e) {
 				e.printStackTrace();

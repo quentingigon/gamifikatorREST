@@ -38,6 +38,10 @@ public class LoginServlet extends GenericServlet {
 			e.printStackTrace();
 		}
 
+		if (user.isSuspended()) {
+			
+		}
+
         if (user.getEmail() != null) {
 			HttpSession session = req.getSession(true); // revalidate the session if invalidated
 			session.setAttribute("email", email);

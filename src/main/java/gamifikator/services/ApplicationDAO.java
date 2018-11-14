@@ -3,6 +3,7 @@ package gamifikator.services;
 import gamifikator.model.Application;
 
 import javax.ejb.Stateless;
+import java.util.List;
 
 @Stateless
 public class ApplicationDAO extends GenericDAO implements ApplicationDAOLocal {
@@ -51,5 +52,10 @@ public class ApplicationDAO extends GenericDAO implements ApplicationDAOLocal {
 		}
 		else
 			return em.find(Application.class, name);
+	}
+
+	@Override
+	public List getAllApplicationsOfUserByEmail(String email) {
+		return em.createQuery("Select * from " + Application.class.getSimpleName() + " where owner=" + email).getResultList();
 	}
 }

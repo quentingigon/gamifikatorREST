@@ -23,14 +23,10 @@
 <div class="menuTop"><a href="/logout"> <i class="fas fa-sign-out-alt"></i> Log out</a>  <a href="/admin"> <i class="fas fa-cogs"></i> Admin</a> <div class="holder">     <img src="logos/logo1.png" alt="Avatar" />
     &nbsp;</div>  </div>
 <div class="containerHome">
-    <%  /** if the parameters are already in place, grab them **/
-        String test = request.getParameter("test");
-
-    %>
-    <h2>Gamifikator - Admin <% test.toString(); %> ${requestScope.test} u </h2>
-    <p><input type="text" name="foo" value="${requestScope.test}" />
+    <h2>Gamifikator - Admin ${test} u </h2>
+    <p><input type="text" name="foo" value="${test}" />
         coucou </p>
-    <div class="devHolder"> <p> ${requestScope.test} </p></div>
+    <div class="devHolder"> <p> ${test} </p></div>
 </div>
 
 

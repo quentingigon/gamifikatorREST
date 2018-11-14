@@ -20,8 +20,7 @@ public class AdminServlet extends GenericServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	//	checkCredentialsInSession(req, resp, ADMIN_JSP, LOGIN_JSP);
-	//	req.setAttribute("test",test); //Setting UsernameLabel to mes_add_pageTitle
+		req.setAttribute("test",test); //Setting UsernameLabel to mes_add_pageTitle
 		req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);  //forwarded to welcome.jsp
 	}
 

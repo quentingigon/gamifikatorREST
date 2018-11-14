@@ -25,15 +25,17 @@
         <form action="login" method="post" class="profile__form">
             <div class="profile__fields">
                 <div class="field">
-                    <input type="text" id="username" name="username" class="input" required pattern=.*\S.* />
-                    <label for="username" class="label">Username</label>
+                    <input type="text" id="email" name="email" class="input" required pattern=.*\S.* />
+                    <label for="email" class="label">Email</label>
                 </div>
                 <div class="field">
                     <input type="password" id="password" name="password" class="input" required pattern=.*\S.* />
                     <label for="password" class="label">Password</label>
                 </div>
                 <div class="profile__footer">
-                    <input type="submit" class="btn">
+                    <input type="submit" value="Login" class="btn">
+
+
                     <span id="error"></span>
                 </div>
             </div>

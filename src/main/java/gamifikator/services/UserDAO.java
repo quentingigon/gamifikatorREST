@@ -58,4 +58,12 @@ public class UserDAO extends GenericDAO implements UserDAOLocal {
 	public List getAllUsers() {
 		return em.createQuery("SELECT u FROM User u").getResultList();
 	}
+
+	@Override
+	public List getUsersPages(int pageSize, int pageIndex) {
+		return em.createQuery("SELECT u FROM User u")
+			.setMaxResults(pageSize)
+			.setFirstResult(pageIndex * pageSize)
+			.getResultList();
+	}
 }

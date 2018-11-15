@@ -1,6 +1,6 @@
 package gamifikator.client;
 
-import gamifikator.model.User;
+import gamifikator.services.ApplicationDAOLocal;
 import gamifikator.services.UserDAOLocal;
 
 import javax.ejb.EJB;
@@ -17,7 +17,10 @@ import java.io.IOException;
 public class AdminServlet extends GenericServlet {
 
 	@EJB
-	UserDAOLocal userDAO;
+	private UserDAOLocal userDAO;
+
+	@EJB
+	private ApplicationDAOLocal appDAO;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -26,16 +29,15 @@ public class AdminServlet extends GenericServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
-		User admin = (User) req.getSession().getAttribute("user");
+		String email = req.getParameter("email");
 
 		Object[] users = userDAO.getAllUsers().toArray();
 
-		// ArrayList<Application> applications = appDAO.getAllApplicationsOfUserByEmail();
+		Object[] apps = appDAO.getAllApplicationsOfUserByEmail(email).toArray();
 
-		req.setAttribute("users", users); //Setting UsernameLabel to mes_add_pageTitle
-		req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);  //forwarded to welcome.jsp
+		req.setAttribute("apps", apps);
+		req.setAttribute("users", users); 
+		req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
 	}
 
 	@Override

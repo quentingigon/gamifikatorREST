@@ -5,7 +5,7 @@ import gamifikator.model.Application;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import java.util.ArrayList;
+import java.util.List;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -50,7 +50,15 @@ public class ApplicationDAO extends GenericDAO implements ApplicationDAOLocal {
 	}
 
 	@Override
-	public ArrayList<Application> getAllApplicationsOfUserByEmail(String email) {
-		return (ArrayList<Application>) em.createQuery("Select * from " + Application.class.getSimpleName() + " where owner=" + email).getResultList();
+	public List getAllApplicationsOfUserByEmail(String email) {
+		return em.createQuery("Select * from " + Application.class.getSimpleName() + " where owner=" + email).getResultList();
+	}
+
+	@Override
+	public List findAppsOfUserPages(String email, int pageSize, int pageIndex) {
+		return em.createQuery("Select * from " + Application.class.getSimpleName() + " where owner=" + email)
+			.setMaxResults(pageSize)
+			.setFirstResult(pageIndex * pageSize)
+			.getResultList();
 	}
 }

@@ -36,4 +36,6 @@ public interface UserDAOLocal extends IGenericDAO<User>{
 	 * */
 	List getAllUsers();
 
+	List getUsersPages(int pageSize, int pageIndex);
+
 }

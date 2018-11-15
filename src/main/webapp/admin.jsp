@@ -26,7 +26,11 @@
     <h2>Gamifikator - Admin ${test} u </h2>
     <p><input type="text" name="foo" value="${test}" />
         coucou </p>
-    <div class="devHolder"> <p> ${test} </p></div>
+    <c:forEach items="${list}" var="item">
+        ${item}<br>
+        <div class="devHolder"> <p> ${test} </p></div>
+
+    </c:forEach>
 </div>
 
 

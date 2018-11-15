@@ -33,7 +33,7 @@
 
     <div id="addApp" class="app innerShadow ">
 
-        <form action="home" method="post" class="app__form ">
+        <form action="upload" enctype="multipart/form-data" method="post" class="app__form ">
             <div class="app__fields">
                 <div class="field">
                     <input type="text" id="appname" name="appname" class="input" required pattern=.*\S.* />
@@ -47,7 +47,7 @@
                 </div>
                 <div class="field">
                    <!-- <label for="appFile" class="label">Select WAR</label> -->
-                    <input type="file" name="appFile" id="appFile"  />
+                    <input type="file" name="UploadAddServlet" id="appFile"  />
 
                 </div>
                 <div class="app__footer">
@@ -55,11 +55,6 @@
                 </div>
                 <div>
                     <c:if test="${not empty login_error}">
-                        <script text="javascript">
-                            [].map.call(document.querySelectorAll('.profile'), function(el) {
-                                el.classList.toggle('profile--open');
-                            });
-                        </script>
                         <p class="errorMessage" >${login_error}</p>
                     </c:if>
                 </div>
@@ -71,6 +66,48 @@
     </div>
 
     <div id="showApps">
+
+        <c:forEach items="${list}" var="item">
+            ${item}<br>
+        </c:forEach>
+        <div class="container">
+            <div class="profile">
+                <button class="profile__avatar profile--open" id="toggleProfile">
+                    <img class="bottom" src="logos/logoWB.png" />
+                </button>
+                <form action="login" method="post" class="profile__form">
+                    <div class="profile__fields">
+                        <div class="field">
+                            <input type="text" id="email" name="email" class="input" required pattern=.*\S.* />
+                            <label for="email" class="label">Email</label>
+                        </div>
+                        <div class="field">
+                            <input type="password" id="password" name="password" class="input" required pattern=.*\S.* />
+                            <label for="password" class="label">Password</label>
+                        </div>
+                        <div class="profile__footer">
+                            <input type="submit" id="bSubmit" value="Login" class="btn">
+                        </div>
+                        <div>
+                            <c:if test="${not empty home_error}">
+                                <script text="javascript">
+                                    [].map.call(document.querySelectorAll('.profile'), function(el) {
+                                        el.classList.toggle('profile--open');
+                                    });
+                                </script>
+                                <p class="errorMessage" >${home_error}</p>
+                            </c:if>
+                        </div>
+                    </div>
+                    <a href="register" id="regist">Not yet a member ?</a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
         <br><br><br><br><br>
         <p>coucou</p>
 

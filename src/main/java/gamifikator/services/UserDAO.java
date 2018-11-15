@@ -3,9 +3,12 @@ package gamifikator.services;
 import gamifikator.model.User;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import java.util.ArrayList;
 
 @Stateless
+@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class UserDAO extends GenericDAO implements UserDAOLocal {
 
 	@Override
@@ -19,9 +22,9 @@ public class UserDAO extends GenericDAO implements UserDAOLocal {
 
 	@Override
 	public void update(User user) {
-		//TODO ANSWER: what does that do ?
-		findByEmail(user.getEmail());
-		em.merge(user);
+		if (findByEmail(user.getEmail()) != null) {
+			em.merge(user);
+		}
 	}
 
 	@Override

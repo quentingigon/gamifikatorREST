@@ -3,9 +3,12 @@ package gamifikator.services;
 import gamifikator.model.Application;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import java.util.ArrayList;
 
 @Stateless
+@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class ApplicationDAO extends GenericDAO implements ApplicationDAOLocal {
 
 	@Override

@@ -3,7 +3,7 @@ package gamifikator.services;
 import gamifikator.model.User;
 
 import javax.ejb.Stateless;
-import java.util.List;
+import java.util.ArrayList;
 
 @Stateless
 public class UserDAO extends GenericDAO implements UserDAOLocal {
@@ -52,7 +52,7 @@ public class UserDAO extends GenericDAO implements UserDAOLocal {
 	}
 
 	@Override
-	public List getAllUsers() {
-		return em.createQuery("SELECT u FROM " + User.class.getSimpleName() + " u").getResultList();
+	public ArrayList<User> getAllUsers() {
+		return (ArrayList<User>) em.createQuery("SELECT u FROM " + User.class.getSimpleName() + " u").getResultList();
 	}
 }

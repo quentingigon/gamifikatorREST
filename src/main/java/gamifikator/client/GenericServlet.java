@@ -14,7 +14,6 @@ public class GenericServlet extends javax.servlet.http.HttpServlet {
 	final String NEWPASS_JSP = "newpass.jsp";
 	final String ADMIN_JSP = "admin.jsp";
 
-
 	@EJB
 	UserDAOLocal userDAO;
 }

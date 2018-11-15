@@ -36,24 +36,30 @@ public class LoginServlet extends GenericServlet {
 			e.printStackTrace();
 		}
 
-		if (user.isSuspended()) {
-			req.setAttribute("login_error", "You have been suspended! Do not come and tell us it was a mistake, you surely deserved it.");
-			req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
-		}
-
-		else if (!user.isPasswordValid()) {
-			req.setAttribute("login_error", "You have to chose a new password.");
-			req.getRequestDispatcher(NEWPASSWORD_JSP).forward(req, resp);
-		}
-
-		else if (user.getPassword().equals(password)) {
-			req.getSession().setAttribute("user", user);
-			req.setAttribute("login_error", null);
-			resp.sendRedirect("/gamifikator/home");
-        }
-        else {
-            req.setAttribute("login_error", "Bad password");
+		if (user == null) {
+			req.setAttribute("login_error", "Bad user");
 			req.getRequestDispatcher(LOGIN_JSP).forward(req, resp);
-        }
+		}
+		else {
+			if (user.isSuspended()) {
+				req.setAttribute("login_error", "You have been suspended! Do not come and tell us it was a mistake, you surely deserved it.");
+				req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
+			}
+
+			else if (!user.isPasswordValid()) {
+				req.setAttribute("login_error", "You have to chose a new password.");
+				req.getRequestDispatcher(NEWPASS_JSP).forward(req, resp);
+			}
+
+			else if (user.getPassword().equals(password)) {
+				req.getSession().setAttribute("user", user);
+				req.setAttribute("login_error", null);
+				resp.sendRedirect("/gamifikator/home");
+			}
+			else {
+				req.setAttribute("login_error", "Bad password");
+				req.getRequestDispatcher(LOGIN_JSP).forward(req, resp);
+			}
+		}
     }
 }

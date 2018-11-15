@@ -37,27 +37,30 @@ public class RegistrationServlet extends GenericServlet {
 		String username = req.getParameter("username");
 		String email = req.getParameter("email");
 
-		if (password.equals(passwordConf)) {
-			User user = new User(
-				email,
-				username,
-				password,
-				false,
-				false,
-				true
-			);
+		try {
+			if (password.equals(passwordConf) && !userDAO.isValidUser(email)) {
 
-			try {
+				User user = new User(
+					email,
+					username,
+					password,
+					false,
+					false,
+					true
+				);
 				userDAO.create(user);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 
-			req.getSession().setAttribute("user", user);
-			resp.sendRedirect("/gamifikator/home");
-		}
-		else {
-			this.getServletContext().getRequestDispatcher(REGISTER_JSP).forward(req, resp);
+				req.getSession().setAttribute("user", user);
+				req.setAttribute("register_error", null);
+				resp.sendRedirect("/gamifikator/home");
+			}
+			else {
+				req.setAttribute("register_error", "Email already used.");
+				resp.sendRedirect("/gamifikator/register");
+				// this.getServletContext().getRequestDispatcher(REGISTER_JSP).forward(req, resp);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

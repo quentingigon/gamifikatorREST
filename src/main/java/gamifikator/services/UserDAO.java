@@ -18,13 +18,13 @@ public class UserDAO extends GenericDAO implements UserDAOLocal {
 	}
 
 	@Override
-	public void update(User user) throws Exception {
+	public void update(User user) {
 		findById(user);
 		em.merge(user);
 	}
 
 	@Override
-	public void delete(User user) throws Exception {
+	public void delete(User user) {
 		if (!em.contains(user)) {
 			user = findById(user);
 		}
@@ -37,33 +37,17 @@ public class UserDAO extends GenericDAO implements UserDAOLocal {
 	}
 
 	@Override
-	public User findById(User id) throws Exception {
-		User result = em.find(User.class, id);
-		if (result == null) {
-			throw new Exception("Entity with id " + id + " not found");
-		}
+	public User findById(User id) {
 		return em.find(User.class, id);
 	}
 
-	public User findByEmail(String email) throws Exception {
-
-		if (em.find(User.class, email) == null) {
-			throw new Exception("User with email " + email + " not found");
-		}
-		else
-			return em.find(User.class, email);
+	public User findByEmail(String email) {
+		return em.find(User.class, email);
 	}
 
 	@Override
-	public boolean isValidUser(String email, String password) throws Exception {
-		User user = em.find(User.class, email);
-		if (user == null) {
-			throw new Exception("User with email " + email + " not found");
-		}
-		else if (!user.getPassword().equals(password))
-			throw new Exception("Bad password");
-		else
-			return true;
+	public boolean isValidUser(String email) {
+		return em.find(User.class, email) != null;
 	}
 
 	@Override

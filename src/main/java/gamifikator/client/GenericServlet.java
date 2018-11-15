@@ -2,6 +2,10 @@ package gamifikator.client;
 
 import javax.ejb.Stateless;
 
+/**
+ * This is a generic servlet
+ *
+ * */
 @Stateless
 public class GenericServlet extends javax.servlet.http.HttpServlet {
 

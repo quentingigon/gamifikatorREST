@@ -7,6 +7,10 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import java.util.List;
 
+/**
+ * DAO for applications
+ *
+ * */
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class ApplicationDAO extends GenericDAO implements ApplicationDAOLocal {

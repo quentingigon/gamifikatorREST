@@ -3,6 +3,10 @@ package gamifikator.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * Object representation of a developer
+ *
+ * */
 @Entity
 public class User {
 

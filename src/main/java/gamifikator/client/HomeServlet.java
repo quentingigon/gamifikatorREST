@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/**
+ * This servlet displays the user infos and application. it also permits to upload and deploy apps
+ *
+ * */
 @Stateless
 @WebServlet(name = "HomeServlet", urlPatterns = "/home")
 public class HomeServlet extends GenericServlet {

@@ -5,6 +5,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
+/**
+ * Object representation of an application
+ *
+ * */
 @Entity
 public class Application implements Serializable {
 

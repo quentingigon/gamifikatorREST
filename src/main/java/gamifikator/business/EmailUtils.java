@@ -12,6 +12,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 
+/**
+ * Send emails to users
+ *
+ * */
 @Stateless
 public class EmailUtils {
 

@@ -7,6 +7,11 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import java.util.List;
 
+
+/**
+ * DAO for users.
+ *
+ * */
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class UserDAO extends GenericDAO implements UserDAOLocal {

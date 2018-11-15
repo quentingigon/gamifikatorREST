@@ -1,5 +1,6 @@
 package gamifikator.client;
 
+import gamifikator.business.PasswordUtils;
 import gamifikator.model.User;
 import gamifikator.services.UserDAOLocal;
 
@@ -12,12 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * This servlet is used to register new users.
+ *
+ * */
 @Stateless
 @WebServlet(name = "RegistrationServlet", urlPatterns = "/register")
 public class RegistrationServlet extends GenericServlet {
 
 	@EJB
-	UserDAOLocal userDAO;
+	private UserDAOLocal userDAO;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -43,7 +48,7 @@ public class RegistrationServlet extends GenericServlet {
 				User user = new User(
 					email,
 					username,
-					password,
+					PasswordUtils.hash_SHA256(password),
 					true,
 					false,
 					true

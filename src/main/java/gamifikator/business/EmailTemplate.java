@@ -1,5 +1,9 @@
 package gamifikator.business;
 
+/**
+ * Mail templates to send to users
+ *
+ * */
 public class EmailTemplate {
 
 	public static String getNewPasswordEmail(String password) {

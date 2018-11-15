@@ -6,17 +6,26 @@ import gamifikator.services.UserDAOLocal;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+/**
+ * Methods used by the admin
+ * 
+ * */
 @Stateless
 public class AdminUtils {
 
 	@EJB
-	UserDAOLocal userDAO;
+	private UserDAOLocal userDAO;
 
-	public void makeUserAdmin(String adminEmail, String userEmail) throws Exception {
-		User admin = userDAO.findByEmail(adminEmail);
+	/**
+	 * Make a user admin
+	 *
+	 * @param userEmail user to make admin
+	 *
+	 * */
+	public void makeUserAdmin(String userEmail) throws Exception {
 		User user = userDAO.findByEmail(userEmail);
 
-		if (user == null || !admin.isAdmin()) {
+		if (user == null) {
 			throw new Exception("You have to be an admin to make people admin, you cheaty guy.");
 		}
 
@@ -24,26 +33,36 @@ public class AdminUtils {
 		userDAO.update(user);
 	}
 
-	public void resetPassword(String adminEmail, String userEmail, String password) throws Exception {
-		User admin = userDAO.findByEmail(adminEmail);
+	/**
+	 * Reset password of certain user
+	 *
+	 * @param userEmail user with reseted password
+	 * @param password new password
+	 *
+	 * */
+	public void resetPassword(String userEmail, String password) throws Exception {
 		User user = userDAO.findByEmail(userEmail);
 
-		if (user == null || !admin.isAdmin()) {
+		if (user == null) {
 			throw new Exception("You have to be an admin to reset passwords, you funny guy.");
 		}
 
 		user.setPassword(password);
-		user.setIsPasswordValid(false);
 		userDAO.update(user);
 		EmailUtils emailUtils = new EmailUtils();
 		emailUtils.sendPasswordByEmail(user, password);
 	}
 
-	public void suspendAccount(String adminEmail, String userEmail) throws Exception {
-		User admin = userDAO.findByEmail(adminEmail);
+	/**
+	 * Suspend account of certain user
+	 *
+	 * @param userEmail user with account suspended
+	 *
+	 * */
+	public void suspendAccount(String userEmail) throws Exception {
 		User user = userDAO.findByEmail(userEmail);
 
-		if (user == null || !admin.isAdmin()) {
+		if (user == null) {
 			throw new Exception("You have to be an admin to suspend accounts, you smelly guy.");
 		}
 

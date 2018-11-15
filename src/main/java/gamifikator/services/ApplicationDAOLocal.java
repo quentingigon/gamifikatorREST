@@ -5,6 +5,10 @@ import gamifikator.model.Application;
 import javax.ejb.Local;
 import java.util.List;
 
+/**
+ * Local interface for our application DAO
+ *
+ * */
 @Local
 public interface ApplicationDAOLocal extends IGenericDAO<Application>{
 

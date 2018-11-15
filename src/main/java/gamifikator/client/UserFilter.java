@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * This filter is used to verify that the visitor is logged
+ *
+ * */
 @WebFilter("/*")
 public class UserFilter implements Filter {
 

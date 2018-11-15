@@ -19,14 +19,14 @@ public class UserDAO extends GenericDAO implements UserDAOLocal {
 
 	@Override
 	public void update(User user) {
-		findById(user);
+		findByEmail(user.getEmail());
 		em.merge(user);
 	}
 
 	@Override
 	public void delete(User user) {
 		if (!em.contains(user)) {
-			user = findById(user);
+			user = findByEmail(user.getEmail());
 		}
 		em.remove(user);
 	}

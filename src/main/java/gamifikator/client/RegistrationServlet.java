@@ -44,7 +44,7 @@ public class RegistrationServlet extends GenericServlet {
 					email,
 					username,
 					password,
-					false,
+					true,
 					false,
 					true
 				);

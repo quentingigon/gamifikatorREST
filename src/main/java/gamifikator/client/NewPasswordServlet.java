@@ -29,16 +29,26 @@ public class NewPasswordServlet extends GenericServlet{
 		String email = req.getParameter("email");
 		String newPassword = req.getParameter("new_password");
 
-		User user;
+		User user = new User();
 
 		try {
 			user = userDAO.findByEmail(email);
-			user.setPassword(newPassword);
-			userDAO.update(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		resp.sendRedirect("/gamifikator/home");
+		if (user == null) {
+			req.setAttribute("newpass_error", "User doesn't exists.");
+			req.getRequestDispatcher(NEWPASS_JSP).forward(req, resp);
+		}
+		else {
+			user.setPassword(newPassword);
+			try {
+				userDAO.update(user);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			resp.sendRedirect("/gamifikator/home");
+		}
 	}
 }

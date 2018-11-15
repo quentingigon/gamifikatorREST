@@ -10,9 +10,14 @@ public class ApplicationDAO extends GenericDAO implements ApplicationDAOLocal {
 
 	@Override
 	public boolean create(Application app) {
-		em.persist(app);
-		em.flush();
-		return true;
+		if (findAppByName(app.getName()) != null) {
+			em.persist(app);
+			em.flush();
+			return true;
+		}
+		else
+			return false;
+
 	}
 
 	@Override

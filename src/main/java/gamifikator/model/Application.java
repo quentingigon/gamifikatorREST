@@ -34,7 +34,7 @@ public class Application implements Serializable {
 		this.description = description;
 		this.isDeployed = isDeployed;
 	}
-
+	
 	public String getName() {
 		return name;
 	}

@@ -28,6 +28,9 @@ button {
   padding: 0;
   background-color: transparent;
 }
+p {
+    display:inline;
+}
 
 /* Container */
 .container {
@@ -52,12 +55,30 @@ button {
     animation: intro .7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     background: white;
     visibility: visible;
+   /* padding: 3em; */
+    border-radius: .25em;
+    -webkit-filter: drop-shadow(0 0 2em rgba(0,0,0,0.2));
+
+}
+.devHolder{
+    position: relative;
+    display: block;
+    margin-left: 3vw;
+    /*  left:50%;
+      top:50%;
+      transform: translate(-50%,-50%); */
+    width: 15vw;
+    animation: intro .7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    background: red;
+    visibility: visible;
     padding: 3em;
     border-radius: .25em;
     -webkit-filter: drop-shadow(0 0 2em rgba(0,0,0,0.2));
 
 }
-
+.float-right{
+    float:right;
+}
 .placeholderTop{
     position:relative;
     height: 50vh;
@@ -116,10 +137,14 @@ a#regist{
 }
 h2{
     position: center;
+    padding:2em;
 }
 .logo1{
     position: absolute;
     clip: rect(0, 100px, 900px, 500px);
+}
+.errorMessage{
+    color:red;
 }
 
 #cf {
@@ -140,6 +165,52 @@ h2{
 
 #cf img.top:hover {
     opacity:0;
+}
+
+.innerShadow {
+    box-shadow:
+            inset 0px 11px 8px -10px #CCC,
+            inset 0px -11px 8px -10px #CCC;
+}
+
+/******************HOME**********************/
+#addApp{
+    width:100%;
+    padding-left:3em;
+    padding-right:3em;
+    background:#f9f9f9;
+    color:#777;
+    cursor:pointer;
+}
+#buttonAddApp{
+    width:100%;
+    height:50px;
+    padding:3em;
+}
+.app{
+    height:0px;
+    overflow: hidden;
+
+
+    -webkit-transition:height, 0.3s linear;
+    -moz-transition: height, 0.3s linear;
+    -ms-transition: height, 0.3s linear;
+    -o-transition: height, 0.3s linear;
+    transition: height, 0.3s linear;
+}
+.app--open{
+    height:300px;
+    -webkit-transition:height, 0.3s linear;
+    -moz-transition: height, 0.3s linear;
+    -ms-transition: height, 0.3s linear;
+    -o-transition: height, 0.3s linear;
+    transition: height, 0.3s linear;
+}
+
+.app__form {
+    position: relative;
+    padding: 3em;
+
 }
 /******************LOGIN*********************/
 
@@ -179,6 +250,7 @@ h2{
     transform .4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
     padding .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
 .profile__fields {
   opacity: 0;
   visibility: hidden;

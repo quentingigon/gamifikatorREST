@@ -24,12 +24,19 @@ public class Application implements Serializable {
 		this.description = description;
 		this.apiKey = apiKey;
 		this.apiSecret = apiSecret;
+
 	}
 
 	public Application(String name, User creator) {
 		this.name = name;
 		this.creator = creator;
 	}
+
+	public Application(String name, User creator, String description) {
+		this.name = name;
+		this.creator = creator;
+	}
+
 
 	public String getName() {
 		return name;

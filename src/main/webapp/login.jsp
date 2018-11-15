@@ -37,7 +37,12 @@
                 </div>
                 <div>
                     <c:if test="${not empty login_error}">
-                        <p >${login_error}</p>
+                        <script text="javascript">
+                            [].map.call(document.querySelectorAll('.profile'), function(el) {
+                                el.classList.toggle('profile--open');
+                            });
+                        </script>
+                        <p class="errorMessage" >${login_error}</p>
                     </c:if>
                 </div>
             </div>

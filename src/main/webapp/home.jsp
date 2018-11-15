@@ -29,6 +29,7 @@
     </c:forEach>
 
     <h2>Gamifikator - profile et applications</h2>
+    <div id="containerH" class>
     <div id="buttonAddApp"><button id="toggleAddApp" class="btn float-right">Add application</button></div>
 
     <div id="addApp" class="app innerShadow ">
@@ -113,7 +114,7 @@
 
     </div>
 </div>
-
+</div>
 
 
 <script  src="elastic/js/home.js"></script>

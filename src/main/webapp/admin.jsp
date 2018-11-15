@@ -1,3 +1,5 @@
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
 <!DOCTYPE html>
 <html lang="en" >
 
@@ -23,19 +25,30 @@
 <div class="menuTop"><a href="logout"> <i class="fas fa-sign-out-alt"></i> Log out</a>  <a href="admin"> <i class="fas fa-cogs"></i> Admin</a> <div class="holder">    <a href="home" class="logo"> <img src="logos/logo1.png" alt="Avatar" /></a>
     &nbsp;</div>  </div>
 <div class="containerHome">
-    <h2>Gamifikator - Admin ${test} u </h2>
-    <p><input type="text" name="foo" value="${test}" />
-        coucou </p>
-    <c:forEach items="${list}" var="item">
-        ${item}<br>
-        <div class="devHolder"> <p> ${test} </p></div>
+    <h2>Gamifikator - Admin ${users[0]} u </h2>
 
+    <div id="containerDev">
+    <c:forEach items="${users}" var="user" >
+        <div id="${user.username}" class="devHolder app" onclick="toggleL()">
+            <a href="admin?cmd=1&email=${user.email}" id="suspend" ><i class="devButton far fa-stop-circle"></i></a>
+            <a href="admin?cmd=2&email=${user.email}" id="rstPass" ><i class="devButton fas fa-sync-alt"></i></a>
+
+
+            <p>Nom : ${user.username}</p><br>
+            <p>Email : ${user.email}</p><br>
+
+
+        </div>
     </c:forEach>
+    </div>
 </div>
+<div id="showDev"><i id="close" class="fas fa-window-close" onclick="toggleL()"></i></div>
 
 
 
-<script  src="elastic/js/index.js"></script>
+
+
+<script  src="elastic/js/admin.js"></script>
 
 
 

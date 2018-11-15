@@ -3,7 +3,7 @@ package gamifikator.services;
 import gamifikator.model.User;
 
 import javax.ejb.Local;
-import java.util.ArrayList;
+import java.util.List;
 
 @Local
 public interface UserDAOLocal extends IGenericDAO<User>{
@@ -34,6 +34,6 @@ public interface UserDAOLocal extends IGenericDAO<User>{
 	 * @return All users in a list
 	 *
 	 * */
-	ArrayList<User> getAllUsers();
+	List getAllUsers();
 
 }

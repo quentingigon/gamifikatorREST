@@ -3,20 +3,20 @@ package gamifikator.services;
 import gamifikator.model.Application;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import java.util.ArrayList;
 
 @Stateless
+@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class ApplicationDAO extends GenericDAO implements ApplicationDAOLocal {
 
 	@Override
 	public boolean create(Application app) {
-		if (findAppByName(app.getName()) != null) {
-			em.persist(app);
-			em.flush();
-			return true;
-		}
-		else
-			return false;
+
+		em.persist(app);
+		em.flush();
+		return true;
 
 	}
 

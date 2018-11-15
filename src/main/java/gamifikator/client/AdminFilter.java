@@ -8,8 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * This filter is used to control the access to admin section
+ *
+ * */
 @WebFilter("/*")
 public class AdminFilter implements Filter {
+
 	@Override
 	public void init(FilterConfig filterConfig) { }
 

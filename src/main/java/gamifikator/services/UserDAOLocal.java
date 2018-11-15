@@ -5,6 +5,10 @@ import gamifikator.model.User;
 import javax.ejb.Local;
 import java.util.List;
 
+/**
+ * Local interface for our user DAO
+ *
+ * */
 @Local
 public interface UserDAOLocal extends IGenericDAO<User>{
 
@@ -35,5 +39,7 @@ public interface UserDAOLocal extends IGenericDAO<User>{
 	 *
 	 * */
 	List getAllUsers();
+
+	List getUsersPages(int pageSize, int pageIndex);
 
 }

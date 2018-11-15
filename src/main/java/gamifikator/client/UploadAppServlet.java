@@ -23,7 +23,10 @@ import java.util.List;
 
 import static gamifikator.business.PasswordUtils.DEFAULT_LENGTH;
 
-
+/**
+ * This servlet is used to upload .war files to the server
+ *
+ * */
 @Stateless
 @WebServlet(name = "UploadAppServlet", urlPatterns = "/upload")
 @MultipartConfig(location = "/",
@@ -33,7 +36,7 @@ import static gamifikator.business.PasswordUtils.DEFAULT_LENGTH;
 public class UploadAppServlet extends GenericServlet {
 
 	@EJB
-	ApplicationDAOLocal appDAO;
+	private ApplicationDAOLocal appDAO;
 
 	private final String UPLOAD_DIRECTORY = "appsToDeploy";
 
@@ -54,13 +57,17 @@ public class UploadAppServlet extends GenericServlet {
 		if (!uploadDir.exists()) uploadDir.mkdir();
 
 		List<String> fileNames = new ArrayList<>();
-		String fileName;
+		String filename;
 
 		for (Part part : req.getParts()) {
-			fileName = part.getSubmittedFileName();
-			if(fileName != null) {
-				part.write(uploadPath + File.separator + fileName);
-				fileNames.add(fileName);
+			filename = part.getSubmittedFileName();
+			if(filename != null) {
+				if (!filename.endsWith(".war")) {
+					req.setAttribute("upload_error", "You can only upload .war files!");
+					req.getRequestDispatcher(NEWPASS_JSP).forward(req, resp);
+				}
+				part.write(uploadPath + File.separator + filename);
+				fileNames.add(filename);
 			}
 		}
 

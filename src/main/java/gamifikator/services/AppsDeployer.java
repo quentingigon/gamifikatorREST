@@ -18,7 +18,8 @@ public class AppsDeployer {
 
     //------------------Deploy apps-------------------------
 
-    /* Deploy a specific application of the user username
+    /**
+	 * Deploy a specific application of the user username
      * @param username The username of the user willing to deploy an app
      * @param appToDeploy The application's name to deploy
      */
@@ -38,7 +39,8 @@ public class AppsDeployer {
         }
     }
 
-    /* Deploy all the applications of the user username
+    /**
+	 * Deploy all the applications of the user username
      * @param username The username of the user willing to deploy an app
      */
     public void deployAllUserApps(String username){
@@ -48,7 +50,8 @@ public class AppsDeployer {
         }
     }
 
-    /* Deploy all the applications of all users
+    /**
+     *  Deploy all the applications of all users
      */
     public void deployAllApps(){
         folderSrc = new File("appsToDeploy");
@@ -59,8 +62,8 @@ public class AppsDeployer {
 
     //------------------Undeploy apps------------------------
 
-    /* Undeploy a specific application of the user username
-     * @param username The username of the user willing to undeploy an app
+    /**
+	 * Undeploy a specific application of the user username
      * @param appToUndeploy The application's name to undeploy
      */
     public void undeployUserApp(String appToUndeploy){
@@ -76,7 +79,8 @@ public class AppsDeployer {
         }
     }
 
-    /* Undeploy all the applications given in the array paramter
+    /**
+	 * Undeploy all the applications given in the array paramter
      * @param appsToUndeploy A String array containing all the apps name to undeploy
      */
     public void undeployAllUserApps(String[] appsToUndeploy){

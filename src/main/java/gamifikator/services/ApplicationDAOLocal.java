@@ -3,8 +3,12 @@ package gamifikator.services;
 import gamifikator.model.Application;
 
 import javax.ejb.Local;
-import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Local interface for our application DAO
+ *
+ * */
 @Local
 public interface ApplicationDAOLocal extends IGenericDAO<Application>{
 
@@ -26,5 +30,7 @@ public interface ApplicationDAOLocal extends IGenericDAO<Application>{
 	 * @return List of apps
 	 *
 	 * */
-	ArrayList<Application> getAllApplicationsOfUserByEmail(String email);
+	List getAllApplicationsOfUserByEmail(String email);
+
+	List findAppsOfUserPages(String email, int pageSize, int pageIndex);
 }

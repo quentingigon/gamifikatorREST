@@ -7,6 +7,11 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import java.util.List;
 
+
+/**
+ * DAO for users.
+ *
+ * */
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class UserDAO extends GenericDAO implements UserDAOLocal {
@@ -57,5 +62,13 @@ public class UserDAO extends GenericDAO implements UserDAOLocal {
 	@Override
 	public List getAllUsers() {
 		return em.createQuery("SELECT u FROM User u").getResultList();
+	}
+
+	@Override
+	public List getUsersPages(int pageSize, int pageIndex) {
+		return em.createQuery("SELECT u FROM User u")
+			.setMaxResults(pageSize)
+			.setFirstResult(pageIndex * pageSize)
+			.getResultList();
 	}
 }

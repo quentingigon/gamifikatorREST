@@ -8,6 +8,10 @@ import java.security.SecureRandom;
 
 import java.util.Random;
 
+/**
+ * This class is used to generate passwords and hash them
+ *
+ * */
 public class PasswordUtils {
 
     public static final int DEFAULT_LENGTH = 20;

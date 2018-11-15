@@ -19,6 +19,7 @@ public class UserDAO extends GenericDAO implements UserDAOLocal {
 
 	@Override
 	public void update(User user) {
+		//TODO ANSWER: what does that do ?
 		findByEmail(user.getEmail());
 		em.merge(user);
 	}

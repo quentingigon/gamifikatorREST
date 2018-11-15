@@ -10,6 +10,8 @@ public class ApplicationDAO extends GenericDAO implements ApplicationDAOLocal {
 
 	@Override
 	public boolean create(Application app) {
+
+	    //TODO Check if application already exist
 		em.persist(app);
 		em.flush();
 		return true;

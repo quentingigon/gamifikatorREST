@@ -45,31 +45,38 @@ public class AdminServlet extends GenericServlet {
 
 		// no button pressed
 		if (cmd == null || cmd.equals("0")) {
-			Object[] users = userDAO.getAllUsers().toArray();
-			Object[] apps = appDAO.getAllApplicationsOfUserByEmail(email).toArray();
-
-			req.setAttribute("apps", apps);
-			req.setAttribute("users", users);
+			if (email == null) {
+				Object[] users = userDAO.getAllUsers().toArray();
+				req.setAttribute("users", users);
+			}
+			else {
+				Object[] apps = appDAO.getAllApplicationsOfUserByEmail(email).toArray();
+				req.setAttribute("applist", "_open");
+				req.setAttribute("apps", apps);
+			}
 			req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
 		}
 
 		User user = null;
-		try {
-			user = userDAO.findByEmail(email);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (email != null) {
+			try {
+				user = userDAO.findByEmail(email);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		if (user == null) {
 			req.setAttribute("admin_error", "User doesn't exist.");
-			req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
+			// req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
+			resp.sendRedirect("/gamifikator/admin");
 		}
 		else {
 			// admin wants to suspend user
 			if (cmd.equals("1")) {
 				AdminUtils admu = new AdminUtils();
 				try {
-					admu.suspendAccount(user.getEmail());
+					admu.suspendAccount(email);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

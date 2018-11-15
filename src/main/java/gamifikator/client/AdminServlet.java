@@ -27,6 +27,7 @@ public class AdminServlet extends GenericServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+
 		User admin = (User) req.getSession().getAttribute("user");
 
 		Object[] users = userDAO.getAllUsers().toArray();

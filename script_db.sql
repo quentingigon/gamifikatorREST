@@ -8,6 +8,7 @@ CREATE TABLE USER
   password VARCHAR(50) NOT NULL,
   isAdmin BOOL NOT NULL,
   isSuspended BOOL NOT NULL,
+  isPasswordValid BOOL NOT NULL,
   PRIMARY KEY (email)
 );
 

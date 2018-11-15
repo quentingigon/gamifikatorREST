@@ -37,17 +37,23 @@ public class LoginServlet extends GenericServlet {
 		}
 
 		if (user.isSuspended()) {
-			req.setAttribute("error", "You have been suspended! Do not come and tell us it was a mistake, you surely deserved it.");
+			req.setAttribute("login_error", "You have been suspended! Do not come and tell us it was a mistake, you surely deserved it.");
 			req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
 		}
 
-        if (user.getPassword().equals(password)) {
+		else if (!user.isPasswordValid()) {
+			req.setAttribute("login_error", "You have to chose a new password.");
+			req.getRequestDispatcher(NEWPASSWORD_JSP).forward(req, resp);
+		}
+
+		else if (user.getPassword().equals(password)) {
 			req.getSession().setAttribute("user", user);
+			req.setAttribute("login_error", null);
 			resp.sendRedirect("/gamifikator/home");
         }
         else {
-            req.setAttribute("error", "Unknown user, please try again");
-			resp.sendRedirect("/gamifikator/login");
+            req.setAttribute("login_error", "Bad password");
+			req.getRequestDispatcher(LOGIN_JSP).forward(req, resp);
         }
     }
 }

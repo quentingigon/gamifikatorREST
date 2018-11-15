@@ -33,6 +33,7 @@ public class AdminUtils {
 		}
 
 		user.setPassword(password);
+		user.setIsPasswordValid(false);
 		userDAO.update(user);
 		EmailUtils emailUtils = new EmailUtils();
 		emailUtils.sendPasswordByEmail(user, password);

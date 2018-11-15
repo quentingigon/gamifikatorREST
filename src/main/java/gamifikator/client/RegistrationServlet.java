@@ -43,7 +43,8 @@ public class RegistrationServlet extends GenericServlet {
 				username,
 				password,
 				false,
-				false
+				false,
+				true
 			);
 
 			try {

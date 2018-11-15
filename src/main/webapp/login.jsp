@@ -21,8 +21,6 @@
     <div class="profile">
         <button class="profile__avatar" id="toggleProfile">
             <img class="bottom" src="logos/logoWB.png" />
-
-
         </button>
         <form action="login" method="post" class="profile__form">
             <div class="profile__fields">
@@ -36,8 +34,11 @@
                 </div>
                 <div class="profile__footer">
                     <input type="submit" id="bSubmit" value="Login" class="btn">
-
-                    <span id="error"></span>
+                </div>
+                <div>
+                    <c:if test="${not empty login_error}">
+                        <p >${login_error}</p>
+                    </c:if>
                 </div>
             </div>
             <a href="register" id="regist">Not yet a member ?</a>

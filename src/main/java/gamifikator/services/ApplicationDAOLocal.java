@@ -3,12 +3,28 @@ package gamifikator.services;
 import gamifikator.model.Application;
 
 import javax.ejb.Local;
-import java.util.List;
+import java.util.ArrayList;
 
 @Local
 public interface ApplicationDAOLocal extends IGenericDAO<Application>{
 
+	/**
+	 * Find an app by it's name
+	 *
+	 * @param name name application to find
+	 *
+	 * @return true if valid, false otherwise
+	 *
+	 * */
 	Application findAppByName(String name) throws Exception;
 
-	List getAllApplicationsOfUserByEmail(String email);
+	/**
+	 * Get all apps of certain user
+	 *
+	 * @param email Email of user to get the apps from
+	 *
+	 * @return List of apps
+	 *
+	 * */
+	ArrayList<Application> getAllApplicationsOfUserByEmail(String email);
 }

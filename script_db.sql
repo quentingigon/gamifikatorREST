@@ -20,6 +20,7 @@ CREATE TABLE APPLICATION
   description VARCHAR(300),
 	api_token VARCHAR(36) UNIQUE,
   api_key VARCHAR(36) UNIQUE,
+  isDeployed BOOL NOT NULL,
   PRIMARY KEY (id),
 	FOREIGN KEY (owner) REFERENCES USER(email)
 );

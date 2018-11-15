@@ -43,7 +43,7 @@ public class AppsDeployer {
      */
     public void deployAllUserApps(String username){
         folderSrc = new File("appsToDeploy/" + username);
-        for(File appToDeploy : folderSrc.listFiles()){
+        for(File appToDeploy : folderSrc.listFiles()) {
             deployUserApp(username, appToDeploy.getName());
         }
     }

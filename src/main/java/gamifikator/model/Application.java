@@ -11,32 +11,36 @@ public class Application implements Serializable {
 	@Id
 	private String name;
 	@ManyToOne
-	private User creator;
+	private User owner;
 	private String description;
 	private String apiKey;
 	private String apiSecret;
+	private boolean isDeployed;
 
 	public Application() {}
 
-	public Application(String name, User creator, String description, String apiKey, String apiSecret) {
+	public Application(String name, User owner, String description, String apiKey, String apiSecret, boolean isDeployed) {
 		this.name = name;
-		this.creator = creator;
+		this.owner = owner;
 		this.description = description;
 		this.apiKey = apiKey;
 		this.apiSecret = apiSecret;
+		this.isDeployed = isDeployed;
 	}
 
-	public Application(String name, User creator) {
+	public Application(String name, User owner, String description, boolean isDeployed) {
 		this.name = name;
-		this.creator = creator;
+		this.owner = owner;
+		this.description = description;
+		this.isDeployed = isDeployed;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public User getCreator() {
-		return creator;
+	public User getOwner() {
+		return owner;
 	}
 
 	public String getDescription() {
@@ -51,12 +55,16 @@ public class Application implements Serializable {
 		return apiSecret;
 	}
 
+	public boolean isDeployed() {
+		return isDeployed;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public void setCreator(User creator) {
-		this.creator = creator;
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 
 	public void setDescription(String description) {
@@ -69,5 +77,9 @@ public class Application implements Serializable {
 
 	public void setApiSecret(String apiSecret) {
 		this.apiSecret = apiSecret;
+	}
+
+	public void setDeployed(boolean deployed) {
+		isDeployed = deployed;
 	}
 }

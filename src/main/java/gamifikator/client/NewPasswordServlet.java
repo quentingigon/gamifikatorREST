@@ -48,7 +48,7 @@ public class NewPasswordServlet extends GenericServlet{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			resp.sendRedirect("/gamifikator/home");
+			resp.sendRedirect("/gamifikator/login");
 		}
 	}
 }

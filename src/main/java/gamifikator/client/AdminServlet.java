@@ -16,9 +16,6 @@ import java.io.IOException;
 @WebServlet(name = "AdminServlet", urlPatterns = "/admin")
 public class AdminServlet extends GenericServlet {
 
-	//@EJB
-	//ApplicationDAO appDAO;
-
 	@EJB
 	UserDAOLocal userDAO;
 

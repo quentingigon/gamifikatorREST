@@ -1,7 +1,9 @@
 package gamifikator.client;
 
 import gamifikator.model.User;
+import gamifikator.services.UserDAOLocal;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,6 +15,9 @@ import java.io.IOException;
 @Stateless
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends GenericServlet {
+
+	@EJB
+	UserDAOLocal userDAO;
 
     @Override
     public void init(ServletConfig config) throws ServletException {

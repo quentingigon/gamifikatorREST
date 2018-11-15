@@ -17,7 +17,7 @@ import java.io.IOException;
 public class RegistrationServlet extends GenericServlet {
 
 	@EJB
-	private UserDAOLocal userDAO;
+	UserDAOLocal userDAO;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {

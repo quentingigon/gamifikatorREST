@@ -10,6 +10,7 @@ import java.io.IOException;
 
 @WebFilter("/*")
 public class AdminFilter implements Filter {
+
 	@Override
 	public void init(FilterConfig filterConfig) { }
 

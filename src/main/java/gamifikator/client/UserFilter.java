@@ -8,6 +8,7 @@ import java.io.IOException;
 
 @WebFilter("/*")
 public class UserFilter implements Filter {
+
 	@Override
 	public void init(FilterConfig filterConfig) {}
 

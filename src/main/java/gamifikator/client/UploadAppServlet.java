@@ -29,7 +29,7 @@ public class UploadAppServlet extends GenericServlet {
 	@EJB
 	ApplicationDAOLocal appDAO;
 
-	private final String UPLOAD_DIRECTORY = "";
+	private final String UPLOAD_DIRECTORY = "appsToDeploy";
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -39,8 +39,8 @@ public class UploadAppServlet extends GenericServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String description = req.getParameter("description");
-		String appName = req.getParameter("name");
+		String description = req.getParameter("appDesc");
+		String appName = req.getParameter("appname");
 		User owner = (User) req.getAttribute("user");
 
 		String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
@@ -52,8 +52,10 @@ public class UploadAppServlet extends GenericServlet {
 
 		for (Part part : req.getParts()) {
 			fileName = part.getSubmittedFileName();
-			part.write(uploadPath + File.separator + fileName);
-			fileNames.add(fileName);
+			if(fileName != null) {
+				part.write(uploadPath + File.separator + fileName);
+				fileNames.add(fileName);
+			}
 		}
 
 
@@ -67,7 +69,8 @@ public class UploadAppServlet extends GenericServlet {
 			}
 			else {
 				try {
-					appDAO.create(new Application(appName, owner, description, false));
+					User owner2 = new User("macmoudi@gmail.com","macmoudi","test",false,false,true);
+					appDAO.create(new Application(appName, owner2, description, false));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -75,6 +78,7 @@ public class UploadAppServlet extends GenericServlet {
 		}
 
 		req.setAttribute("message", "File was correctly uploaded.");
+		//TODO change to forward for attribute message passing ?
 		resp.sendRedirect("/gamifikator/home");
 	}
 }

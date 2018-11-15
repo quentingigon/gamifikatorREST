@@ -19,7 +19,7 @@ import java.util.List;
 @WebServlet(name = "AdminServlet", urlPatterns = "/admin")
 public class AdminServlet extends GenericServlet {
 
-    
+
 	//@EJB
 	//ApplicationDAO appDAO;
 

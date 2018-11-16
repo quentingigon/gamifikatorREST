@@ -22,10 +22,10 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
 
-<div class="menuTop"><a href="logout"> <i class="fas fa-sign-out-alt"></i> Log out</a>  <a href="admin"> <i class="fas fa-cogs"></i> Admin</a> <a href="#" onclick="switchTheme()"> <i class="fas fa-magic"></i> Theme </a><div class="holder">    <a href="home" class="logo"> <img src="logos/logoWB.png" alt="Avatar" /></a>
+<div class="menuTop"><a href="logout"> <i class="fas fa-sign-out-alt"></i> Log out</a>  <a href="admin"> <i class="fas fa-cogs"></i> Admin</a> <a href="#" onclick="switchTheme()"> <i class="fas fa-magic"></i> Theme </a><div class="holder">    <a href="home" class="logo"> <img id="logoIMG" src="logos/logoWR.png" alt="Avatar" /></a>
     &nbsp;</div>  </div>
-<div class="containerHome">
-    <h2>Gamifikator - Admin ${users[0].username} </h2>
+<div class="containerHome containerAdmin">
+    <h2><span class="big">Gamifikator</span> <br> ${user.email}</h2>
 
     <div>
         <if test="${not empty message}">

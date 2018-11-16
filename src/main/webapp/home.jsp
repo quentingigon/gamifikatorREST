@@ -33,7 +33,7 @@
         ${app}<br>
     </c:forEach>
 
-    <h2>Gamifikator - profile et applications de ${user.username}</h2>
+    <h2><span class="big">Gamifikator</span> <br> profile et applications de ${user.username}</h2>
     <div id="containerH" class>
 
 

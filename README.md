@@ -29,8 +29,8 @@ There are many SaaS services that target application developers, just like our g
 | As an **administrator**, I can see a list of registered application developers, with their details. The user interface is designed to work well even if the application developer has created 1'000 applications (pagination). | FR                          | 0.5 |
 | As an **administrator**, I can suspend an account. When the developer tries to login, he is blocked and sees an informative error message. | FR                          | 0.5 |
 | As an **administrator**, I can reset a user password. The password is automatically generated and sent by e-mail to the application developer. When the developer logs in, he is obliged to change his password immediately. | FR |0.5|
-| SPECIFY AND IMPLEMENT A FEATURE OF YOUR CHOICE. | FR |0.5|
-| SPECIFY AND IMPLEMENT A FEATURE OF YOUR CHOICE. | FR |0.5|
+| As a **user**, I can change my username. | FR |0.5|
+| As a **user**, I can change the website theme. | FR |0.5|
 | | **Total** | **4.0** |
 | As a **user**, I have a good UI/UX experience (nice design, clear navigation, informative error messages, etc.) | NFR-usability |0.5|
 | As a **spiritual guide**, I can clone the repo, move to a documented repository and type `docker-compose up` to start the system. I can then access it with my browser. | NFR-maintainability         | 0.5 |
@@ -58,10 +58,12 @@ Number of points / 8.0 * 5 + 1.
 | 6      | 02.11.2018 | Finish. Deadline to submit the deliverables: **Monday 05.11.2018 08:00 AM**. |
 | 7      | 09.11.2018 | **Presentations**: demo (functional + automated tests), presentation of experimental results, summary of current limitations and bugs. **20' per group**. |
 
+### Instructions to deploy
+The deployement is done throw the following command:
+    docker-compose up --build
 
+After that, you can connect to the website with the url:
+    localhost:8080/gamifikator/login
 
-
-
-
-
-
+If you want to completly reset the database, you can do that with the command:
+    docker-compose down

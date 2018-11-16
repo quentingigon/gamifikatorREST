@@ -20,9 +20,9 @@ CREATE TABLE IF NOT EXISTS APPLICATION
   creator VARCHAR(50) NOT NULL,
   owner_email VARCHAR(50) NOT NULL,
   description VARCHAR(400),
-	apisecret VARCHAR(100) UNIQUE,
+  apisecret VARCHAR(100) UNIQUE,
   apikey VARCHAR(100) UNIQUE,
   isDeployed BOOL NOT NULL,
   PRIMARY KEY (id),
-	FOREIGN KEY (owner_email) REFERENCES USER(email)
+  FOREIGN KEY (owner_email) REFERENCES USER(email)
 );

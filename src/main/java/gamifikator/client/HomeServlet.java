@@ -3,6 +3,8 @@ package gamifikator.client;
 import gamifikator.model.User;
 import gamifikator.services.ApplicationDAOLocal;
 import gamifikator.services.AppsDeployer;
+import gamifikator.services.UserDAO;
+import gamifikator.services.UserDAOLocal;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -12,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 /**
  * This servlet displays the user infos and application. it also permits to upload and deploy apps
@@ -23,6 +26,9 @@ public class HomeServlet extends GenericServlet {
 
 	@EJB
 	ApplicationDAOLocal appDAO;
+
+	@EJB
+	UserDAOLocal userDAO;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -68,5 +74,15 @@ public class HomeServlet extends GenericServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    }
+		User currentUser = (User) req.getSession().getAttribute("user");
+		currentUser.setUsername(req.getParameter("newName"));
+		try {
+			userDAO.update(currentUser);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		req.getRequestDispatcher(HOME_JSP).forward(req,resp);
+
+	}
 }

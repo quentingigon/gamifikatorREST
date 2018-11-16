@@ -18,6 +18,28 @@ body {
     background-attachment:fixed;
 
 }
+.theme2{
+    background: linear-gradient(to bottom, #c32e61 0%, #53307a 100%);
+
+}
+.changeName{
+    float: right;
+    margin-top: 2em;
+    margin-right:1.5em;
+}
+.profile_form .no_padding{
+
+    visibility: visible;
+    height: auto;
+    opacity: 1;
+    transform: translateY(-6em);
+    padding-top: 1em;
+}
+#textH{
+    position: absolute;
+    top:1em;
+    font-size:2em;
+}
 img {
   vertical-align: middle;
   max-width: 100%;

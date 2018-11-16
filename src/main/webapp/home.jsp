@@ -20,16 +20,23 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
 
-<div class="menuTop"><a href="logout"> <i class="fas fa-sign-out-alt"></i> Log out</a>  <a href="admin"> <i class="fas fa-cogs"></i> Admin</a> <div class="holder">    <a href="home" class="logo"> <img src="logos/logoWG.png" alt="Avatar" /></a>
-    &nbsp;</div>  </div>
+<div class="menuTop"><a href="logout"> <i class="fas fa-sign-out-alt"></i> Log out</a>
+                     <a href="admin"> <i class="fas fa-cogs"></i> Admin</a>
+                     <a href="#" onclick="switchTheme()"> <i class="fas fa-magic"></i> Theme </a>  <div class="holder">    <a href="home" class="logo"> <img src="logos/logoWG.png" alt="Avatar" /></a>
+    &nbsp;  <button class="btn changeName" id="toggleProfile" >
+            Change name
+        </button>
+    </div>
 <div class="containerHome">
 
     <c:forEach app="${list}" var="app">
         ${app}<br>
     </c:forEach>
 
-    <h2>Gamifikator - profile et applications</h2>
+    <h2>Gamifikator - profile et applications de ${user.username}</h2>
     <div id="containerH" class>
+
+
     <div id="buttonAddApp"><button id="toggleAddApp" class="btn float-right">Add application</button></div>
 
     <div id="addApp" class="app innerShadow ">
@@ -80,14 +87,32 @@
             </div>
         </c:forEach>
 
-        <br><br><br><br><br>
-        <p>coucou</p>
 
     </div>
 
 
 </div>
 </div>
+
+<div class="container">
+    <div class="profile">
+
+        <form action="home" method="post" class="profile__form no_padding">
+            <p id="textH">So. Wanna change name ? </p>
+
+            <div class="profile__fields">
+
+                <div class="field">
+                    <input type="text" id="newname" name="newName" class="input" required pattern=.*\S.* />
+                    <label for="newName" class="label">New name:</label>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
 
 
 <script  src="elastic/js/home.js"></script>

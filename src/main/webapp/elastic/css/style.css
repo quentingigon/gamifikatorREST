@@ -88,9 +88,17 @@ p {
     color: #777;
     visibility: visible;
     border-radius: 0.25em;
-    padding-top: 3em;
-    padding-bottom: 3em;
+    padding-bottom: 8em;
 
+
+}
+.devHolder .appA{
+    display: block;
+    width: 15vw;
+    position: absolute;
+    left:1em;
+    bottom:1em;
+    text-decoration: none;
 }
 #showDev{
     position:fixed;
@@ -106,6 +114,11 @@ p {
     background: rgba(255,255,255,0.98);
     -webkit-filter: drop-shadow(0 0 2em rgba(0,0,0,0.2));
 
+}
+._open{
+    display: block !important;
+    top:0;
+    left:0;
 }
 .showDevVisible{
     display: block !important;
@@ -157,7 +170,7 @@ p {
 
 .menuTop a {
     color:white;
-    background-color:black;
+    background-color:#36454f;
     text-decoration: none;
     float:right;
      width:10vw;
@@ -177,7 +190,7 @@ p {
 .holder{
     width: 80vw;
 
-    background:black;
+    background:#36454f;
     height: 6em;
 }
 .holder .logo{
@@ -199,8 +212,10 @@ a#regist{
     right:1%;
 }
 h2{
-    position: center;
+    horiz-align: center;
+    margin-left:30%;
     padding:2em;
+    color:#36454f;
 }
 .logo1{
     position: absolute;
@@ -274,6 +289,16 @@ h2{
     position: relative;
     padding: 3em;
 
+}
+.appForDev{
+    position:relative;
+    width:20vw;
+    border-radius: 0.25em;
+    margin:1em;
+    padding:1em;
+
+    color:white;
+    background-color:#36454f;
 }
 /******************LOGIN*********************/
 

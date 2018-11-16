@@ -57,10 +57,10 @@ public class ApplicationDAO extends GenericDAO implements ApplicationDAOLocal {
 	public List getAllApplicationsOfUserByUserName(String username) {
 		return em.createQuery("Select * from " + Application.class.getSimpleName() + " where username=" + username).getResultList();
 	}
-
+	
 	@Override
 	public List findAppsOfUserPages(String email, int pageSize, int pageIndex) {
-		return em.createQuery("Select * from " + Application.class.getSimpleName() + " where owner=" + email)
+		return em.createQuery("Select * from " + Application.class.getSimpleName() + " where owner_email=" + email)
 			.setMaxResults(pageSize)
 			.setFirstResult(pageIndex * pageSize)
 			.getResultList();

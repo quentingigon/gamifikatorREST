@@ -68,51 +68,24 @@
 
     <div id="showApps">
 
-        <c:forEach items="${list}" var="item">
-            ${item}<br>
-        </c:forEach>
-        <div class="container">
-            <div class="profile">
-                <button class="profile__avatar profile--open" id="toggleProfile">
-                    <img class="bottom" src="logos/logoWB.png" />
-                </button>
-                <form action="login" method="post" class="profile__form">
-                    <div class="profile__fields">
-                        <div class="field">
-                            <input type="text" id="email" name="email" class="input" required pattern=.*\S.* />
-                            <label for="email" class="label">Email</label>
-                        </div>
-                        <div class="field">
-                            <input type="password" id="password" name="password" class="input" required pattern=.*\S.* />
-                            <label for="password" class="label">Password</label>
-                        </div>
-                        <div class="profile__footer">
-                            <input type="submit" id="bSubmit" value="Login" class="btn">
-                        </div>
-                        <div>
-                            <c:if test="${not empty home_error}">
-                                <script text="javascript">
-                                    [].map.call(document.querySelectorAll('.profile'), function(el) {
-                                        el.classList.toggle('profile--open');
-                                    });
-                                </script>
-                                <p class="errorMessage" >${home_error}</p>
-                            </c:if>
-                        </div>
-                    </div>
-                    <a href="register" id="regist">Not yet a member ?</a>
 
-                </form>
+
+        <c:forEach items="${apps}" var="app" >
+            <div id="${app.name}" class="appForDev" onclick="">
+                <h4>${app.name}</h4>
+                <p>Email : ${app.email}</p><br>
+                <p>Api_Key : ${app.Key}</p><br>
+
 
             </div>
-
-        </div>
-
+        </c:forEach>
 
         <br><br><br><br><br>
         <p>coucou</p>
 
     </div>
+
+
 </div>
 </div>
 

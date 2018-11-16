@@ -27,7 +27,9 @@ public class UserFilter implements Filter {
 		String elasticURI = request.getContextPath() + "/elastic";
 		String logosURI = request.getContextPath() + "/logos";
 
+		// true if user is logged in
 		boolean loggedIn = session != null && session.getAttribute("user") != null;
+		// true if request come from authorized routes
 		boolean loginOrRegisterRequest = request.getRequestURI().equals(loginURI)
 										|| request.getRequestURI().equals(registerURI)
 										|| request.getRequestURI().contains(elasticURI)

@@ -26,9 +26,11 @@ public class AdminFilter implements Filter {
 
 		String adminURI = request.getContextPath() + "/admin";
 
+		// check if current user is logged as admin
 		boolean isAdmin = session != null && session.getAttribute("user") != null
 							&& ((User) session.getAttribute("user")).isAdmin();
 
+		// check if route is part of restricted routes
 		boolean isRouteRestricted = request.getRequestURI().equals(adminURI);
 
 		if (isAdmin || !isRouteRestricted) {

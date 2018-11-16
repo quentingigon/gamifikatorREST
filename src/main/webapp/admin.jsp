@@ -25,7 +25,18 @@
 <div class="menuTop"><a href="logout"> <i class="fas fa-sign-out-alt"></i> Log out</a>  <a href="admin"> <i class="fas fa-cogs"></i> Admin</a> <div class="holder">    <a href="home" class="logo"> <img src="logos/logoWB.png" alt="Avatar" /></a>
     &nbsp;</div>  </div>
 <div class="containerHome">
-    <h2>Gamifikator - Admin ${users[0]} u </h2>
+    <h2>Gamifikator - Admin ${users[0].username} </h2>
+
+    <div>
+        <if test="${not empty message}">
+            <script text="javascript">
+                [].map.call(document.querySelectorAll('.profile'), function(el) {
+                    el.classList.toggle('profile--open');
+                });
+            </script>
+            <p class="errorMessage" >${message}</p>
+        </if>
+    </div>
 
     <div id="containerDev">
     <c:forEach items="${users}" var="user" >

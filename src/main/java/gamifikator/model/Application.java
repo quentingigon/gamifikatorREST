@@ -16,6 +16,7 @@ public class Application implements Serializable {
 	private String name;
 	@ManyToOne
 	private User owner;
+	private String creator;
 	private String description;
 	private String apiKey;
 	private String apiSecret;
@@ -23,9 +24,10 @@ public class Application implements Serializable {
 
 	public Application() {}
 
-	public Application(String name, User owner, String description, String apiKey, String apiSecret, boolean isDeployed) {
+	public Application(String name, User owner, String creator, String description, String apiKey, String apiSecret, boolean isDeployed) {
 		this.name = name;
 		this.owner = owner;
+		this.creator = creator;
 		this.description = description;
 		this.apiKey = apiKey;
 		this.apiSecret = apiSecret;
@@ -45,6 +47,10 @@ public class Application implements Serializable {
 
 	public User getOwner() {
 		return owner;
+	}
+
+	public String getCreator() {
+		return creator;
 	}
 
 	public String getDescription() {
@@ -69,6 +75,10 @@ public class Application implements Serializable {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
 	public void setDescription(String description) {

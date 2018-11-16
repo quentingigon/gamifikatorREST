@@ -51,12 +51,15 @@ public class UserDAO extends GenericDAO implements UserDAOLocal {
 	}
 
 	public User findByEmail(String email) {
+		// return (User) em.createQuery("SELECT u FROM User u where u.email like " + email);
 		return em.find(User.class, email);
 	}
 
 	@Override
-	public boolean isValidUser(String email) {
-		return em.find(User.class, email) != null;
+	public boolean isValidUser(String email, String username) {
+
+		return findByEmail(email) != null;
+				//em.createQuery("SELECT u FROM User u where u.username =" + username) != null;
 	}
 
 	@Override

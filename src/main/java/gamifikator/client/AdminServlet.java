@@ -26,7 +26,6 @@ import static gamifikator.business.PasswordUtils.DEFAULT_LENGTH;
 @WebServlet(name = "AdminServlet", urlPatterns = "/admin")
 public class AdminServlet extends GenericServlet {
 
-
 	@EJB
 	private UserDAOLocal userDAO;
 
@@ -50,8 +49,14 @@ public class AdminServlet extends GenericServlet {
 				req.setAttribute("users", users);
 			}
 			else {
-				Object[] apps = appDAO.getAllApplicationsOfUserByEmail(email).toArray();
-				req.setAttribute("applist", "_open");
+				User user = null;
+				try {
+					user = userDAO.findByEmail(email);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				Object[] apps = appDAO.getAllApplicationsOfUserByCreator(user.getUsername()).toArray();
+				// req.setAttribute("applist", "_open");
 				req.setAttribute("apps", apps);
 			}
 			req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
@@ -66,20 +71,18 @@ public class AdminServlet extends GenericServlet {
 			}
 		}
 
-		if (user == null) {
-			req.setAttribute("admin_error", "User doesn't exist.");
-			// req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
-			resp.sendRedirect("/gamifikator/admin");
-		}
-		else {
+		if (user != null)  {
 			// admin wants to suspend user
 			if (cmd.equals("1")) {
-				AdminUtils admu = new AdminUtils();
+				// AdminUtils admu = new AdminUtils();
 				try {
-					admu.suspendAccount(email);
+					user.setSuspended();
+					userDAO.update(user);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				req.getSession().setAttribute("message", "User suspended!");
+				resp.sendRedirect("/gamifikator/admin");
 			}
 
 			// admin wants to reset password of user
@@ -94,12 +97,15 @@ public class AdminServlet extends GenericServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				req.getSession().setAttribute("message", "Password reset!");
+				resp.sendRedirect("/gamifikator/admin");
 			}
 			try {
 				userDAO.update(user);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
 		}
 	}
 

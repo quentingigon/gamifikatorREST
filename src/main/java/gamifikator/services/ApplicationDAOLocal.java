@@ -30,7 +30,8 @@ public interface ApplicationDAOLocal extends IGenericDAO<Application>{
 	 * @return List of apps
 	 *
 	 * */
-	List getAllApplicationsOfUserByEmail(String email);
 
 	List findAppsOfUserPages(String email, int pageSize, int pageIndex);
+
+	public List getAllApplicationsOfUserByCreator(String creator);
 }

@@ -43,7 +43,8 @@ public class RegistrationServlet extends GenericServlet {
 		String email = req.getParameter("email");
 
 		try {
-			if (password.equals(passwordConf) && !userDAO.isValidUser(email)) {
+			// if passwords are equals and email is not in database
+			if (password.equals(passwordConf) && !userDAO.isValidUser(email, username)) {
 
 				User user = new User(
 					email,
@@ -60,9 +61,8 @@ public class RegistrationServlet extends GenericServlet {
 				resp.sendRedirect("/gamifikator/home");
 			}
 			else {
-				req.setAttribute("register_error", "Email already used.");
+				req.setAttribute("register_error", "Email or username already used.");
 				resp.sendRedirect("/gamifikator/register");
-				// this.getServletContext().getRequestDispatcher(REGISTER_JSP).forward(req, resp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

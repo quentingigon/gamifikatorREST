@@ -38,7 +38,7 @@ public class UploadAppServlet extends GenericServlet {
 	@EJB
 	private ApplicationDAOLocal appDAO;
 
-	private final String UPLOAD_DIRECTORY = "appsToDeploy";
+	private final String UPLOAD_DIRECTORY = "appsToDeploy/";
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -48,26 +48,32 @@ public class UploadAppServlet extends GenericServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		// get file and user info
 		String description = req.getParameter("appDesc");
 		String appName = req.getParameter("appname");
 		User owner = (User) req.getSession().getAttribute("user");
+		boolean uploadError = false;
 
-		String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
+		// get upload path
+		String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY + owner.getUsername();
 		File uploadDir = new File(uploadPath);
 		if (!uploadDir.exists()) uploadDir.mkdir();
 
 		List<String> fileNames = new ArrayList<>();
 		String filename;
 
+		// retreive .war
 		for (Part part : req.getParts()) {
 			filename = part.getSubmittedFileName();
 			if(filename != null) {
-				if (!filename.endsWith(".war")) {
-					req.setAttribute("upload_error", "You can only upload .war files!");
-					req.getRequestDispatcher(NEWPASS_JSP).forward(req, resp);
+				if (filename.endsWith(".war")) {
+					part.write(uploadPath + File.separator + filename);
+					fileNames.add(filename);
 				}
-				part.write(uploadPath + File.separator + filename);
-				fileNames.add(filename);
+				else {
+					uploadError = true;
+				}
+
 			}
 		}
 
@@ -77,7 +83,7 @@ public class UploadAppServlet extends GenericServlet {
 			// test if created
 			if (!file.exists() || !file.isFile())
 			{
-				req.setAttribute("upload_error", "File was not uploaded.");
+				req.getSession().setAttribute("upload_message", "File was not uploaded.");
 				resp.sendRedirect("/gamifikator/home");
 			}
 			else {
@@ -98,16 +104,22 @@ public class UploadAppServlet extends GenericServlet {
 						throw new ServletException(e.getMessage());
 					}
 
-					// User owner2 = new User("macmoudi@gmail.com","macmoudi","test",false,false,true);
-					appDAO.create(new Application(appName, owner, description, apiKey, apiSecret, false));
+					// add app to database
+					appDAO.create(new Application(appName, owner, owner.getUsername(), description, apiKey, apiSecret, false));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		}
 
-		req.setAttribute("message", "File was correctly uploaded.");
-		//TODO change to forward for attribute message passing ?
-		resp.sendRedirect("/gamifikator/home");
+		if (uploadError) {
+			req.getSession().setAttribute("upload_message", "You can only upload .war files!");
+			resp.sendRedirect("/gamifikator/home");
+			// req.getRequestDispatcher(NEWPASS_JSP).forward(req, resp);
+		}
+		else {
+			req.getSession().setAttribute("upload_message", "File was correctly uploaded.");
+			resp.sendRedirect("/gamifikator/home");
+		}
 	}
 }

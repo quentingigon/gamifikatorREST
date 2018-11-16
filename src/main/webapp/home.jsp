@@ -55,9 +55,9 @@
                     <input type="submit" id="addSubmit" value="Add" class="btn">
                 </div>
                 <div>
-                    <c:if test="${not empty login_error}">
-                        <p class="errorMessage" >${login_error}</p>
-                    </c:if>
+                    <if test="${not empty upload_message}">
+                        <p class="errorMessage" >${upload_message}</p>
+                    </if>
                 </div>
             </div>
 

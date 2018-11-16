@@ -10,10 +10,9 @@ import javax.persistence.Id;
 @Entity
 public class User {
 
-
-	private String username;
 	@Id
 	private String email;
+	private String username;
 	private String password;
 	private boolean isAdmin;
 	private boolean isSuspended;
@@ -70,8 +69,8 @@ public class User {
 		isAdmin = admin;
 	}
 
-	public void setSuspended(boolean suspended) {
-		isSuspended = suspended;
+	public void setSuspended() {
+		isSuspended = !this.isSuspended;
 	}
 
 	public void setIsPasswordValid(boolean isPasswordValid) {

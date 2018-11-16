@@ -30,7 +30,7 @@ public interface UserDAOLocal extends IGenericDAO<User>{
 	 * @return true if valid, false otherwise
 	 *
 	 * */
-	boolean isValidUser(String email) throws Exception;
+	boolean isValidUser(String email, String username) throws Exception;
 
 	/**
 	 * Get all users

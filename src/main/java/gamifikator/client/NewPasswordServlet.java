@@ -1,6 +1,5 @@
 package gamifikator.client;
 
-import gamifikator.business.AdminUtils;
 import gamifikator.business.PasswordUtils;
 import gamifikator.model.User;
 import gamifikator.services.UserDAOLocal;
@@ -55,10 +54,12 @@ public class NewPasswordServlet extends GenericServlet {
 		}
 		else {
 			try {
+				// set new password
 				user.setIsPasswordValid(true);
+				user.setPassword(PasswordUtils.hash_SHA256(newPassword));
 				userDAO.update(user);
-				AdminUtils admu = new AdminUtils();
-				admu.resetPassword(user.getEmail(), PasswordUtils.hash_SHA256(newPassword));
+				// AdminUtils admu = new AdminUtils();
+				// admu.resetPassword(user.getEmail(), PasswordUtils.hash_SHA256(newPassword));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

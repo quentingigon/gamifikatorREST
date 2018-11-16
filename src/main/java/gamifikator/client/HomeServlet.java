@@ -2,6 +2,7 @@ package gamifikator.client;
 
 import gamifikator.model.User;
 import gamifikator.services.ApplicationDAOLocal;
+import gamifikator.services.AppsDeployer;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -22,6 +23,7 @@ public class HomeServlet extends GenericServlet {
 
 	@EJB
 	ApplicationDAOLocal appDAO;
+
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -30,16 +32,37 @@ public class HomeServlet extends GenericServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//TODO setAttribute with list of application for the connected dev
+		String deploy = req.getParameter("deploy");
+		String undeploy = req.getParameter("undeploy");
+		String selectedApp = req.getParameter("appToDeploy");
 
         User user = (User)req.getSession().getAttribute("user");
-	//	Object[] apps = appDAO.getAllApplicationsOfUserByEmail(user.getEmail()).toArray();
+		// Object[] apps = appDAO.getAllApplicationsOfUserByCreator(user.getUsername()).toArray();
 		req.setAttribute("applist", "_open");
 	//	req.setAttribute("apps", apps);
 
+		if (deploy != null) {
+			AppsDeployer deployer = new AppsDeployer();
+			if (selectedApp != null) {
+				deployer.deployUserApp(getServletContext().getRealPath("") + "/appsToDeploy/"
+					+ user.getUsername() + "/" + selectedApp);
+			}
+			else {
+				deployer.deployAllUserApps(getServletContext().getRealPath("") + "/appsToDeploy" + "/" + user.getUsername());
+			}
+		}
+		else if (undeploy != null) {
+			AppsDeployer deployer = new AppsDeployer();
+			if (selectedApp != null) {
+				deployer.undeployUserApp(getServletContext().getRealPath("") + "/appsToDeploy/"
+					+ user.getUsername() + "/" + selectedApp);
+			}
+			else {
+				deployer.undeployAllUserApps( getServletContext().getRealPath("") + "/" + user.getUsername());
+			}
+		}
 
 		req.getRequestDispatcher(HOME_JSP).forward(req,resp);
-
-
     }
 
 	@Override

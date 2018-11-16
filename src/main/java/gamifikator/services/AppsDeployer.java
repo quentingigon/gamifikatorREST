@@ -20,17 +20,12 @@ public class AppsDeployer {
 
     /**
 	 * Deploy a specific application of the user username
-     * @param username The username of the user willing to deploy an app
-     * @param appToDeploy The application's name to deploy
+     * @param pathToApp path to app to deploy
      */
-    public void deployUserApp(String username, String appToDeploy){
-
-        if(!appToDeploy.matches("([a-zA-Z0-9\\s_\\\\.\\-\\(\\):])+(.war|.WAR)$")){
-            appToDeploy += ".war";
-        }
+    public void deployUserApp(String pathToApp){
 
         //Deploy the application on the payara container
-        folderSrc = new File("appsToDeploy/" + username + "/" + appToDeploy);
+        folderSrc = new File(pathToApp);
         try {
             String path = folderSrc.getAbsolutePath().replace("\\", "/");
             pr = rt.exec("docker cp " + path + " docker_payara_1:/opt/payara/glassfish/domains/domain1/autodeploy");
@@ -41,22 +36,22 @@ public class AppsDeployer {
 
     /**
 	 * Deploy all the applications of the user username
-     * @param username The username of the user willing to deploy an app
+     * @param pathToUserFolder The path to user folder of apps
      */
-    public void deployAllUserApps(String username){
-        folderSrc = new File("appsToDeploy/" + username);
+    public void deployAllUserApps(String pathToUserFolder){
+        folderSrc = new File(pathToUserFolder);
         for(File appToDeploy : folderSrc.listFiles()) {
-            deployUserApp(username, appToDeploy.getName());
+            deployUserApp(pathToUserFolder + "/" + appToDeploy.getName());
         }
     }
 
     /**
      *  Deploy all the applications of all users
      */
-    public void deployAllApps(){
-        folderSrc = new File("appsToDeploy");
+    public void deployAllApps(String path) {
+        folderSrc = new File(path);
         for(File user : folderSrc.listFiles()){
-            deployAllUserApps(user.getName());
+            deployAllUserApps(path + "/" + user.getName());
         }
     }
 
@@ -81,12 +76,13 @@ public class AppsDeployer {
 
     /**
 	 * Undeploy all the applications given in the array paramter
-     * @param appsToUndeploy A String array containing all the apps name to undeploy
+     * @param pathToUserFolder A String array containing the path to user folder
      */
-    public void undeployAllUserApps(String[] appsToUndeploy){
-        for(String app : appsToUndeploy){
-            undeployUserApp(app);
-        }
+    public void undeployAllUserApps(String pathToUserFolder) {
+		folderSrc = new File(pathToUserFolder);
+		for(File app : folderSrc.listFiles()){
+			undeployUserApp(pathToUserFolder + "/" + app.getName());
+		}
     }
 
 }

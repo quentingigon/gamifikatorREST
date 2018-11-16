@@ -29,28 +29,34 @@
 
     <div id="containerDev">
     <c:forEach items="${users}" var="user" >
-        <div id="${user.username}" class="devHolder app" onclick="toggleL()">
+        <div id="${user.username}" class="devHolder app" >
+
+
             <a href="admin?cmd=1&email=${user.email}" id="suspend" ><i class="devButton far fa-stop-circle"></i></a>
             <a href="admin?cmd=2&email=${user.email}" id="rstPass" ><i class="devButton fas fa-sync-alt"></i></a>
+
 
 
             <p>Nom : ${user.username}</p><br>
             <p>Email : ${user.email}</p><br>
 
+            <a href="admin?&email=${user.email}" class="btn appA"  onclick="toggleL()">Applications</a>
 
         </div>
+        </a>
+
     </c:forEach>
     </div>
 </div>
 
 <!-- SHOW APPLICATIONS LIST -->
-<div id="showDev"><i id="close" class="fas fa-window-close" onclick="toggleL()"></i>
+<div id="showDev" class="${applist}"><i id="close" class="fas fa-window-close" onclick="toggleL()"></i>
 
     <c:forEach items="${apps}" var="app" >
-        <div id="${app.name}" class="devHolder app" onclick="toggleL()">
+        <div id="${app.name}" class="devHolder app" onclick="toggleL(${user.email})">
             <h4>${app.name}</h4>
             <p>Owner : ${app.owner}</p><br>
-            <p>Email : ${}</p><br>
+            <p>Email : ${app.Key}</p><br>
 
 
         </div>

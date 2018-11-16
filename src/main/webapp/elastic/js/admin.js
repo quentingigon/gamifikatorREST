@@ -6,7 +6,8 @@ function toggleListApp(e){
 }
 
 
-function toggleL(e){
+function toggleL(email){
+//    location.href='admin?email='+email;
     document.getElementById("showDev").classList.toggle("showDevVisible");
 }
 

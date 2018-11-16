@@ -1,5 +1,9 @@
 package gamifikator.client;
 
+import gamifikator.model.User;
+import gamifikator.services.ApplicationDAOLocal;
+
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -16,6 +20,8 @@ import java.io.IOException;
 @WebServlet(name = "HomeServlet", urlPatterns = "/home")
 public class HomeServlet extends GenericServlet {
 
+	@EJB
+	ApplicationDAOLocal appDAO;
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -24,13 +30,14 @@ public class HomeServlet extends GenericServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//TODO setAttribute with list of application for the connected dev
-        String[][] list = new String [][]
-                {{"app1", "allow fun", "12-08-18", "G74F1AD24AF"},
-                 {"app2", "allow nofun", "12-08-18", "G74F1AD24AF"}};
 
-        req.setAttribute("listApp",list); //Setting UsernameLabel to mes_add_pageTitle
+        User user = (User)req.getSession().getAttribute("user");
+	//	Object[] apps = appDAO.getAllApplicationsOfUserByEmail(user.getEmail()).toArray();
+		req.setAttribute("applist", "_open");
+	//	req.setAttribute("apps", apps);
 
-        req.getRequestDispatcher(HOME_JSP).forward(req,resp);
+
+		req.getRequestDispatcher(HOME_JSP).forward(req,resp);
 
 
     }

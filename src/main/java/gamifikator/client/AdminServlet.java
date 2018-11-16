@@ -1,21 +1,32 @@
 package gamifikator.client;
 
 import gamifikator.business.AdminUtils;
+import gamifikator.business.EmailTemplate;
 import gamifikator.business.PasswordUtils;
+import gamifikator.model.Application;
 import gamifikator.model.User;
 import gamifikator.services.ApplicationDAOLocal;
 import gamifikator.services.UserDAOLocal;
 
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import static gamifikator.business.PasswordUtils.DEFAULT_LENGTH;
+import static gamifikator.business.PasswordUtils.hash_SHA256;
 
 /**
  * This servlet is used by the admin section to receive / send data
@@ -32,6 +43,20 @@ public class AdminServlet extends GenericServlet {
 	@EJB
 	private ApplicationDAOLocal appDAO;
 
+	@Resource(name = "mail/amt")
+	Session session;
+
+	private void sendPasswordByEmail(String userEmail, String password) throws MessagingException, UnsupportedEncodingException
+	{
+		Message mail = new MimeMessage(session);
+
+		mail.setSubject("Your password has been reset.");
+		mail.setRecipient(Message.RecipientType.TO, new InternetAddress(userEmail, "username"));
+		mail.setContent(EmailTemplate.getNewPasswordEmail(password),"text/html; charset=utf-8");
+
+		Transport.send(mail);
+	}
+
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -41,6 +66,12 @@ public class AdminServlet extends GenericServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email = req.getParameter("email");
 		String cmd = req.getParameter("cmd");
+
+		Object[] appsTest = new Object[2];
+
+		appsTest[0] = new Application();
+		appsTest[1] = new Application();
+
 
 		// no button pressed
 		if (cmd == null || cmd.equals("0")) {
@@ -55,7 +86,7 @@ public class AdminServlet extends GenericServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				Object[] apps = appDAO.getAllApplicationsOfUserByCreator(user.getUsername()).toArray();
+				Object[] apps = appDAO.getAllApplicationsOfUserByEmail(user).toArray();
 				// req.setAttribute("applist", "_open");
 				req.setAttribute("apps", apps);
 			}
@@ -94,7 +125,10 @@ public class AdminServlet extends GenericServlet {
 
 				String newPass = pu.nextString();
 				try {
-					admu.resetPassword(user.getEmail(), newPass);
+					// admu.resetPassword(user.getEmail(), newPass);
+					user.setPassword(hash_SHA256(newPass));
+					userDAO.update(user);
+					sendPasswordByEmail(user.getEmail(), newPass);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

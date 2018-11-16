@@ -36,9 +36,9 @@ public class AdminFilter implements Filter {
 		if (isAdmin || !isRouteRestricted) {
 			filterChain.doFilter(req, resp);
 		}
-		else {
+		/*else {
 			req.getRequestDispatcher("home.jsp").forward(req, resp);
-		}
+		}*/
 	}
 
 	@Override

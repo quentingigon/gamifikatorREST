@@ -1,6 +1,7 @@
 package gamifikator.services;
 
 import gamifikator.model.Application;
+import gamifikator.model.User;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -54,8 +55,10 @@ public class ApplicationDAO extends GenericDAO implements ApplicationDAOLocal {
 	}
 
 	@Override
-	public List getAllApplicationsOfUserByCreator(String creator) {
-		return em.createQuery("SELECT * FROM Application WHERE Application.creator=" + creator).getResultList();
+	public List getAllApplicationsOfUserByEmail(User user) {
+		//return em.createQuery("FROM Application INNER JOIN User ON Application.owner_email = User.email " +
+		//						"WHERE owner_email=" + "'" + email + "'").getResultList();
+		return em.createQuery("FROM Application WHERE owner_email=" + "'" + user.getEmail() + "'").getResultList();
 	}
 
 	@Override

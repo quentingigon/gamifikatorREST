@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS gamifikator;
 CREATE DATABASE IF NOT EXISTS gamifikator;
 USE gamifikator;
 
@@ -16,6 +17,7 @@ CREATE TABLE IF NOT EXISTS APPLICATION
 (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
+  creator VARCHAR(50) NOT NULL,
   owner_email VARCHAR(50) NOT NULL,
   description VARCHAR(400),
   apisecret VARCHAR(100) UNIQUE,

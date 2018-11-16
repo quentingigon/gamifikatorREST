@@ -1,8 +1,7 @@
 package gamifikator.business;
 
 import javax.annotation.Resource;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import javax.ejb.Stateless;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -16,12 +15,10 @@ import java.util.Properties;
  * Send emails to users
  *
  * */
-
-@Named
-@RequestScoped
+@Stateless
 public class EmailUtils {
 
-	@Resource(name = "java/mail/newpass")
+	@Resource(name = "mail/amt")
 	Session session;
 
 	public void sendPasswordByEmail(String userEmail, String password) throws MessagingException, UnsupportedEncodingException {

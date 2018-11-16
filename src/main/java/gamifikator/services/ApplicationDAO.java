@@ -54,8 +54,8 @@ public class ApplicationDAO extends GenericDAO implements ApplicationDAOLocal {
 	}
 
 	@Override
-	public List getAllApplicationsOfUserByEmail(String email) {
-		return em.createQuery("Select * from " + Application.class.getSimpleName() + " where owner=" + email).getResultList();
+	public List getAllApplicationsOfUserByUserName(String username) {
+		return em.createQuery("Select * from " + Application.class.getSimpleName() + " where username=" + username).getResultList();
 	}
 
 	@Override

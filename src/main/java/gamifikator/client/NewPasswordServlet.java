@@ -63,7 +63,7 @@ public class NewPasswordServlet extends GenericServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			resp.sendRedirect("/gamifikator/login");
+			req.getRequestDispatcher(LOGIN_JSP).forward(req, resp);
 		}
 	}
 }

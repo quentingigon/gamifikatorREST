@@ -75,7 +75,7 @@ public class LoginServlet extends GenericServlet {
 			// logged in
 			else if (user.getPassword().equals(password)) {
 				req.getSession().setAttribute("user", user);
-				resp.sendRedirect("/gamifikator/home");
+				req.getRequestDispatcher(HOME_JSP).forward(req, resp);
 			}
 			else {
 				req.setAttribute("login_error", "Bad password");

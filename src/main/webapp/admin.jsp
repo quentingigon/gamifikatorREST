@@ -29,11 +29,6 @@
 
     <div>
         <if test="${not empty message}">
-            <script text="javascript">
-                [].map.call(document.querySelectorAll('.profile'), function(el) {
-                    el.classList.toggle('profile--open');
-                });
-            </script>
             <p class="errorMessage" >${message}</p>
         </if>
     </div>

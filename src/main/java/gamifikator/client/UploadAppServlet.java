@@ -84,7 +84,7 @@ public class UploadAppServlet extends GenericServlet {
 			if (!file.exists() || !file.isFile())
 			{
 				req.getSession().setAttribute("upload_message", "File was not uploaded.");
-				resp.sendRedirect("/gamifikator/home");
+				req.getRequestDispatcher(HOME_JSP).forward(req, resp);
 			}
 			else {
 				try {
@@ -114,12 +114,11 @@ public class UploadAppServlet extends GenericServlet {
 
 		if (uploadError) {
 			req.getSession().setAttribute("upload_message", "You can only upload .war files!");
-			resp.sendRedirect("/gamifikator/home");
-			// req.getRequestDispatcher(NEWPASS_JSP).forward(req, resp);
+			req.getRequestDispatcher(HOME_JSP).forward(req, resp);
 		}
 		else {
 			req.getSession().setAttribute("upload_message", "File was correctly uploaded.");
-			resp.sendRedirect("/gamifikator/home");
+			req.getRequestDispatcher(HOME_JSP).forward(req, resp);
 		}
 	}
 }

@@ -10,7 +10,7 @@
 
 
     <link rel="stylesheet" href="elastic/css/style.css">
-    <link rel="shortcut icon" href="logos/logoWB.png" type="image/x-icon">
+    <link rel="shortcut icon" href="logos/logoWR.png" type="image/x-icon">
 
 </head>
 
@@ -62,9 +62,6 @@
         <div id="${app.name}" class="devHolder app" onclick="toggleL(${user.email})">
             <h4>${app.name}</h4>
             <p>Owner : ${app.owner}</p><br>
-            <p>ApiKey : ${app.apiKey}</p><br>
-
-
         </div>
     </c:forEach>
 

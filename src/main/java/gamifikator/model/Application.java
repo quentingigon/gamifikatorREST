@@ -2,7 +2,6 @@ package gamifikator.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 /**
@@ -13,11 +12,8 @@ import java.io.Serializable;
 public class Application implements Serializable {
 
 	@Id
-	private int key;
 	private String name;
-	@ManyToOne
-	private User owner;
-	private String creator;
+	private String owner;
 	private String description;
 	private String apiKey;
 	private String apiSecret;
@@ -25,37 +21,27 @@ public class Application implements Serializable {
 
 	public Application() {}
 
-	public Application(String name, User owner, String creator, String description, String apiKey, String apiSecret, boolean isDeployed) {
+	public Application(String name, String owner, String description, String apiKey, String apiSecret, boolean isDeployed) {
 		this.name = name;
 		this.owner = owner;
-		this.creator = creator;
 		this.description = description;
 		this.apiKey = apiKey;
 		this.apiSecret = apiSecret;
 		this.isDeployed = isDeployed;
 	}
 
-	public Application(String name, User owner, String description, boolean isDeployed) {
+	public Application(String name, String owner, boolean isDeployed) {
 		this.name = name;
 		this.owner = owner;
-		this.description = description;
 		this.isDeployed = isDeployed;
-	}
-
-	public int getKey() {
-		return key;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public User getOwner() {
+	public String getOwner() {
 		return owner;
-	}
-
-	public String getCreator() {
-		return creator;
 	}
 
 	public String getDescription() {
@@ -74,20 +60,12 @@ public class Application implements Serializable {
 		return isDeployed;
 	}
 
-	public void setKey(int id) {
-		this.key = id;
-	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public void setOwner(User owner) {
+	public void setOwner(String owner) {
 		this.owner = owner;
-	}
-
-	public void setCreator(String creator) {
-		this.creator = creator;
 	}
 
 	public void setDescription(String description) {

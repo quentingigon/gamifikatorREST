@@ -1,3 +1,5 @@
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
 <!DOCTYPE html>
 <html lang="en" >
 
@@ -29,69 +31,60 @@
     </div>
 <div class="containerHome">
 
-    <c:forEach app="${list}" var="app">
-        ${app}<br>
-    </c:forEach>
-
     <h2><span class="big">Gamifikator</span> <br> profile et applications de ${user.username}</h2>
     <div id="containerH" class>
 
 
-    <div id="buttonAddApp"><button id="toggleAddApp" class="btn float-right">Add application</button></div>
+        <div id="buttonAddApp"><button id="toggleAddApp" class="btn float-right">Add application</button></div>
 
-    <div id="addApp" class="app innerShadow ">
+            <div id="addApp" class="app innerShadow ">
 
-        <form action="upload" enctype="multipart/form-data" method="post" class="app__form ">
-            <div class="app__fields">
-                <div class="field">
-                    <input type="text" id="appname" name="appname" class="input" required pattern=.*\S.* />
-                    <label for="appname" class="label">Application name</label>
-                </div>
-                <div class="field">
-               <!--     <textarea name="appDesc " id="appDesc" cols="50" rows="3"></textarea> -->
-                    <input type="text" id="appDesc" name="appDesc" class="input" required pattern=.*\S.* />
+                <form action="upload" enctype="multipart/form-data" method="post" class="app__form ">
+                    <div class="app__fields">
+                        <div class="field">
+                            <input type="text" id="appname" name="appname" class="input" required pattern=.*\S.* />
+                            <label for="appname" class="label">Application name</label>
+                        </div>
+                        <div class="field">
+                       <!--     <textarea name="appDesc " id="appDesc" cols="50" rows="3"></textarea> -->
+                            <input type="text" id="appDesc" name="appDesc" class="input" required pattern=.*\S.* />
 
-                    <label for="appDesc" class="label">Short Description</label>
-                </div>
-                <div class="field">
-                   <!-- <label for="appFile" class="label">Select WAR</label> -->
-                    <input type="file" name="UploadAddServlet" id="appFile"  />
+                            <label for="appDesc" class="label">Short Description</label>
+                        </div>
+                        <div class="field">
+                           <!-- <label for="appFile" class="label">Select WAR</label> -->
+                            <input type="file" name="UploadAddServlet" id="appFile"  />
 
-                </div>
-                <div class="app__footer">
-                    <input type="submit" id="addSubmit" value="Add" class="btn">
-                </div>
-                <div>
-                    <if test="${not empty upload_message}">
-                        <p class="errorMessage" >${upload_message}</p>
-                    </if>
-                </div>
-            </div>
+                        </div>
+                        <div class="app__footer">
+                            <input type="submit" id="addSubmit" value="Add" class="btn">
+                        </div>
+                        <div>
+                            <if test="${not empty upload_message}">
+                                <p class="errorMessage" >${upload_message}</p>
+                            </if>
+                        </div>
+                    </div>
 
-        </form>
-
-
-    </div>
-
-    <div id="showApps">
-
-
-
-        <c:forEach items="${apps}" var="app" >
-            <div id="${app.name}" class="appForDev" onclick="">
-                <h4>${app.name}</h4>
-                <p>Email : ${app.email}</p><br>
-                <p>Api_Key : ${app.Key}</p><br>
+                </form>
 
 
             </div>
-        </c:forEach>
+            <div id="containerApp">
+                <c:forEach items="${apps}" var="app" >
+                    <div id="${app.name}" class="infos app" >
 
+                        <h4>${app.name}</h4>
+                        <p>Email owner: ${app.owner}</p><br>
+                        <p>Email description: ${app.description}</p><br>
 
+                    </div>
+                    </a>
+
+                </c:forEach>
+            </div>
+        </div>
     </div>
-
-
-</div>
 </div>
 
 <div class="container">

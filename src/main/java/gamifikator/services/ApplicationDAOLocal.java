@@ -1,6 +1,7 @@
 package gamifikator.services;
 
 import gamifikator.model.Application;
+import gamifikator.model.User;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -33,5 +34,5 @@ public interface ApplicationDAOLocal extends IGenericDAO<Application>{
 
 	List findAppsOfUserPages(String email, int pageSize, int pageIndex);
 
-	public List getAllApplicationsOfUserByCreator(String creator);
+	List getAllApplicationsOfUserByEmail(User user);
 }

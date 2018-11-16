@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class Application implements Serializable {
 
 	@Id
+	private int id;
 	private String name;
 	@ManyToOne
 	private User owner;
@@ -41,6 +42,10 @@ public class Application implements Serializable {
 		this.isDeployed = isDeployed;
 	}
 
+	public int getId() {
+		return id;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -67,6 +72,10 @@ public class Application implements Serializable {
 
 	public boolean isDeployed() {
 		return isDeployed;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void setName(String name) {

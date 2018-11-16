@@ -8,6 +8,7 @@ import gamifikator.services.ApplicationDAOLocal;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -55,14 +56,17 @@ public class UploadAppServlet extends GenericServlet {
 		boolean uploadError = false;
 
 		// get upload path
-		String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY + owner.getUsername();
+		ServletContext context = getServletContext();
+		String realContextPath = context.getRealPath(req.getContextPath());
+		String uploadPath = context.getResource("/").getPath() + File.separator + UPLOAD_DIRECTORY + owner.getUsername();
+		// String uploadPath = realContextPath + File.separator + UPLOAD_DIRECTORY + owner.getUsername();
 		File uploadDir = new File(uploadPath);
 		if (!uploadDir.exists()) uploadDir.mkdir();
 
 		List<String> fileNames = new ArrayList<>();
 		String filename;
 
-		// retreive .war
+		// retrieve .war
 		for (Part part : req.getParts()) {
 			filename = part.getSubmittedFileName();
 			if(filename != null) {

@@ -15,7 +15,7 @@ RUN echo "AS_ADMIN_PASSWORD=admin" < /opt/pwdfile && \
 \
     ./bin/asadmin --interactive=false --user admin --passwordfile=/opt/pwdfile \
     create-javamail-resource --mailhost smtp.gmail.com --mailuser gamifikator.noreply --fromaddress gamifikator.noreply@gmail.com  \
-    --property mail.smtp.user=gamifikator.replay@gmail.com:mail.smtp.password=gamifikator:mail.smtp.auth=true:mail.smtp.socketFactory.class=javax.net.ssl.SSLSocketFactory:mail.smtp.socketFactory.port=465:mail.smtp.port=465 mail/amt && \
+    --property mail.smtp.user=gamifikator.noreplay@gmail.com:mail.smtp.password=gamifikator:mail.smtp.auth=true:mail.smtp.socketFactory.class=javax.net.ssl.SSLSocketFactory:mail.smtp.socketFactory.port=465:mail.smtp.port=465 mail/amt && \
 \
     ./bin/asadmin stop-domain domain1
 

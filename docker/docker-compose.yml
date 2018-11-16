@@ -1,9 +1,24 @@
 version: '3'
 services:
-    payara:
+    appserver:
         build: ./images/payara
         environment:
-        - ADMIN_PASSWORD=adminadmin
+         - ADMIN_PASSWORD=admin
+        restart: always
         ports:
-        - "8080:8080"
-        - "4848:4848"
+         - "4848:4848"
+         - "8080:8080"
+        volumes:
+         - ./deploy:/opt/payara5/deployments
+        links:
+         - db   
+    db:
+        build: ./images/mysql
+        environment:
+          MYSQL_DATABASE: gamifikator
+          MYSQL_ROOT_PASSWORD: root
+        volumes:
+        - ./images/mysql/src:/docker-entrypoint-initdb.d
+        - data:/var/lib/mysql
+volumes:
+  data:

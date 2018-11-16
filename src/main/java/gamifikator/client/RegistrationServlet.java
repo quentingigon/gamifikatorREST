@@ -58,12 +58,8 @@ public class RegistrationServlet extends GenericServlet {
 
 				req.getSession().setAttribute("user", user);
 				req.setAttribute("register_error", null);
-<<<<<<< HEAD
 				req.getRequestDispatcher(HOME_JSP).forward(req, resp);
 			}
-=======
-				req.getRequestDispatcher(HOME_JSP).forward(req, resp);			}
->>>>>>> 478881bd4523b9cd5600b3a9e6be0022af502058
 			else {
 				req.setAttribute("register_error", "Email or username already used.");
 				req.getRequestDispatcher(REGISTER_JSP).forward(req, resp);

@@ -82,7 +82,8 @@ public class AdminServlet extends GenericServlet {
 					e.printStackTrace();
 				}
 				req.getSession().setAttribute("message", "User suspended!");
-				resp.sendRedirect("/gamifikator/admin");
+				//resp.sendRedirect("/gamifikator/admin");
+				req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
 			}
 
 			// admin wants to reset password of user
@@ -98,7 +99,7 @@ public class AdminServlet extends GenericServlet {
 					e.printStackTrace();
 				}
 				req.getSession().setAttribute("message", "Password reset!");
-				resp.sendRedirect("/gamifikator/admin");
+				req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
 			}
 			try {
 				userDAO.update(user);

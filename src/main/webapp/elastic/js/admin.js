@@ -17,4 +17,5 @@ function toggleExit(e){
 
 function switchTheme(e){
     document.getElementsByTagName("BODY")[0].classList.toggle("theme2");
+
 }

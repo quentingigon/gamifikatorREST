@@ -62,7 +62,7 @@
         <div id="${app.name}" class="devHolder app" onclick="toggleL(${user.email})">
             <h4>${app.name}</h4>
             <p>Owner : ${app.owner}</p><br>
-            <p>Email : ${app.Key}</p><br>
+            <p>ApiKey : ${app.apiKey}</p><br>
 
 
         </div>

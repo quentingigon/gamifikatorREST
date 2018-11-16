@@ -22,7 +22,6 @@ public class ApplicationDAO extends GenericDAO implements ApplicationDAOLocal {
 		em.persist(app);
 		em.flush();
 		return true;
-
 	}
 
 	@Override

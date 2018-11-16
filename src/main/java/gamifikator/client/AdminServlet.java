@@ -67,10 +67,6 @@ public class AdminServlet extends GenericServlet {
 		String email = req.getParameter("email");
 		String cmd = req.getParameter("cmd");
 
-		Object[] appsTest = new Object[2];
-
-		appsTest[0] = new Application();
-		appsTest[1] = new Application();
 
 
 		// no button pressed
@@ -86,9 +82,15 @@ public class AdminServlet extends GenericServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				Object[] apps = appDAO.getAllApplicationsOfUserByEmail(user).toArray();
+
+				Object[] appsTest = new Object[2];
+
+				appsTest[0] = new Application("name", user, "creator", "description", "apiKey", "apiSecret", true);
+				//Application app2 = new Application("name2", user, "creator2", "description2", "apiKey2", "apiSecret2", true);
+
+				// Object[] apps = appDAO.getAllApplicationsOfUserByEmail(user).toArray();
 				// req.setAttribute("applist", "_open");
-				req.setAttribute("apps", apps);
+				req.setAttribute("apps", appsTest);
 			}
 			req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
 		}

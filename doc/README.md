@@ -25,6 +25,10 @@ After that, you can connect to the website with the url:
 If you want to make SQL operations on DB, connect to it via:
 
     docker exec -it <id of db_docker> bash
+    
+Then:
+
+	mysql -uroot -proot
 
 If you want to completly reset the database, you can do that with the command:
 

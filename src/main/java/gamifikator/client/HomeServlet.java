@@ -42,6 +42,7 @@ public class HomeServlet extends GenericServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		user = (User)req.getSession().getAttribute("user");
 		Object[] apps = appDAO.getAllApplicationsOfUserByEmail(user.getEmail()).toArray();
 		req.setAttribute("applist", "_open");
 		req.getSession().setAttribute("user", user);
@@ -86,7 +87,7 @@ public class HomeServlet extends GenericServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		req.getRequestDispatcher(HOME_JSP).forward(req,resp);
+		resp.sendRedirect("home");
 
 	}
 }

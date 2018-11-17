@@ -33,7 +33,7 @@ public class NewPasswordServlet extends GenericServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("newpass_error", "You must choose a new password.");
-		req.getRequestDispatcher(NEWPASS_JSP).forward(req,resp);
+		req.getRequestDispatcher(NEWPASS_JSP).forward(req, resp);
 
 	}
 
@@ -52,7 +52,7 @@ public class NewPasswordServlet extends GenericServlet {
 
 		if (user == null) {
 			req.setAttribute("newpass_error", "User doesn't exists.");
-			req.getRequestDispatcher(NEWPASS_JSP).forward(req, resp);
+			resp.sendRedirect("newpass");
 		}
 		else {
 			try {
@@ -65,7 +65,7 @@ public class NewPasswordServlet extends GenericServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			req.getRequestDispatcher(LOGIN_JSP).forward(req, resp);
+			resp.sendRedirect("login");
 		}
 	}
 }

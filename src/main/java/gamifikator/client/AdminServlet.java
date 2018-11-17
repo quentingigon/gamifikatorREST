@@ -1,9 +1,7 @@
 package gamifikator.client;
 
 import gamifikator.business.AdminUtils;
-import gamifikator.business.EmailUtils;
 import gamifikator.business.PasswordUtils;
-import gamifikator.model.Application;
 import gamifikator.model.User;
 import gamifikator.services.ApplicationDAOLocal;
 import gamifikator.services.UserDAOLocal;
@@ -15,9 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static gamifikator.business.PasswordUtils.DEFAULT_LENGTH;
 import static gamifikator.business.PasswordUtils.hash_SHA256;
@@ -65,18 +62,6 @@ public class AdminServlet extends GenericServlet {
 					e.printStackTrace();
 				}
 
-				Application app = new Application("name", user.getEmail(), true);
-				app.setDescription("test description");
-				Date createDate = new Date();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				app.setCreateDate(sdf.format(createDate));
-
-				try {
-					appDAO.create(app);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
 				Object[] apps = appDAO.getAllApplicationsOfUserByEmail(user.getEmail()).toArray();
 				req.setAttribute("applist", "_open");
 				req.setAttribute("apps", apps);
@@ -96,6 +81,9 @@ public class AdminServlet extends GenericServlet {
 		}
 
 		if (user != null && cmd != null)  {
+
+			HttpSession session = req.getSession(false);
+
 			// admin wants to suspend user
 			if (cmd.equals("1")) {
 				// AdminUtils admu = new AdminUtils();
@@ -105,28 +93,26 @@ public class AdminServlet extends GenericServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				req.getSession().setAttribute("message", "User suspended!");
-				//resp.sendRedirect("/gamifikator/admin");
-				req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
+				session.setAttribute("message", "User suspended!");
+				resp.sendRedirect("admin");
 			}
 
 			// admin wants to reset password of user
 			if (cmd.equals("2")) {
 				user.setIsPasswordValid(false);
 				PasswordUtils pu = new PasswordUtils(DEFAULT_LENGTH);
-				AdminUtils admu = new AdminUtils();
 
 				String newPass = pu.nextString();
 				try {
 					user.setPassword(hash_SHA256(newPass));
 					userDAO.update(user);
-					EmailUtils emu = new EmailUtils();
-					emu.sendPasswordByEmail(user.getEmail(), newPass);
+					AdminUtils admu = new AdminUtils();
+					admu.resetPassword(user.getEmail(), newPass);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				req.getSession().setAttribute("message", "Password reset!");
-				req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
+				session.setAttribute("message", "Password reset!");
+				resp.sendRedirect("admin");
 			}
 			try {
 				userDAO.update(user);

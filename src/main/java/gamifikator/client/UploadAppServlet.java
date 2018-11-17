@@ -29,7 +29,7 @@ import static gamifikator.business.PasswordUtils.DEFAULT_LENGTH;
  *
  * */
 @Stateless
-@WebServlet(name = "ApplicationServlet", urlPatterns = "/upload")
+@WebServlet(name = "UploadAppServlet", urlPatterns = "/upload")
 @MultipartConfig(location = "/",
 	fileSizeThreshold = 1024 * 1024 * 10,
 	maxFileSize = 1024 * 1024 * 50,

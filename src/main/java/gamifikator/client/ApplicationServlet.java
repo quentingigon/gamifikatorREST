@@ -37,7 +37,7 @@ public class ApplicationServlet extends GenericServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher(HOME_JSP).forward(req, resp);
+		resp.sendRedirect("home");
 	}
 
 	@Override
@@ -74,6 +74,6 @@ public class ApplicationServlet extends GenericServlet {
 		else {
 			req.setAttribute("app_error", "Application name is already used!");
 		}
-		req.getRequestDispatcher(HOME_JSP).forward(req,resp);
+		resp.sendRedirect("home");
 	}
 }

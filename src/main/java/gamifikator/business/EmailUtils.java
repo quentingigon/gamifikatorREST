@@ -17,10 +17,10 @@ import java.io.UnsupportedEncodingException;
 @Stateless
 public class EmailUtils {
 
-	@Resource(name = "mail/amt")
+	@Resource(name = "mail/amt/newpass")
 	private Session session;
 
-	public void sendPasswordByEmail(String userEmail, String password) throws MessagingException, UnsupportedEncodingException {
+	void sendPasswordByEmail(String userEmail, String password) throws MessagingException, UnsupportedEncodingException {
 
 		Message mail = new MimeMessage(session);
 

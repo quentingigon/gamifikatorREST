@@ -29,7 +29,8 @@
             Change name
         </button>
     </div>
-<div class="containerHome">
+</div>
+<div class="containerHome containerAdmin">
 
     <h2><span class="big">Gamifikator</span> <br> profile et applications de ${user.username}</h2>
     <div id="containerH" class>
@@ -71,12 +72,13 @@
 
             </div>
             <div id="containerApp">
-                <c:forEach items="${apps}" var="app" >
-                    <div id="${app.name}" class="infos app" >
 
-                        <h4>${app.name}</h4>
+                <c:forEach items="${apps}" var="app" >
+                <div id="${app.name}" class="appForDev" onclick="">
+                    <h4>${app.name}</h4>
                         <p>Email owner: ${app.owner}</p><br>
                         <p>Email description: ${app.description}</p><br>
+
 
                     </div>
                     </a>
@@ -85,7 +87,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 <div id="nname" class="container">
     <div class="profile">

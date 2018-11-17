@@ -3,7 +3,6 @@ package gamifikator.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Object representation of an application
@@ -15,7 +14,7 @@ public class Application implements Serializable {
 	@Id
 	private String name;
 	private String owner;
-	private Date createDate;
+	private String createDate;
 	private String description;
 	private String apiKey;
 	private String apiSecret;
@@ -23,7 +22,7 @@ public class Application implements Serializable {
 
 	public Application() {}
 
-	public Application(String name, String owner, Date createDate, String description, String apiKey, String apiSecret, boolean isDeployed) {
+	public Application(String name, String owner, String createDate, String description, String apiKey, String apiSecret, boolean isDeployed) {
 		this.name = name;
 		this.owner = owner;
 		this.createDate = createDate;
@@ -47,7 +46,7 @@ public class Application implements Serializable {
 		return owner;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
@@ -75,7 +74,7 @@ public class Application implements Serializable {
 		this.owner = owner;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 

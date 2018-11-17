@@ -22,10 +22,10 @@ import java.io.IOException;
 public class HomeServlet extends GenericServlet {
 
 	@EJB
-	ApplicationDAOLocal appDAO;
+	private ApplicationDAOLocal appDAO;
 
 	@EJB
-	UserDAOLocal userDAO;
+	private UserDAOLocal userDAO;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -35,9 +35,16 @@ public class HomeServlet extends GenericServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        User user = (User)req.getSession().getAttribute("user");
+		User user = null;
+		try {
+			// to display correct values instead of keeping user of session (in case of transaction error)
+			user = userDAO.findByEmail(((User)req.getSession().getAttribute("user")).getEmail());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		Object[] apps = appDAO.getAllApplicationsOfUserByEmail(user.getEmail()).toArray();
 		req.setAttribute("applist", "_open");
+		req.getSession().setAttribute("user", user);
 		req.setAttribute("apps", apps);
 		req.getRequestDispatcher(HOME_JSP).forward(req,resp);
 
@@ -76,7 +83,6 @@ public class HomeServlet extends GenericServlet {
 		currentUser.setUsername(req.getParameter("newName"));
 		try {
 			userDAO.update(currentUser);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -7,8 +7,6 @@
     <meta charset="UTF-8">
     <title>Elastic Login Form</title>
 
-
-
     <link rel="stylesheet" href="elastic/css/style.css">
     <link rel="shortcut icon" href="https://api.ning.com/files/*54juLYOTrMdu4eBaIkD5urGoLY-RZV7WCPaEMInPMnHNVM-k0nOmyGbBgR0pPONCf-vv7xrdDzY2efL-2SoM6jbvSFWFSn4/Gamification_head.png" type="image/x-icon">
 

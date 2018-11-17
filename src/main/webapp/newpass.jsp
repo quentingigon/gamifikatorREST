@@ -31,9 +31,12 @@
                     <input type="submit" id="bSubmit" value="Change password" class="btn">
                 </div>
                 <div>
-                    <if test="${not empty newpass_error}">
-                        <p >${newpass_error}</p>
-                    </if>
+                    <c:if test="${not empty login_error}">
+                        <p class="errorMessage" >${login_error}</p>
+                    </c:if>
+                    <c:if test="${not empty newpass_error}">
+                        <p class="errorMessage" >${newpass_error}</p>
+                    </c:if>
                 </div>
             </div>
 

@@ -48,7 +48,9 @@ On a donc provoqué une erreur après l'inscription dans la base de donnée de n
 2. On peut voir notre nom actuel 
 	![alt text](trans_1.png)
 3. Modification effectuée
-
+	![alt text](trans_2.png)
+4. On revient sur home et la valeur n'a pas été modifiée. Le rollback fonctionne donc (le nouveau nom est temporairement affiché, un reload recharge la valeur depuis la BD).
+	![alt text](trans_3.png)
 
 	
 

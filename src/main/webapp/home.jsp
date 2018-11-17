@@ -29,13 +29,14 @@
             Change name
         </button>
     </div>
-<div class="containerHome">
+</div>
+<div class="containerHome containerAdmin">
 
     <h2><span class="big">Gamifikator</span> <br> profile et applications de ${user.username}</h2>
     <div id="containerH" class>
 
 
-        <div id="buttonAddApp"><button id="ct" class="btn float-right">Add application</button></div>
+        <div id="buttonAddApp"><button id="toggleAddApp" class="btn float-right">Add application</button></div>
 
             <div id="addApp" class="app innerShadow ">
 
@@ -86,26 +87,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="container">
-    <div class="profile">
-
-        <form action="home" method="post" class="profile__form no_padding">
-            <p id="textH">So. Wanna change name ? </p>
-
-            <div class="profile__fields">
-
-                <div class="field">
-                    <input type="text" id="newname" name="newName" class="input" required pattern=.*\S.* />
-                    <label for="newName" class="label">New name:</label>
-                </div>
-            </div>
-        </form>
-
-    </div>
-
-</div>
 
 
 

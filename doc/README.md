@@ -29,3 +29,6 @@ If you want to make SQL operations on DB, connect to it via:
 If you want to completly reset the database, you can do that with the command:
 
     docker-compose down
+    
+## What does not work
+We can't connect to the JavaMail Resource in payara, even after setting all the right parameters. The session is always null.

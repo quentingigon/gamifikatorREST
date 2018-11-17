@@ -56,7 +56,7 @@
 </div>
 
 <!-- SHOW APPLICATIONS LIST -->
-<div id="showDev" class="${applist}"><i id="close" class="fas fa-window-close" onclick="toggleL()"></i>
+<div id="showDev" class="${applist}"><i id="close" class="fas fa-window-close" onclick="toggleExit(event)"></i>
 
     <c:forEach items="${apps}" var="app" >
         <div id="${app.name}" class="devHolder app" onclick="toggleL(${user.email})">

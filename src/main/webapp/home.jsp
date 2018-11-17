@@ -81,7 +81,7 @@
             <div id="${app.name}" class="appForDev" onclick="">
                 <h4>${app.name}</h4>
                 <p>Email : ${app.email}</p><br>
-                <p>Api_Key : ${app.Key}</p><br>
+                <p>Api_Key : ${app.email}</p><br>
 
 
             </div>

@@ -87,7 +87,7 @@ public class HomeServlet extends GenericServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		resp.sendRedirect("home");
+		resp.sendRedirect("home.jsp");
 
 	}
 }

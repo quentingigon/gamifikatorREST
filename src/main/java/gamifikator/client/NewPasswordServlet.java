@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
@@ -50,9 +51,12 @@ public class NewPasswordServlet extends GenericServlet {
 			e.printStackTrace();
 		}
 
+		HttpSession session = req.getSession(false);
+
+
 		if (user == null) {
-			req.setAttribute("newpass_error", "User doesn't exists.");
-			resp.sendRedirect("newpass");
+			session.setAttribute("newpass_error", "User doesn't exists.");
+			resp.sendRedirect("newpass.jsp");
 		}
 		else {
 			try {
@@ -65,7 +69,8 @@ public class NewPasswordServlet extends GenericServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			resp.sendRedirect("login");
+			session.setAttribute("login_error", null);
+			resp.sendRedirect("login.jsp");
 		}
 	}
 }

@@ -94,7 +94,7 @@ public class AdminServlet extends GenericServlet {
 					e.printStackTrace();
 				}
 				session.setAttribute("message", "User suspended!");
-				resp.sendRedirect("admin");
+				resp.sendRedirect("admin.jsp");
 			}
 
 			// admin wants to reset password of user
@@ -112,7 +112,7 @@ public class AdminServlet extends GenericServlet {
 					e.printStackTrace();
 				}
 				session.setAttribute("message", "Password reset!");
-				resp.sendRedirect("admin");
+				resp.sendRedirect("admin.jsp");
 			}
 			try {
 				userDAO.update(user);

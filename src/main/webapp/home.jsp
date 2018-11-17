@@ -37,6 +37,12 @@
 
         <div id="buttonAddApp"><button id="toggleAddApp" class="btn float-right">Add application</button></div>
 
+        <div>
+            <if test="${not empty app_error}">
+                <p class="errorMessage" >${app_error}</p>
+            </if>
+        </div>
+
         <div id="addApp" class="app innerShadow ">
 
             <form action="app" method="post" class="app__form ">

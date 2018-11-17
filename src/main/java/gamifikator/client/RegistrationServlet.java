@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -42,6 +43,8 @@ public class RegistrationServlet extends GenericServlet {
 		String username = req.getParameter("username");
 		String email = req.getParameter("email");
 
+		HttpSession session = req.getSession(false);
+
 		try {
 			// if passwords are equals and email is not in database
 			if (password.equals(passwordConf) && !userDAO.isValidUser(email, username)) {
@@ -57,11 +60,11 @@ public class RegistrationServlet extends GenericServlet {
 				userDAO.create(user);
 
 				req.getSession().setAttribute("user", user);
-				req.setAttribute("register_error", null);
-				resp.sendRedirect("home");
+				session.setAttribute("register_error", null);
+				resp.sendRedirect("home.jsp");
 			}
 			else {
-				req.setAttribute("register_error", "Email or username already used.");
+				session.setAttribute("register_error", "Email or username already used.");
 				resp.sendRedirect("register");
 			}
 		} catch (Exception e) {

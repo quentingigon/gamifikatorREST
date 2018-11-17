@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -48,6 +49,8 @@ public class ApplicationServlet extends GenericServlet {
 		String appName = req.getParameter("appname");
 		User owner = (User) req.getSession().getAttribute("user");
 
+		HttpSession session = req.getSession(false);
+
 		// check if name is already used by an app in db
 		if (!appDAO.isValidAppName(appName)) {
 			Date createDate = new Date();
@@ -72,7 +75,7 @@ public class ApplicationServlet extends GenericServlet {
 			}
 		}
 		else {
-			req.setAttribute("app_error", "Application name is already used!");
+			session.setAttribute("app_error", "Application name is already used!");
 		}
 		resp.sendRedirect("home");
 	}

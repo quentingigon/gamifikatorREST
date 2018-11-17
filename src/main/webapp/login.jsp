@@ -36,7 +36,7 @@
                     <input type="submit" id="bSubmit" value="Login" class="btn">
                 </div>
                 <div>
-                    <c:if test="${not empty login_error}">
+                    <c:if test="${not empty sessionScope.login_error}">
                         <script text="javascript">
                             [].map.call(document.querySelectorAll('.profile'), function(el) {
                                 el.classList.toggle('profile--open');

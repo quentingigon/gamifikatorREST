@@ -28,7 +28,7 @@
     <h2><span class="big">Gamifikator</span> <br> ${user.email}</h2>
 
     <div>
-        <if test="${not empty message}">
+        <if test="${not empty sessionScope.message}">
             <p class="errorMessage" >${message}</p>
         </if>
     </div>

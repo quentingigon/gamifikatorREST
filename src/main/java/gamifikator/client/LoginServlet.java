@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
@@ -40,6 +41,7 @@ public class LoginServlet extends GenericServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
 		String password = "";
+
 		try {
 			password = PasswordUtils.hash_SHA256(req.getParameter("password"));
 		} catch (NoSuchAlgorithmException e) {
@@ -56,32 +58,34 @@ public class LoginServlet extends GenericServlet {
 
 		if (user == null) {
 			req.setAttribute("login_error", "Bad user");
-			resp.sendRedirect("login");
+			req.getRequestDispatcher(LOGIN_JSP).forward(req, resp);
 		}
 		else {
 
+			HttpSession session = req.getSession(false);
+
 			// accout suspended
 			if (user.isSuspended()) {
-				req.setAttribute("login_error", "You have been suspended! Do not come and tell us it was a mistake, you surely deserved it.");
-				resp.sendRedirect("login");
+				session.setAttribute("login_error", "You have been suspended! Do not come and tell us it was a mistake, you surely deserved it.");
+				resp.sendRedirect("login.jsp");
 			}
 
 			// password must be changed
 			else if (!user.isPasswordValid()) {
-				req.setAttribute("login_error", "You have to chose a new password.");
-				resp.sendRedirect("newpass");
+				session.setAttribute("login_error", "You have to chose a new password.");
+				resp.sendRedirect("newpass.jsp");
 			}
 
 			// logged in
 			else if (user.getPassword().equals(password)) {
-				req.getSession().setAttribute("user", user);
+				session.setAttribute("user", user);
 				req.setAttribute("login_error", null);
 				resp.sendRedirect("home");
 			}
 
 			else {
 				req.setAttribute("login_error", "Bad password");
-				resp.sendRedirect("login");
+				req.getRequestDispatcher(LOGIN_JSP).forward(req, resp);
 			}
 		}
     }

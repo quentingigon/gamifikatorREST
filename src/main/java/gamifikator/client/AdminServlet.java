@@ -16,6 +16,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static gamifikator.business.PasswordUtils.DEFAULT_LENGTH;
 import static gamifikator.business.PasswordUtils.hash_SHA256;
@@ -65,6 +67,9 @@ public class AdminServlet extends GenericServlet {
 
 				Application app = new Application("name", user.getEmail(), true);
 				app.setDescription("test description");
+				Date createDate = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				app.setCreateDate(sdf.format(createDate));
 
 				try {
 					appDAO.create(app);
@@ -76,6 +81,7 @@ public class AdminServlet extends GenericServlet {
 				req.setAttribute("applist", "_open");
 				req.setAttribute("apps", apps);
 			}
+			req.getSession().setAttribute("message", null);
 			req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
 		}
 
@@ -112,7 +118,6 @@ public class AdminServlet extends GenericServlet {
 
 				String newPass = pu.nextString();
 				try {
-					// admu.resetPassword(user.getEmail(), newPass);
 					user.setPassword(hash_SHA256(newPass));
 					userDAO.update(user);
 					EmailUtils emu = new EmailUtils();

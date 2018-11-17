@@ -26,6 +26,7 @@ public class UserFilter implements Filter {
 		String registerURI = request.getContextPath() + "/register";
 		String elasticURI = request.getContextPath() + "/elastic";
 		String logosURI = request.getContextPath() + "/logos";
+		String newpassURI = request.getContextPath() + "/newpass";
 
 		// true if user is logged in
 		boolean loggedIn = session != null && session.getAttribute("user") != null;
@@ -33,7 +34,8 @@ public class UserFilter implements Filter {
 		boolean loginOrRegisterRequest = request.getRequestURI().equals(loginURI)
 										|| request.getRequestURI().equals(registerURI)
 										|| request.getRequestURI().contains(elasticURI)
-										|| request.getRequestURI().contains(logosURI);
+										|| request.getRequestURI().contains(logosURI)
+										|| request.getRequestURI().contains(newpassURI);
 
 		if (loggedIn || loginOrRegisterRequest) {
 			filterChain.doFilter(req, resp);

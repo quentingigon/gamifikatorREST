@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static gamifikator.business.PasswordUtils.DEFAULT_LENGTH;
@@ -110,7 +109,7 @@ public class UploadAppServlet extends GenericServlet {
 					}
 
 					// add app to database
-					appDAO.create(new Application(appName, owner.getEmail(), new Date(), description, apiKey, apiSecret, false));
+					appDAO.create(new Application(appName, owner.getEmail(), "date", description, apiKey, apiSecret, false));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -32,7 +32,9 @@ public class NewPasswordServlet extends GenericServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("newpass_error", "You must choose a new password.");
 		req.getRequestDispatcher(NEWPASS_JSP).forward(req,resp);
+
 	}
 
 	@Override

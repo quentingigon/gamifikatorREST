@@ -25,14 +25,14 @@ public class ApplicationDAO extends GenericDAO implements ApplicationDAOLocal {
 
 	@Override
 	public void update(Application app) {
-		findById(app);
+		//findById(app);
 		em.merge(app);
 	}
 
 	@Override
 	public void delete(Application app) {
 		if (!em.contains(app)) {
-			app = findById(app);
+			app = em.merge(app);
 		}
 		em.remove(app);
 	}

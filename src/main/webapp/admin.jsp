@@ -46,7 +46,7 @@
             <p>Nom : ${user.username}</p><br>
             <p>Email : ${user.email}</p><br>
 
-            <a href="admin?&email=${user.email}" class="btn appA"  onclick="toggleL()">Applications</a>
+            <a href="admin?&email=${user.email}" class="btn appA"  onclick="toggleL('${user.email}')">Applications</a>
 
         </div>
         </a>
@@ -59,11 +59,51 @@
 <div id="showDev" class="${applist}"><i id="close" class="fas fa-window-close" onclick="toggleExit(event)"></i>
 
     <c:forEach items="${apps}" var="app" >
-        <div id="${app.name}" class="devHolder app" onclick="toggleL(${user.email})">
-            <h4>${app.name}</h4>
-            <p>Owner : ${app.owner}</p><br>
+
+        <div id="${app.name}" class="appForDev" onclick="">
+            <form action="" method="post" class=" ">
+                <p  class="dev_field dev_title"> ${app.name} </p>
+                <input type="text"  name="appname" value="${app.name}" style="display:none;">
+
+                <textarea name="appDesc" class="dev_field dev_text" cols="50" rows="3" placeholder="${app.description}" ></textarea>
+
+                <p class="labelApi">Api public key:</p>
+                <p id="apikey" class="apikey">${app.apiKey}</p><br>
+
+                <p class="labelApi">Api secret key:</p>
+                <p id="apisecret" class="apikey">${app.apiSecret}</p><br>
+
+                <p>${app.createDate}</p><br>
+
+            </form>
+            <form action="home" method="post">
+                <input type="text"  name="deleteApp" value="${app.name}" style="display:none;">
+
+                <button type="submit"  value="Delete" class="btn delete_btn">
+                    <i class="far fa-trash-alt"></i></button>
+            </form>
         </div>
+
     </c:forEach>
+
+
+    <form action="admin" method="post">
+        <input type="text"  name="increment" value="minus" style="display:none;">
+        <input id="currEmailL" type="text"  name="current_email" value="test" style="display:none;">
+
+        <button type="submit"  value="" class="btn left_btn">
+            <i class="fas fa-chevron-circle-left"></i>
+        </button>
+    </form>
+
+    <form action="admin" method="post">
+        <input type="text"  name="increment" value="plus" style="display:none;">
+        <input id="currEmailR" type="text"  name="current_email" value="test" style="display:none;">
+
+        <button type="submit"  value="" class="btn right_btn">
+            <i class="fas fa-chevron-circle-right"></i>
+        </button>
+    </form>
 
 
 </div>

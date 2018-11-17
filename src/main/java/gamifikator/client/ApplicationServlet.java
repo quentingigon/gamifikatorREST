@@ -44,12 +44,22 @@ public class ApplicationServlet extends GenericServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		HttpSession session = req.getSession(false);
+
 		// get file and user info
 		String description = req.getParameter("appDesc");
+
 		String appName = req.getParameter("appname");
 		User owner = (User) req.getSession().getAttribute("user");
 
-		HttpSession session = req.getSession(false);
+
+		//check if description isn't too long
+		if(description.length() > 400){
+			session.setAttribute("app_error", "Application description too long!");
+			resp.sendRedirect("home");
+			return;
+
+		}
 
 		// check if name is already used by an app in db
 		if (!appDAO.isValidAppName(appName)) {
@@ -73,6 +83,9 @@ public class ApplicationServlet extends GenericServlet {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
+
+			session.setAttribute("app_error", "");
+
 		}
 		else {
 			session.setAttribute("app_error", "Application name is already used!");

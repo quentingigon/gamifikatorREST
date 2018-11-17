@@ -44,6 +44,12 @@ public class AdminServlet extends GenericServlet {
 		String email = req.getParameter("email");
 		String cmd = req.getParameter("cmd");
 
+		req.getSession().setAttribute("message", null);
+
+		HttpSession session = req.getSession(false);
+
+		session.setAttribute("index", 0);
+		req.setAttribute("applist", " ");
 
 
 		// no button pressed
@@ -62,7 +68,11 @@ public class AdminServlet extends GenericServlet {
 					e.printStackTrace();
 				}
 
-				Object[] apps = appDAO.getAllApplicationsOfUserByEmail(user.getEmail()).toArray();
+				session.setAttribute("index", 0);
+
+				session.setAttribute("CURRENT_EMAIL", email);
+
+				Object[] apps = appDAO.findAppsOfUserPages(email, 4, 0).toArray();
 				req.setAttribute("applist", "_open");
 				req.setAttribute("apps", apps);
 			}
@@ -82,7 +92,6 @@ public class AdminServlet extends GenericServlet {
 
 		if (user != null && cmd != null)  {
 
-			HttpSession session = req.getSession(false);
 
 			// admin wants to suspend user
 			if (cmd.equals("1")) {
@@ -126,5 +135,35 @@ public class AdminServlet extends GenericServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		HttpSession session = req.getSession(false);
+
+		int indexValue = (int)session.getAttribute("index");
+		//String email = req.getParameter("current_email");
+		String email = (String)session.getAttribute("CURRENT_EMAIL");
+
+		String inc = req.getParameter("increment");
+		if(inc != null){
+			if(inc.equals("minus") ){
+				indexValue--;
+				}
+			if(inc.equals("plus") ){
+				indexValue++;
+			}
+
+			indexValue = indexValue < 0 ? 0 : indexValue;
+			session.setAttribute("index", indexValue );
+
+
+			Object[] apps = appDAO.findAppsOfUserPages(email , 4, indexValue).toArray();
+
+			Object[] users = userDAO.getAllUsers().toArray();
+			req.setAttribute("users", users);
+
+			req.setAttribute("applist", "_open");
+			req.setAttribute("apps", apps);
+			req.getRequestDispatcher(ADMIN_JSP).forward(req, resp);
+
+		}
+		//TODO Error return ?
 	}
 }

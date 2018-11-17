@@ -46,6 +46,8 @@
 
 
                     <span id="message"></span>
+                    <c:if test="${not empty login_error}">
+                    <p class="errorMessage" >${login_error}</p>
                 </div>
             </div>
         </form>

@@ -31,7 +31,7 @@
 
 <div class="containerHome containerAdmin">
 
-    <h2><span class="big">Gamifikator</span> <br> profile et applications de ${user.username}</h2>
+    <h2><span class="big">Gamifikator</span> <br> profile and applications for ${user.username}</h2>
     <div id="containerH" class>
 
 
@@ -61,9 +61,7 @@
                         <input type="submit" id="addSubmit" value="Add" class="btn">
                     </div>
                     <div>
-                        <if test="${not empty upload_message}">
-                            <p class="errorMessage" >${upload_message}</p>
-                        </if>
+
                     </div>
                 </div>
 
@@ -73,20 +71,51 @@
         </div>
         <div id="containerApp">
 
+
             <c:forEach items="${apps}" var="app" >
+
                 <div id="${app.name}" class="appForDev" onclick="">
-                    <h4>${app.name}</h4>
-                    <p>Email owner: ${app.owner}</p><br>
-                    <p>Email description: ${app.description}</p><br>
+                    <form action="home" method="post" class=" ">
+                        <p  class="dev_field dev_title"> ${app.name} </p>
+                        <input type="text"  name="appname" value="${app.name}" style="display:none;">
 
+                        <textarea name="appDesc" class="dev_field dev_text" cols="50" rows="3" placeholder="${app.description}" ></textarea>
 
+                        <p class="apikey">${app.apiKey}</p><br>
+
+                        <p>${app.createDate}</p><br>
+                        <input type="submit"  value="Update" class="btn update_btn">
+
+                    </form>
+                    <form action="home" method="post">
+                        <input type="text"  name="deleteApp" value="${app.name}" style="display:none;">
+
+                        <button type="submit"  value="Delete" class="btn delete_btn">
+                    <i class="far fa-trash-alt"></i></button>
+                    </form>
                 </div>
-                </a>
 
             </c:forEach>
         </div>
     </div>
 </div>
+
+
+<form action="home" method="post">
+    <input type="text"  name="increment" value="minus" style="display:none;">
+
+    <button type="submit"  value="" class="btn left_btn">
+        <i class="fas fa-chevron-circle-left"></i>
+    </button>
+</form>
+
+<form action="home" method="post">
+    <input type="text"  name="increment" value="plus" style="display:none;">
+
+    <button type="submit"  value="" class="btn right_btn">
+        <i class="fas fa-chevron-circle-right"></i>
+    </button>
+</form>
 
 <div class="container">
     <div class="profile">

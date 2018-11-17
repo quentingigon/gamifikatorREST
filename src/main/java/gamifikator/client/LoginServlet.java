@@ -41,6 +41,8 @@ public class LoginServlet extends GenericServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
 		String password = "";
+		req.setAttribute("login_error", null);
+
 
 		try {
 			password = PasswordUtils.hash_SHA256(req.getParameter("password"));

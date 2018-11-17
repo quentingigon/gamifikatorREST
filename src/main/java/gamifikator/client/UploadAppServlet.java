@@ -58,8 +58,8 @@ public class UploadAppServlet extends GenericServlet {
 		// get upload path
 		ServletContext context = getServletContext();
 		String realContextPath = context.getRealPath(req.getContextPath());
-		String uploadPath = context.getResource("/").getPath() + File.separator + UPLOAD_DIRECTORY + owner.getUsername();
-		// String uploadPath = realContextPath + File.separator + UPLOAD_DIRECTORY + owner.getUsername();
+		//String uploadPath = context.getResource("/").getPath() + File.separator + UPLOAD_DIRECTORY + owner.getUsername();
+		String uploadPath = realContextPath + File.separator + UPLOAD_DIRECTORY + owner.getUsername();
 		File uploadDir = new File(uploadPath);
 		if (!uploadDir.exists()) uploadDir.mkdir();
 
@@ -109,7 +109,7 @@ public class UploadAppServlet extends GenericServlet {
 					}
 
 					// add app to database
-					appDAO.create(new Application(appName, owner, owner.getUsername(), description, apiKey, apiSecret, false));
+					appDAO.create(new Application(appName, owner.getEmail(), description, apiKey, apiSecret, false));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

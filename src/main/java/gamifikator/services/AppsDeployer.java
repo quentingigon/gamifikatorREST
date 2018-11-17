@@ -28,7 +28,7 @@ public class AppsDeployer {
         folderSrc = new File(pathToApp);
         try {
             String path = folderSrc.getAbsolutePath().replace("\\", "/");
-            pr = rt.exec("docker cp " + path + " docker_payara_1:/opt/payara/glassfish/domains/domain1/autodeploy");
+            pr = rt.exec("docker cp " + path + " payara:/opt/payara/glassfish/domains/domain1/autodeploy");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -36,6 +36,11 @@ public class ApplicationServlet extends GenericServlet {
 	}
 
 	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getRequestDispatcher(HOME_JSP).forward(req, resp);
+	}
+
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		// get file and user info
@@ -44,7 +49,7 @@ public class ApplicationServlet extends GenericServlet {
 		User owner = (User) req.getSession().getAttribute("user");
 
 		// check if name is already used by an app in db
-		if (appDAO.isValidAppName(appName)) {
+		if (!appDAO.isValidAppName(appName)) {
 			Date createDate = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

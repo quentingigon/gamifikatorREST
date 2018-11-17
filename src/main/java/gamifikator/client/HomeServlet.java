@@ -41,7 +41,6 @@ public class HomeServlet extends GenericServlet {
 		req.setAttribute("apps", apps);
 		req.getRequestDispatcher(HOME_JSP).forward(req,resp);
 
-
 		// .war deployment
 
 		/*

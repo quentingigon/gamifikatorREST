@@ -109,6 +109,26 @@
 </div>
 
 
+<div id="nname" class="container">
+    <div class="profile">
+
+        <form action="home" method="post" class="profile__form no_padding">
+            <p id="textH">So. Wanna change name ? </p>
+
+            <div class="profile__fields">
+
+                <div class="field">
+                    <input type="text" id="newname" name="newName" class="input" required pattern=.*\S.* />
+                    <label for="newName" class="label">New name:</label>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+
 
 <script  src="elastic/js/home.js"></script>
 

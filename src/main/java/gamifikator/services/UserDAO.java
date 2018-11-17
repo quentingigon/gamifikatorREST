@@ -26,10 +26,11 @@ public class UserDAO extends GenericDAO implements UserDAOLocal {
 	}
 
 	@Override
-	public void update(User user) {
+	public void update(User user) throws Exception {
 		if (findByEmail(user.getEmail()) != null) {
 			em.merge(user);
 		}
+		throw new Exception("Huge error");
 	}
 
 	@Override

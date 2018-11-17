@@ -43,6 +43,11 @@ public class ApplicationDAO extends GenericDAO implements ApplicationDAOLocal {
 	}
 
 	@Override
+	public boolean isValidAppName(String name) {
+		return findAppByName(name) != null;
+	}
+
+	@Override
 	public Application findById(Application id) {
 		return em.find(Application.class, id);
 	}

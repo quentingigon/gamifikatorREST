@@ -34,4 +34,6 @@ public interface ApplicationDAOLocal extends IGenericDAO<Application>{
 	List findAppsOfUserPages(String email, int pageSize, int pageIndex);
 
 	List getAllApplicationsOfUserByEmail(String email);
+
+	boolean isValidAppName(String name);
 }

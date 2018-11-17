@@ -21,7 +21,7 @@ Dans UserDAO, une exception est thrown quand a mis à jour un User :
 			throw new Exception("Huge error");
 		}
 		
-On appelle update() dans HomeServlet :
+On appelle update() dans HomeServlet (userDAO est un EJB):
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

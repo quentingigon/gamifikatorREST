@@ -18,7 +18,7 @@ services:
         container_name: dbMysql
         environment:
             MYSQL_DATABASE: gamifikator
-            MYSQL_ROOT_PASSWORD: roots
+            MYSQL_ROOT_PASSWORD: root
         volumes:
             - data:/var/lib/mysql
             

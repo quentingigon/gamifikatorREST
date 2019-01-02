@@ -1,21 +1,18 @@
-package io.swagger.model;
+package io.swagger.entities;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import java.util.Objects;
 
 /**
- * Event
+ * EventEntity
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-02T12:37:14.114Z")
 
-public class Event   {
+public class EventEntity {
   @JsonProperty("userId")
   private String userId = null;
 
@@ -25,7 +22,7 @@ public class Event   {
   @JsonProperty("name")
   private String name = null;
 
-  public Event userId(String userId) {
+  public EventEntity userId(String userId) {
     this.userId = userId;
     return this;
   }
@@ -45,7 +42,7 @@ public class Event   {
     this.userId = userId;
   }
 
-  public Event apiToken(String apiToken) {
+  public EventEntity apiToken(String apiToken) {
     this.apiToken = apiToken;
     return this;
   }
@@ -65,7 +62,7 @@ public class Event   {
     this.apiToken = apiToken;
   }
 
-  public Event name(String name) {
+  public EventEntity name(String name) {
     this.name = name;
     return this;
   }
@@ -94,7 +91,7 @@ public class Event   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Event event = (Event) o;
+    EventEntity event = (EventEntity) o;
     return Objects.equals(this.userId, event.userId) &&
         Objects.equals(this.apiToken, event.apiToken) &&
         Objects.equals(this.name, event.name);
@@ -108,7 +105,7 @@ public class Event   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Event {\n");
+    sb.append("class EventEntity {\n");
     
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    apiToken: ").append(toIndentedString(apiToken)).append("\n");

@@ -1,24 +1,23 @@
 package io.swagger.api;
 
-import io.swagger.model.Rule;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiParam;
+import io.swagger.entities.ApplicationEntity;
+import io.swagger.entities.RuleEntity;
+import io.swagger.repositories.ApplicationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.constraints.*;
-import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.net.URI;
 import java.util.List;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-02T12:37:14.114Z")
 
@@ -31,66 +30,76 @@ public class RulesApiController implements RulesApi {
 
     private final HttpServletRequest request;
 
+    @Autowired
+    ApplicationRepository applicationRepository;
+
     @org.springframework.beans.factory.annotation.Autowired
     public RulesApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
         this.request = request;
     }
 
-    public ResponseEntity<Rule> createRule(@ApiParam(value = "New rule" ,required=true )  @Valid @RequestBody Rule body) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Rule>(objectMapper.readValue("{  \"name\" : \"name\",  \"id\" : 0}", Rule.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Rule>(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<RuleEntity> createRule(@ApiParam(value = "New rule" ,required=true )  @Valid @RequestBody RuleEntity body) {
+        ApplicationEntity app = applicationRepository.findByApiToken(body.getAppApiToken());
+
+        if (app == null) {
+            app = new ApplicationEntity(body.getAppApiToken());
+        }
+        else {
+
+            List<RuleEntity> rules = app.getRules();
+            for (int i = 0; i < rules.size(); i++) {
+                if (rules.get(i).equals(body)) {
+                    return ResponseEntity.status(304).build();
+                }
             }
         }
-
-        return new ResponseEntity<Rule>(HttpStatus.NOT_IMPLEMENTED);
+        RuleEntity newRule = new RuleEntity();
+        // verify rule
+        app.addRulesItem(newRule);
+        applicationRepository.save(app);
+        URI location = ServletUriComponentsBuilder
+            .fromCurrentRequest().path("/{id}")
+            .buildAndExpand(newRule.getAppApiToken() + newRule.getName()).toUri();
+        return ResponseEntity.created(location).build();
     }
 
-    public ResponseEntity<Rule> deleteRule(@ApiParam(value = "Rule to be deleted" ,required=true )  @Valid @RequestBody Rule body) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Rule>(objectMapper.readValue("{  \"name\" : \"name\",  \"id\" : 0}", Rule.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Rule>(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<RuleEntity> deleteRule(@ApiParam(value = "RuleEntity to be deleted" ,required=true )  @Valid @RequestBody RuleEntity body) {
+        ApplicationEntity app = applicationRepository.findByApiToken(body.getAppApiToken());
+        if (app == null) {
+            return ResponseEntity.notFound().build();
+        }
+        List<RuleEntity> appRules = app.getRules();
+        for (RuleEntity rule: appRules) {
+            if (rule.getName().equals(body.getName())) {
+                appRules.remove(rule);
+                app.setRules(appRules);
+                applicationRepository.save(app);
+                return ResponseEntity.ok(rule);
             }
         }
-
-        return new ResponseEntity<Rule>(HttpStatus.NOT_IMPLEMENTED);
+        return ResponseEntity.status(304).build();
     }
 
-    public ResponseEntity<List<Rule>> getRules() {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<List<Rule>>(objectMapper.readValue("[ {  \"name\" : \"name\",  \"id\" : 0}, {  \"name\" : \"name\",  \"id\" : 0} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<List<Rule>>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+    public ResponseEntity<List<RuleEntity>> getRules(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apitoken) {
+        ApplicationEntity app = applicationRepository.findByApiToken(apitoken);
+        if (app == null) {
+            return ResponseEntity.notFound().build();
         }
-
-        return new ResponseEntity<List<Rule>>(HttpStatus.NOT_IMPLEMENTED);
+        return ResponseEntity.ok(app.getRules());
     }
 
-    public ResponseEntity<Rule> updateRule(@ApiParam(value = "New rule" ,required=true )  @Valid @RequestBody Rule body) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Rule>(objectMapper.readValue("{  \"name\" : \"name\",  \"id\" : 0}", Rule.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Rule>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+    public ResponseEntity<RuleEntity> updateRule(@ApiParam(value = "updated rule" ,required=true )  @Valid @RequestBody RuleEntity body) {
+        ApplicationEntity app = applicationRepository.findByApiToken(body.getAppApiToken());
+        if (app == null) {
+            return ResponseEntity.notFound().build();
         }
+        else {
+            // TODO
+            List<RuleEntity> rules = app.getRules();
 
-        return new ResponseEntity<Rule>(HttpStatus.NOT_IMPLEMENTED);
+            return ResponseEntity.ok(body);
+        }
     }
 
 }

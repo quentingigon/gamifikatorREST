@@ -1,28 +1,28 @@
-package io.swagger.model;
+package io.swagger.entities;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import java.util.Objects;
 
 /**
- * Rule
+ * RuleEntity
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-02T12:37:14.114Z")
 
-public class Rule   {
+public class RuleEntity {
   @JsonProperty("id")
   private Long id = null;
 
   @JsonProperty("name")
   private String name = null;
 
-  public Rule id(Long id) {
+  @JsonProperty("appApiToken")
+  private String appApiToken = null;
+
+  public RuleEntity id(Long id) {
     this.id = id;
     return this;
   }
@@ -42,7 +42,7 @@ public class Rule   {
     this.id = id;
   }
 
-  public Rule name(String name) {
+  public RuleEntity name(String name) {
     this.name = name;
     return this;
   }
@@ -62,6 +62,21 @@ public class Rule   {
     this.name = name;
   }
 
+  /**
+   * Get appApiToken
+   * @return appApiToken
+   **/
+  @ApiModelProperty(value = "")
+
+
+  public String getAppApiToken() {
+    return appApiToken;
+  }
+
+  public void setAppApiToken(String appApiToken) {
+    this.appApiToken = appApiToken;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -71,7 +86,7 @@ public class Rule   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Rule rule = (Rule) o;
+    RuleEntity rule = (RuleEntity) o;
     return Objects.equals(this.id, rule.id) &&
         Objects.equals(this.name, rule.name);
   }
@@ -84,7 +99,7 @@ public class Rule   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Rule {\n");
+    sb.append("class RuleEntity {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");

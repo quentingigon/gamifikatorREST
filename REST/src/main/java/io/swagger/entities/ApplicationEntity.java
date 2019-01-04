@@ -16,18 +16,18 @@ public class ApplicationEntity implements Serializable {
 	private String owner;
 	private String createDate;
 	private String description;
-	private String apiKey;
+	private String apiToken;
 	private String apiSecret;
 	private boolean isDeployed;
 
 	public ApplicationEntity() {}
 
-	public ApplicationEntity(String name, String owner, String createDate, String description, String apiKey, String apiSecret, boolean isDeployed) {
+	public ApplicationEntity(String name, String owner, String createDate, String description, String apiToken, String apiSecret, boolean isDeployed) {
 		this.name = name;
 		this.owner = owner;
 		this.createDate = createDate;
 		this.description = description;
-		this.apiKey = apiKey;
+		this.apiToken = apiToken;
 		this.apiSecret = apiSecret;
 		this.isDeployed = isDeployed;
 	}
@@ -54,8 +54,8 @@ public class ApplicationEntity implements Serializable {
 		return description;
 	}
 
-	public String getApiKey() {
-		return apiKey;
+	public String getApiToken() {
+		return apiToken;
 	}
 
 	public String getApiSecret() {
@@ -82,8 +82,8 @@ public class ApplicationEntity implements Serializable {
 		this.description = description;
 	}
 
-	public void setApiKey(String apiKey) {
-		this.apiKey = apiKey;
+	public void setApiToken(String apiToken) {
+		this.apiToken = apiToken;
 	}
 
 	public void setApiSecret(String apiSecret) {

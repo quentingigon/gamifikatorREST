@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 
 public interface ApplicationRepository extends CrudRepository<ApplicationEntity, String> {
 
-	@Lock(LockModeType.PESSIMISTIC_WRITE)
+	@Lock(LockModeType.PESSIMISTIC_WRITE) // TODO voir si OPTIMISTIC est pas mieux
 	@Transactional
 	ApplicationEntity findByApiToken(String apiToken);
 }

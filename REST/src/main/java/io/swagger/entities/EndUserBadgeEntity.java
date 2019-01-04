@@ -4,14 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class EndUserBadgesEntity {
+public class EndUserBadgeEntity {
 
 	@Id
 	private int id;
 	private int userId;
 	private int badgeId;
 
-	public EndUserBadgesEntity(int userId, int badgeId) {
+	public EndUserBadgeEntity(int userId, int badgeId) {
 		this.userId = userId;
 		this.badgeId = badgeId;
 	}

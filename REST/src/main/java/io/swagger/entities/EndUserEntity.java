@@ -4,28 +4,23 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class RuleEntity {
+public class EndUserEntity {
 
 	@Id
 	private int id;
-	private String name;
 	private String apiToken;
+	private String name;
 
-	public RuleEntity(String name, String apiToken) {
-		this.name = name;
+	public EndUserEntity(String apiToken, String name) {
 		this.apiToken = apiToken;
+		this.name = name;
+	}
+
+	public EndUserEntity() {
 	}
 
 	public int getId() {
 		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getApiToken() {
@@ -34,5 +29,13 @@ public class RuleEntity {
 
 	public void setApiToken(String apiToken) {
 		this.apiToken = apiToken;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

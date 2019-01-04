@@ -1,78 +1,60 @@
 package io.swagger.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-import java.util.Objects;
-
-/**
- * BadgeEntity
- */
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-02T12:37:14.114Z")
-
+@Entity
 public class BadgeEntity {
-  @JsonProperty("id")
-  private Long id = null;
 
-  public BadgeEntity id(Long id) {
-    this.id = id;
-    return this;
-  }
+	@Id
+	private int id;
+	private String name;
+	private String apiToken;
+	private int level;
+	private String iconName;
 
-  /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
+	public BadgeEntity(String name, String apiToken, int level, String iconName) {
+		this.name = name;
+		this.apiToken = apiToken;
+		this.level = level;
+		this.iconName = iconName;
+	}
 
+	public BadgeEntity() {}
 
-  public Long getId() {
-    return id;
-  }
+	public int getId() {
+		return id;
+	}
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+	public String getName() {
+		return name;
+	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    BadgeEntity badge = (BadgeEntity) o;
-    return Objects.equals(this.id, badge.id);
-  }
+	public String getApiToken() {
+		return apiToken;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id);
-  }
+	public void setApiToken(String apiToken) {
+		this.apiToken = apiToken;
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class BadgeEntity {\n");
-    
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	public int getLevel() {
+		return level;
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public String getIconName() {
+		return iconName;
+	}
+
+	public void setIconName(String iconName) {
+		this.iconName = iconName;
+	}
 }
-

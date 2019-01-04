@@ -1,191 +1,96 @@
 package io.swagger.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
- * ApplicationEntity
- */
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-02T12:50:36.574Z")
+ * Object representation of an application
+ *
+ * */
+@Entity
+public class ApplicationEntity implements Serializable {
 
-public class ApplicationEntity {
-	@JsonProperty("apiToken")
-	private String apiToken = null;
+	@Id
+	private String name;
+	private String owner;
+	private String createDate;
+	private String description;
+	private String apiKey;
+	private String apiSecret;
+	private boolean isDeployed;
 
-	@JsonProperty("badges")
-	@Valid
-	private List<BadgeEntity> badges = null;
+	public ApplicationEntity() {}
 
-	@JsonProperty("rules")
-	@Valid
-	private List<RuleEntity> rules = null;
-
-	@JsonProperty("users")
-	@Valid
-	private List<UserEntity> users = null;
-
-
-	public ApplicationEntity(String apiToken) {
-		this.apiToken = apiToken;
+	public ApplicationEntity(String name, String owner, String createDate, String description, String apiKey, String apiSecret, boolean isDeployed) {
+		this.name = name;
+		this.owner = owner;
+		this.createDate = createDate;
+		this.description = description;
+		this.apiKey = apiKey;
+		this.apiSecret = apiSecret;
+		this.isDeployed = isDeployed;
 	}
 
-	public ApplicationEntity apiToken(String apiToken) {
-		this.apiToken = apiToken;
-		return this;
+	public ApplicationEntity(String name, String owner, boolean isDeployed) {
+		this.name = name;
+		this.owner = owner;
+		this.isDeployed = isDeployed;
 	}
 
-	/**
-	 * Get apiToken
-	 * @return apiToken
-	 **/
-	@ApiModelProperty(value = "")
-
-
-	public String getApiToken() {
-		return apiToken;
+	public String getName() {
+		return name;
 	}
 
-	public void setApiToken(String apiToken) {
-		this.apiToken = apiToken;
+	public String getOwner() {
+		return owner;
 	}
 
-	public ApplicationEntity badges(List<BadgeEntity> badges) {
-		this.badges = badges;
-		return this;
+	public String getCreateDate() {
+		return createDate;
 	}
 
-	public ApplicationEntity addBadgesItem(BadgeEntity badgesItem) {
-		if (this.badges == null) {
-			this.badges = new ArrayList<BadgeEntity>();
-		}
-		this.badges.add(badgesItem);
-		return this;
+	public String getDescription() {
+		return description;
 	}
 
-	/**
-	 * Get badges
-	 * @return badges
-	 **/
-	@ApiModelProperty(value = "")
-
-	@Valid
-
-	public List<BadgeEntity> getBadges() {
-		return badges;
+	public String getApiKey() {
+		return apiKey;
 	}
 
-	public void setBadges(List<BadgeEntity> badges) {
-		this.badges = badges;
+	public String getApiSecret() {
+		return apiSecret;
 	}
 
-	public ApplicationEntity rules(List<RuleEntity> rules) {
-		this.rules = rules;
-		return this;
+	public boolean isDeployed() {
+		return isDeployed;
 	}
 
-	public ApplicationEntity addRulesItem(RuleEntity rulesItem) {
-		if (this.rules == null) {
-			this.rules = new ArrayList<RuleEntity>();
-		}
-		this.rules.add(rulesItem);
-		return this;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	/**
-	 * Get rules
-	 * @return rules
-	 **/
-	@ApiModelProperty(value = "")
-
-	@Valid
-
-	public List<RuleEntity> getRules() {
-		return rules;
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 
-	public void setRules(List<RuleEntity> rules) {
-		this.rules = rules;
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
 
-	public ApplicationEntity users(List<UserEntity> users) {
-		this.users = users;
-		return this;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public ApplicationEntity addUsersItem(UserEntity usersItem) {
-		if (this.users == null) {
-			this.users = new ArrayList<UserEntity>();
-		}
-		this.users.add(usersItem);
-		return this;
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
 	}
 
-	/**
-	 * Get users
-	 * @return users
-	 **/
-	@ApiModelProperty(value = "")
-
-	@Valid
-
-	public List<UserEntity> getUsers() {
-		return users;
+	public void setApiSecret(String apiSecret) {
+		this.apiSecret = apiSecret;
 	}
 
-	public void setUsers(List<UserEntity> users) {
-		this.users = users;
-	}
-
-
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ApplicationEntity applicationEntity = (ApplicationEntity) o;
-		return Objects.equals(this.apiToken, applicationEntity.apiToken) &&
-			Objects.equals(this.badges, applicationEntity.badges) &&
-			Objects.equals(this.rules, applicationEntity.rules) &&
-			Objects.equals(this.users, applicationEntity.users);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(apiToken, badges, rules, users);
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ApplicationEntity {\n");
-
-		sb.append("    apiToken: ").append(toIndentedString(apiToken)).append("\n");
-		sb.append("    badges: ").append(toIndentedString(badges)).append("\n");
-		sb.append("    rules: ").append(toIndentedString(rules)).append("\n");
-		sb.append("    users: ").append(toIndentedString(users)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
-
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
+	public void setDeployed(boolean deployed) {
+		isDeployed = deployed;
 	}
 }
-

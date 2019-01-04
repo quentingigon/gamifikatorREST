@@ -3,8 +3,10 @@ package io.swagger.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.model.Rule;
+import io.swagger.repositories.RuleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ import java.util.List;
 
 @Controller
 public class RulesApiController implements RulesApi {
+
+    @Autowired
+    RuleRepository ruleRepository;
 
     private static final Logger log = LoggerFactory.getLogger(RulesApiController.class);
 

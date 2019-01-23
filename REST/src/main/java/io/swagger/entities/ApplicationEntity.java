@@ -1,8 +1,11 @@
 package io.swagger.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Object representation of an application
@@ -12,13 +15,20 @@ import java.io.Serializable;
 public class ApplicationEntity implements Serializable {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String name;
 	private String owner;
 	private String createDate;
 	private String description;
 	private String apiToken;
 	private String apiSecret;
+
 	private boolean isDeployed;
+
+	private ArrayList<RuleEntity> rules;
+	private ArrayList<BadgeEntity> badges;
+	private ArrayList<EndUserEntity> endusers;
 
 	public ApplicationEntity() {}
 
@@ -30,12 +40,24 @@ public class ApplicationEntity implements Serializable {
 		this.apiToken = apiToken;
 		this.apiSecret = apiSecret;
 		this.isDeployed = isDeployed;
+
+		this.rules = new ArrayList<>();
+		this.badges = new ArrayList<>();
+		this.endusers = new ArrayList<>();
 	}
 
 	public ApplicationEntity(String name, String owner, boolean isDeployed) {
 		this.name = name;
 		this.owner = owner;
 		this.isDeployed = isDeployed;
+
+		this.rules = new ArrayList<>();
+		this.badges = new ArrayList<>();
+		this.endusers = new ArrayList<>();
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	public String getName() {
@@ -92,5 +114,50 @@ public class ApplicationEntity implements Serializable {
 
 	public void setDeployed(boolean deployed) {
 		isDeployed = deployed;
+	}
+
+	public ArrayList<RuleEntity> getRules() {
+		return rules;
+	}
+
+	public void setRules(ArrayList<RuleEntity> rules) {
+		this.rules = rules;
+	}
+
+	public void addToRules(RuleEntity rule) {
+		if (rules == null) {
+			rules = new ArrayList<>();
+		}
+		rules.add(rule);
+	}
+
+	public ArrayList<EndUserEntity> getEndusers() {
+		return endusers;
+	}
+
+	public void setEndusers(ArrayList<EndUserEntity> endusers) {
+		this.endusers = endusers;
+	}
+
+	public void addToEndusers(EndUserEntity enduser) {
+		if (endusers == null) {
+			endusers = new ArrayList<>();
+		}
+		endusers.add(enduser);
+	}
+
+	public ArrayList<BadgeEntity> getBadges() {
+		return badges;
+	}
+
+	public void setBadges(ArrayList<BadgeEntity> badges) {
+		this.badges = badges;
+	}
+
+	public void addToBadges(BadgeEntity badge) {
+		if (badges == null) {
+			badges = new ArrayList<>();
+		}
+		badges.add(badge);
 	}
 }

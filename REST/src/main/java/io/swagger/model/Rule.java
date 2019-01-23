@@ -1,13 +1,10 @@
 package io.swagger.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import java.util.Objects;
 
 /**
  * Rule
@@ -21,6 +18,16 @@ public class Rule   {
 
   @JsonProperty("ruleName")
   private String ruleName = null;
+
+  @JsonProperty("conditionValue")
+  private String conditionValue = null;
+
+  // can be: <, >, <=, >=, ==, !, AND, OR
+  @JsonProperty("operator")
+  private String operator = null;
+
+  @JsonProperty("badge")
+  private Badge badge = null;
 
   public Rule apitoken(String apitoken) {
     this.apitoken = apitoken;
@@ -62,6 +69,51 @@ public class Rule   {
     this.ruleName = ruleName;
   }
 
+  /**
+   * Get conditionValue
+   * @return conditionValue
+   **/
+  @ApiModelProperty(value = "")
+
+
+  public String getConditionValue() {
+    return conditionValue;
+  }
+
+  public void setConditionValue(String conditionValue) {
+    this.conditionValue = conditionValue;
+  }
+
+  /**
+   * Get operator
+   * @return operator
+   **/
+  @ApiModelProperty(value = "")
+
+
+  public String getOperator() {
+    return operator;
+  }
+
+  public void setOperator(String operator) {
+    this.operator = operator;
+  }
+
+  /**
+   * Get badge
+   * @return badge
+   **/
+  @ApiModelProperty(value = "")
+
+
+  public Badge getBadge() {
+    return badge;
+  }
+
+  public void setBadge(Badge badge) {
+    this.badge = badge;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -78,7 +130,7 @@ public class Rule   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(apitoken, ruleName);
+    return Objects.hash(apitoken, ruleName, conditionValue);
   }
 
   @Override

@@ -1,28 +1,31 @@
 package io.swagger.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class BadgeEntity {
 
 	@Id
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String name;
 	private String apiToken;
 	private int level;
-	private String iconName;
-
-	public BadgeEntity(String name, String apiToken, int level, String iconName) {
-		this.name = name;
-		this.apiToken = apiToken;
-		this.level = level;
-		this.iconName = iconName;
-	}
+	private String icon;
 
 	public BadgeEntity() {}
 
-	public int getId() {
+	public BadgeEntity(String name, String apiToken, int level, String icon) {
+		this.name = name;
+		this.apiToken = apiToken;
+		this.level = level;
+		this.icon = icon;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
@@ -50,11 +53,11 @@ public class BadgeEntity {
 		this.level = level;
 	}
 
-	public String getIconName() {
-		return iconName;
+	public String getIcon() {
+		return icon;
 	}
 
-	public void setIconName(String iconName) {
-		this.iconName = iconName;
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 }

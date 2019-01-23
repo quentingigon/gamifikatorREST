@@ -1,17 +1,13 @@
 package io.swagger.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.model.EventProperties;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import java.util.Objects;
 
 /**
  * Event
@@ -21,7 +17,7 @@ import javax.validation.constraints.*;
 
 public class Event   {
   @JsonProperty("timestamp")
-  private OffsetDateTime timestamp = null;
+  private String timestamp = null;
 
   @JsonProperty("userId")
   private String userId = null;
@@ -29,14 +25,14 @@ public class Event   {
   @JsonProperty("apiToken")
   private String apiToken = null;
 
-  @JsonProperty("name")
-  private String name = null;
+  @JsonProperty("ruleName")
+  private String ruleName = null;
 
   @JsonProperty("properties")
   @Valid
   private List<EventProperties> properties = null;
 
-  public Event timestamp(OffsetDateTime timestamp) {
+  public Event timestamp(String timestamp) {
     this.timestamp = timestamp;
     return this;
   }
@@ -49,11 +45,11 @@ public class Event   {
 
   @Valid
 
-  public OffsetDateTime getTimestamp() {
+  public String getTimestamp() {
     return timestamp;
   }
 
-  public void setTimestamp(OffsetDateTime timestamp) {
+  public void setTimestamp(String timestamp) {
     this.timestamp = timestamp;
   }
 
@@ -98,23 +94,23 @@ public class Event   {
   }
 
   public Event name(String name) {
-    this.name = name;
+    this.ruleName = name;
     return this;
   }
 
   /**
-   * Get name
-   * @return name
+   * Get ruleName
+   * @return ruleName
   **/
   @ApiModelProperty(value = "")
 
 
-  public String getName() {
-    return name;
+  public String getRuleName() {
+    return ruleName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setRuleName(String ruleName) {
+    this.ruleName = ruleName;
   }
 
   public Event properties(List<EventProperties> properties) {
@@ -159,13 +155,13 @@ public class Event   {
     return Objects.equals(this.timestamp, event.timestamp) &&
         Objects.equals(this.userId, event.userId) &&
         Objects.equals(this.apiToken, event.apiToken) &&
-        Objects.equals(this.name, event.name) &&
+        Objects.equals(this.ruleName, event.ruleName) &&
         Objects.equals(this.properties, event.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timestamp, userId, apiToken, name, properties);
+    return Objects.hash(timestamp, userId, apiToken, ruleName, properties);
   }
 
   @Override
@@ -176,7 +172,7 @@ public class Event   {
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    apiToken: ").append(toIndentedString(apiToken)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    ruleName: ").append(toIndentedString(ruleName)).append("\n");
     sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("}");
     return sb.toString();

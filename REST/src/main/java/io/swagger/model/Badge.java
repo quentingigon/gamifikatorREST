@@ -1,13 +1,10 @@
 package io.swagger.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import java.util.Objects;
 
 /**
  * Badge
@@ -21,6 +18,9 @@ public class Badge   {
 
   @JsonProperty("badgeName")
   private String badgeName = null;
+
+  @JsonProperty("image")
+  private String image = null;
 
   public Badge apitoken(String apitoken) {
     this.apitoken = apitoken;
@@ -60,6 +60,26 @@ public class Badge   {
 
   public void setBadgeName(String badgeName) {
     this.badgeName = badgeName;
+  }
+
+  /**
+   * Get image
+   * @return image
+   **/
+  @ApiModelProperty(value = "")
+
+
+  public String getImage() {
+    return image;
+  }
+
+  public void setImage(String image) {
+    this.image = image;
+  }
+
+  public Badge image(String image) {
+    this.image = image;
+    return this;
   }
 
 

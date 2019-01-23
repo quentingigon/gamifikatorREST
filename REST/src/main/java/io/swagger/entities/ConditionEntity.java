@@ -1,41 +1,39 @@
 package io.swagger.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class ConditionEntity {
 
 	@Id
-	private int id;
-	private String name;
-	private String collection;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String ruleId;
 	private String operator;
+	private String value; // can represent a string value or a number (int)
 
-	public ConditionEntity(String name, String collection, String operator) {
-		this.name = name;
-		this.collection = collection;
-		this.operator = operator;
+	public ConditionEntity() {
 	}
 
-	public int getId() {
+	public ConditionEntity(String ruleId, String operator, String value) {
+		this.ruleId = ruleId;
+		this.operator = operator;
+		this.value = value;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public String getName() {
-		return name;
+	public String getRuleId() {
+		return ruleId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getCollection() {
-		return collection;
-	}
-
-	public void setCollection(String collection) {
-		this.collection = collection;
+	public void setRuleId(String ruleId) {
+		this.ruleId = ruleId;
 	}
 
 	public String getOperator() {
@@ -44,5 +42,17 @@ public class ConditionEntity {
 
 	public void setOperator(String operator) {
 		this.operator = operator;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 }

@@ -2,7 +2,8 @@ package io.swagger.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -13,6 +14,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-04T12:18:41.464Z")
 
 @Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "io.swagger.repositories")
 public class SwaggerDocumentationConfig {
 
     ApiInfo apiInfo() {

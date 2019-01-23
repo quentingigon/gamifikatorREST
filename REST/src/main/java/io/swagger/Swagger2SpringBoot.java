@@ -7,11 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-@ComponentScan(basePackages = { "io.swagger", "io.swagger.api" , "io.swagger.configuration"})
+@ComponentScan(basePackages = { "io.swagger", "io.swagger.api" , "io.swagger.configuration" , "io.swagger.repositories"})
+@EnableJpaRepositories(basePackages = "io.swagger")
 public class Swagger2SpringBoot extends SpringBootServletInitializer implements CommandLineRunner {
 
     @Override

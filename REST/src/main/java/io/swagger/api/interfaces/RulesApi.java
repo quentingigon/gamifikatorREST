@@ -3,23 +3,15 @@
  * https://github.com/swagger-api/swagger-codegen
  * Do not edit the class manually.
  */
-package io.swagger.api;
+package io.swagger.api.interfaces;
 
-import io.swagger.model.Rule;
 import io.swagger.annotations.*;
+import io.swagger.model.Rule;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-04T12:18:41.464Z")
 
@@ -34,7 +26,7 @@ public interface RulesApi {
     @RequestMapping(value = "/rules",
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<Void> createRule(@ApiParam(value = "New rule" ,required=true )  @Valid @RequestBody Rule rule);
+    ResponseEntity<Object> createRule(@ApiParam(value = "New rule" ,required=true )  @Valid @RequestBody Rule newRule);
 
 
     @ApiOperation(value = "Delete rule", nickname = "deleteRule", notes = "Delete rule", tags={ "rules", })
@@ -45,7 +37,7 @@ public interface RulesApi {
     @RequestMapping(value = "/rules",
         consumes = { "application/json" },
         method = RequestMethod.DELETE)
-    ResponseEntity<Void> deleteRule(@ApiParam(value = "Rule to be deleted" ,required=true )  @Valid @RequestBody Rule rule);
+    ResponseEntity<Object> deleteRule(@ApiParam(value = "Rule to be deleted" ,required=true )  @Valid @RequestBody Rule rule);
 
 
     @ApiOperation(value = "Get rule", nickname = "getRule", notes = "Returns particular rule", response = Rule.class, tags={ "rules", })
@@ -76,6 +68,6 @@ public interface RulesApi {
     @RequestMapping(value = "/rules",
         consumes = { "application/json" },
         method = RequestMethod.PUT)
-    ResponseEntity<Void> updateRule(@NotNull @ApiParam(value = "Old Rule name", required = true) @Valid @RequestParam(value = "oldRuleName", required = true) String oldRuleName,@ApiParam(value = "New rule" ,required=true )  @Valid @RequestBody Rule rule);
+    ResponseEntity<Object> updateRule(@NotNull @ApiParam(value = "Old Rule name", required = true) @Valid @RequestParam(value = "oldRuleName", required = true) String oldRuleName,@ApiParam(value = "New rule" ,required=true )  @Valid @RequestBody Rule newRule);
 
 }

@@ -14,11 +14,11 @@ import java.util.Objects;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-04T12:18:41.464Z")
 
 public class Rule   {
-  @JsonProperty("apitoken")
+  @JsonProperty("apiToken")
   private String apiToken = null;
 
-  @JsonProperty("ruleName")
-  private String ruleName = null;
+  @JsonProperty("name")
+  private String name = null;
 
   @JsonProperty("badge")
   private Badge badge = null;
@@ -48,23 +48,23 @@ public class Rule   {
   }
 
   public Rule ruleName(String ruleName) {
-    this.ruleName = ruleName;
+    this.name = ruleName;
     return this;
   }
 
   /**
-   * Get ruleName
-   * @return ruleName
+   * Get name
+   * @return name
   **/
   @ApiModelProperty(value = "")
 
 
-  public String getRuleName() {
-    return ruleName;
+  public String getName() {
+    return name;
   }
 
-  public void setRuleName(String ruleName) {
-    this.ruleName = ruleName;
+  public void setName(String name) {
+    this.name = name;
   }
 
   /**
@@ -108,12 +108,12 @@ public class Rule   {
     }
     Rule rule = (Rule) o;
     return Objects.equals(this.apiToken, rule.apiToken) &&
-        Objects.equals(this.ruleName, rule.ruleName);
+        Objects.equals(this.name, rule.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(apiToken, ruleName, badge, property);
+    return Objects.hash(apiToken, name, badge, property);
   }
 
   @Override
@@ -122,7 +122,7 @@ public class Rule   {
     sb.append("class Rule {\n");
     
     sb.append("    apitoken: ").append(toIndentedString(apiToken)).append("\n");
-    sb.append("    ruleName: ").append(toIndentedString(ruleName)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }

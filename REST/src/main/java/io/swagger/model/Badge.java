@@ -13,7 +13,7 @@ import java.util.Objects;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-04T12:18:41.464Z")
 
 public class Badge   {
-  @JsonProperty("apitoken")
+  @JsonProperty("apiToken")
   private String apiToken = null;
 
   @JsonProperty("badgeName")

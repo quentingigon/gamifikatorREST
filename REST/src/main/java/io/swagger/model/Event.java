@@ -20,7 +20,7 @@ public class Event   {
   @JsonProperty("userId")
   private String userId = null;
 
-  @JsonProperty("apitoken")
+  @JsonProperty("apiToken")
   private String apiToken = null;
 
   @JsonProperty("ruleName")

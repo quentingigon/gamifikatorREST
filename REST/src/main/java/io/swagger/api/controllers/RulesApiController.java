@@ -62,11 +62,11 @@ public class RulesApiController implements RulesApi {
 
     public ResponseEntity<Object> createRule(@ApiParam(value = "New rule" ,required=true )  @Valid @RequestBody Rule newRule) {
 
-		RuleEntity rule = ruleRepository.getByNameAndApiToken(newRule.getRuleName(), newRule.getApitoken());
+		RuleEntity rule = ruleRepository.getByNameAndApiToken(newRule.getName(), newRule.getApitoken());
 
 		// the app doesn't have a rule of this name
 		if (rule == null) {
-			RuleEntity newRuleEntity = new RuleEntity(newRule.getRuleName(), newRule.getApitoken());
+			RuleEntity newRuleEntity = new RuleEntity(newRule.getName(), newRule.getApitoken());
 			if (newRule.getProperty() != null) {
 				// save rule property and set its id to the rule
 				Long id = propertyRepository.save(toPropertyEntity(newRule.getProperty(), newRule.getApitoken())).getId();
@@ -96,7 +96,7 @@ public class RulesApiController implements RulesApi {
     }
 
 	public ResponseEntity<Object> deleteRule(@ApiParam(value = "Rule to be deleted" ,required=true )  @Valid @RequestBody Rule rule) {
-		RuleEntity ruleEntity = ruleRepository.getByName(rule.getRuleName());
+		RuleEntity ruleEntity = ruleRepository.getByName(rule.getName());
 
 		if (ruleEntity != null) {
 
@@ -159,7 +159,7 @@ public class RulesApiController implements RulesApi {
 			Long newPropertyId = propertyRepository.save(property).getId();
 
 			// set new values for rule
-			rule.setName(newRule.getRuleName());
+			rule.setName(newRule.getName());
 			rule.setPropertyId(newPropertyId);
 			ruleRepository.save(rule);
 			return new ResponseEntity<>(HttpStatus.OK);
@@ -197,7 +197,7 @@ public class RulesApiController implements RulesApi {
 	public Rule toRule(RuleEntity ruleEntity) {
 		Rule rule = new Rule();
 		rule.setApitoken(ruleEntity.getApiToken());
-		rule.setRuleName(ruleEntity.getName());
+		rule.setName(ruleEntity.getName());
 
 		BadgeEntity badgeEntity = badgeRepository.getById(ruleEntity.getBadgeId());
 		rule.setBadge(toBadge(badgeEntity));
@@ -206,7 +206,7 @@ public class RulesApiController implements RulesApi {
 
 	public RuleEntity toRuleEntity(Rule rule) {
     	RuleEntity ruleEntity = new RuleEntity();
-    	ruleEntity.setName(rule.getRuleName());
+    	ruleEntity.setName(rule.getName());
     	ruleEntity.setApiToken(rule.getApitoken());
 
     	PropertyEntity propertyEntity = new PropertyEntity();

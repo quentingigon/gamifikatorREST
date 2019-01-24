@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.api.interfaces.UsersApi;
 import io.swagger.entities.UserEntity;
-import io.swagger.model.EndUser;
+import io.swagger.model.User;
 import io.swagger.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-04T12:18:41.464Z")
 
@@ -36,14 +38,38 @@ public class UsersApiController implements UsersApi {
         this.request = request;
     }
 
-    public ResponseEntity<EndUser> getUser(@ApiParam(value = "ID of the user to get",required=true) @PathVariable("username") String username) {
+    public ResponseEntity<User> getUser(@ApiParam(value = "ID of the user to get",required=true) @PathVariable("username") String username) {
 		UserEntity userEntity = userRepository.getByName(username);
 
 		if (userEntity != null) {
-			return new ResponseEntity<EndUser>(userEntity.toEndUser(), HttpStatus.OK);
+			return new ResponseEntity<User>(toUser(userEntity), HttpStatus.OK);
 		}
 		else {
-			return new ResponseEntity<EndUser>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
     }
+
+    // used for testing purposes
+	@Override
+	public ResponseEntity<User> addUser(@Valid @RequestBody User newUser) {
+		UserEntity userEntity = toUserEntitiy(newUser);
+
+		userRepository.save(userEntity);
+
+		return new ResponseEntity<User>(toUser(userEntity), HttpStatus.OK);
+	}
+
+	private UserEntity toUserEntitiy(User user) {
+    	UserEntity userEntity = new UserEntity();
+    	userEntity.setApiToken(user.getApitoken());
+    	userEntity.setName(user.getName());
+    	return userEntity;
+	}
+
+	private User toUser(UserEntity userEntity) {
+		User user = new User();
+		user.setApitoken(userEntity.getApiToken());
+		user.setName(userEntity.getName());
+		return user;
+	}
 }

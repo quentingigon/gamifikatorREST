@@ -120,7 +120,7 @@ public class RulesApiController implements RulesApi {
         if (ruleEntity != null) {
 			return new ResponseEntity<Rule>(toRule(ruleEntity), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Rule>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Rule>(HttpStatus.NOT_FOUND);
 		}
 
     }
@@ -144,7 +144,7 @@ public class RulesApiController implements RulesApi {
 			return new ResponseEntity<List<Rule>>(rules, HttpStatus.OK);
 		}
 		else {
-			return new ResponseEntity<List<Rule>>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<List<Rule>>(HttpStatus.NOT_FOUND);
 		}
     }
 
@@ -158,7 +158,7 @@ public class RulesApiController implements RulesApi {
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 		else {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
     }
 
@@ -174,6 +174,7 @@ public class RulesApiController implements RulesApi {
     	PropertyEntity propertyEntity = new PropertyEntity();
     	propertyEntity.setName(property.getName());
     	propertyEntity.setValue(property.getValue());
+    	propertyEntity.setOperator(property.getOperator());
     	return propertyEntity;
 	}
 

@@ -1,12 +1,9 @@
 package io.swagger.entities;
 
-import io.swagger.model.EndUser;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.ArrayList;
 
 @Entity
 public class UserEntity {
@@ -43,13 +40,5 @@ public class UserEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public EndUser toEndUser() {
-		EndUser endUser = new EndUser();
-		endUser.setApitoken(apiToken);
-		endUser.setBadges(new ArrayList<>());
-		endUser.setName(name);
-		return endUser;
 	}
 }

@@ -20,6 +20,7 @@ public class Property {
   @JsonProperty("value")
   private Long value = null;
 
+  // can be: <, >, <=, >=, ==, !
   @JsonProperty("operator")
   private String operator = null;
 

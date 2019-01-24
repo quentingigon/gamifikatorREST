@@ -5,13 +5,14 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.api.interfaces.RulesApi;
 import io.swagger.entities.ApplicationEntity;
 import io.swagger.entities.BadgeEntity;
-import io.swagger.entities.ConditionEntity;
 import io.swagger.entities.RuleEntity;
+import io.swagger.entities.PropertyEntity;
 import io.swagger.model.Badge;
+import io.swagger.model.Property;
 import io.swagger.model.Rule;
 import io.swagger.repositories.ApplicationRepository;
 import io.swagger.repositories.BadgeRepository;
-import io.swagger.repositories.ConditionRepository;
+import io.swagger.repositories.PropertyRepository;
 import io.swagger.repositories.RuleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +43,7 @@ public class RulesApiController implements RulesApi {
 	ApplicationRepository applicationRepository;
 
     @Autowired
-	ConditionRepository conditionRepository;
+	PropertyRepository propertyRepository;
 
     @Autowired
 	BadgeRepository badgeRepository;
@@ -67,11 +68,18 @@ public class RulesApiController implements RulesApi {
 		if (rule == null) {
 			RuleEntity newRuleEntity = new RuleEntity(newRule.getRuleName(), newRule.getApitoken());
 
-			// save rule's condition
-			ConditionEntity condition = new ConditionEntity(newRule.getRuleName(),
-				newRule.getOperator(),
-				newRule.getConditionValue());
-			conditionRepository.save(condition);
+			// create list of properties of rule
+			List<Long> rulePropertiesIds = new ArrayList<>();
+			for (Property property : newRule.getProperties()) {
+				if (property != null) {
+					// save rule properties ids and set them to the rule
+					rulePropertiesIds.add(propertyRepository.save(toPropertyEntity(property)).getId());
+				}
+			}
+			// no properties in the new rule
+			if (rulePropertiesIds.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 
 			// save rule's badge and set badgeId in rule before saving it
 			BadgeEntity badge = toBadgeEntity(newRule.getBadge());
@@ -96,10 +104,6 @@ public class RulesApiController implements RulesApi {
 
 		if (ruleEntity != null) {
 
-			// delete dependance of a rule, aka its condition
-			ConditionEntity condition = conditionRepository.getById(ruleEntity.getConditionId());
-
-			conditionRepository.delete(condition);
 			ruleRepository.delete(ruleEntity);
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
@@ -166,6 +170,13 @@ public class RulesApiController implements RulesApi {
 		return badgeEntity;
 	}
 
+	private PropertyEntity toPropertyEntity(Property property) {
+    	PropertyEntity propertyEntity = new PropertyEntity();
+    	propertyEntity.setName(property.getName());
+    	propertyEntity.setValue(property.getValue());
+    	return propertyEntity;
+	}
+
 	private Badge toBadge(BadgeEntity badgeEntity) {
 		Badge badge = new Badge();
 		badge.setImage(badgeEntity.getIcon());
@@ -178,10 +189,6 @@ public class RulesApiController implements RulesApi {
 		Rule rule = new Rule();
 		rule.setApitoken(ruleEntity.getApiToken());
 		rule.setRuleName(ruleEntity.getName());
-
-		ConditionEntity conditionEntity = conditionRepository.getById(ruleEntity.getConditionId());
-		rule.setConditionValue(conditionEntity.getValue());
-		rule.setOperator(conditionEntity.getOperator());
 
 		BadgeEntity badgeEntity = badgeRepository.getById(ruleEntity.getBadgeId());
 		rule.setBadge(toBadge(badgeEntity));

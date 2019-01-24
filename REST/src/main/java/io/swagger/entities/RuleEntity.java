@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.ArrayList;
 
 @Entity
 public class RuleEntity {
@@ -13,8 +14,8 @@ public class RuleEntity {
 	private Long id;
 	private String name;
 	private String apiToken;
-	private Long conditionId;
 	private Long badgeId;
+	private ArrayList<Long> propertiesIds;
 
 	public RuleEntity() {}
 
@@ -25,14 +26,6 @@ public class RuleEntity {
 
 	public Long getId() {
 		return id;
-	}
-
-	public Long getConditionId() {
-		return conditionId;
-	}
-
-	public void setConditionId(Long conditionId) {
-		this.conditionId = conditionId;
 	}
 
 	public String getName() {
@@ -57,5 +50,20 @@ public class RuleEntity {
 
 	public void setBadgeId(Long badgeId) {
 		this.badgeId = badgeId;
+	}
+
+	public ArrayList<Long> getPropertiesIds() {
+		return propertiesIds;
+	}
+
+	public void setPropertiesIds(ArrayList<Long> propertiesIds) {
+		this.propertiesIds = propertiesIds;
+	}
+
+	public void addToProperties(Long propertyId) {
+		if (propertiesIds == null) {
+			propertiesIds = new ArrayList<>();
+		}
+		propertiesIds.add(propertyId);
 	}
 }

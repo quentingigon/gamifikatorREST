@@ -28,7 +28,7 @@ public class ApplicationEntity implements Serializable {
 
 	private ArrayList<RuleEntity> rules;
 	private ArrayList<BadgeEntity> badges;
-	private ArrayList<EndUserEntity> endusers;
+	private ArrayList<UserEntity> endusers;
 
 	public ApplicationEntity() {}
 
@@ -131,15 +131,15 @@ public class ApplicationEntity implements Serializable {
 		rules.add(rule);
 	}
 
-	public ArrayList<EndUserEntity> getEndusers() {
+	public ArrayList<UserEntity> getEndusers() {
 		return endusers;
 	}
 
-	public void setEndusers(ArrayList<EndUserEntity> endusers) {
+	public void setEndusers(ArrayList<UserEntity> endusers) {
 		this.endusers = endusers;
 	}
 
-	public void addToEndusers(EndUserEntity enduser) {
+	public void addToEndusers(UserEntity enduser) {
 		if (endusers == null) {
 			endusers = new ArrayList<>();
 		}

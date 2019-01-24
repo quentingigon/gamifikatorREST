@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import java.util.ArrayList;
 
 @Entity
-public class EndUserEntity {
+public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,12 +17,12 @@ public class EndUserEntity {
 	private String apiToken;
 	private String name;
 
-	public EndUserEntity(String apiToken, String name) {
+	public UserEntity(String apiToken, String name) {
 		this.apiToken = apiToken;
 		this.name = name;
 	}
 
-	public EndUserEntity() {
+	public UserEntity() {
 	}
 
 	public Long getId() {

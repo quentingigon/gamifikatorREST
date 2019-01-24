@@ -3,9 +3,9 @@ package io.swagger.api.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.api.interfaces.UsersApi;
-import io.swagger.entities.EndUserEntity;
+import io.swagger.entities.UserEntity;
 import io.swagger.model.EndUser;
-import io.swagger.repositories.EndUserRepository;
+import io.swagger.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 public class UsersApiController implements UsersApi {
 
     @Autowired
-    EndUserRepository endUserRepository;
+	UserRepository userRepository;
 
     private static final Logger log = LoggerFactory.getLogger(UsersApiController.class);
 
@@ -37,10 +37,10 @@ public class UsersApiController implements UsersApi {
     }
 
     public ResponseEntity<EndUser> getUser(@ApiParam(value = "ID of the user to get",required=true) @PathVariable("username") String username) {
-		EndUserEntity endUserEntity = endUserRepository.getByName(username);
+		UserEntity userEntity = userRepository.getByName(username);
 
-		if (endUserEntity != null) {
-			return new ResponseEntity<EndUser>(endUserEntity.toEndUser(), HttpStatus.OK);
+		if (userEntity != null) {
+			return new ResponseEntity<EndUser>(userEntity.toEndUser(), HttpStatus.OK);
 		}
 		else {
 			return new ResponseEntity<EndUser>(HttpStatus.INTERNAL_SERVER_ERROR);

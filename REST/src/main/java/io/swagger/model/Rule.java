@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -28,6 +31,10 @@ public class Rule   {
 
   @JsonProperty("badge")
   private Badge badge = null;
+
+  @JsonProperty("properties")
+  @Valid
+  private List<Property> properties = null;
 
   public Rule apitoken(String apitoken) {
     this.apitoken = apitoken;
@@ -112,6 +119,21 @@ public class Rule   {
 
   public void setBadge(Badge badge) {
     this.badge = badge;
+  }
+
+  /**
+   * Get properties
+   * @return properties
+   **/
+  @ApiModelProperty(value = "")
+
+
+  public List<Property> getProperties() {
+    return properties;
+  }
+
+  public void setProperties(List<Property> properties) {
+    this.properties = properties;
   }
 
 

@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-04T12:18:41.464Z")
 
@@ -49,7 +48,7 @@ public class EventsApiController implements EventsApi {
         this.request = request;
     }
 
-    public ResponseEntity<Object> addEvent(@ApiParam(value = "New event" ,required=true )  @Valid @RequestBody Event body) {
+    public ResponseEntity<Object> addEvent(@ApiParam(value = "New event" ,required=true ) @RequestBody Event body) {
 
         ApplicationEntity app = applicationRepository.findByApiToken(body.getApiToken());
 
@@ -77,6 +76,7 @@ public class EventsApiController implements EventsApi {
 					break;
 				}
 			}
+
 			if (endUser == null) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}

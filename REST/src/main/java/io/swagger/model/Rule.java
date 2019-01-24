@@ -121,7 +121,7 @@ public class Rule   {
     StringBuilder sb = new StringBuilder();
     sb.append("class Rule {\n");
     
-    sb.append("    apitoken: ").append(toIndentedString(apiToken)).append("\n");
+    sb.append("    apiToken: ").append(toIndentedString(apiToken)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();

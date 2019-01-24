@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="BADGE_ENTITY")
 public class BadgeEntity implements Serializable {
 
 	@Id

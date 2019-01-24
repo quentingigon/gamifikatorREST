@@ -26,6 +26,10 @@ import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+
+import static io.swagger.api.utils.Transformator.toBadge;
+import static io.swagger.api.utils.Transformator.toBadgeEntity;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-04T12:18:41.464Z")
 
 @Controller
@@ -106,7 +110,7 @@ public class BadgesApiController implements BadgesApi {
 
 		if (badgeEntity != null) {
 
-			// get badge by apitoken and name (badge names are unique in app)
+			// get badge by apiToken and name (badge names are unique in app)
 			Badge badge = toBadge(badgeRepository.findByApiTokenAndName(apiToken, badgeName));
 
 			return new ResponseEntity<Badge>(badge, HttpStatus.OK);
@@ -152,20 +156,4 @@ public class BadgesApiController implements BadgesApi {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
     }
-
-	private BadgeEntity toBadgeEntity(Badge badge) {
-		BadgeEntity badgeEntity = new BadgeEntity();
-		badgeEntity.setName(badge.getName());
-		badgeEntity.setApiToken(badge.getApitoken());
-		badgeEntity.setIcon(badge.getIcon());
-		return badgeEntity;
-	}
-
-	private Badge toBadge(BadgeEntity badgeEntity) {
-		Badge badge = new Badge();
-		badge.setApitoken(badgeEntity.getApiToken());
-		badge.setName(badgeEntity.getName());
-		badge.setIcon(badgeEntity.getIcon());
-		return badge;
-	}
 }

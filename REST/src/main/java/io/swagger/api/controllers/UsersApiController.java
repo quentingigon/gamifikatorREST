@@ -3,10 +3,8 @@ package io.swagger.api.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.api.interfaces.UsersApi;
-import io.swagger.entities.BadgeEntity;
 import io.swagger.entities.UserBadgesEntity;
 import io.swagger.entities.UserEntity;
-import io.swagger.model.Badge;
 import io.swagger.model.User;
 import io.swagger.repositories.BadgeRepository;
 import io.swagger.repositories.UserBadgesRepository;
@@ -22,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import static io.swagger.api.utils.Transformator.*;
+
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-04T12:18:41.464Z")
 
@@ -76,27 +77,5 @@ public class UsersApiController implements UsersApi {
 		userRepository.save(userEntity);
 
 		return new ResponseEntity<User>(toUser(userEntity), HttpStatus.OK);
-	}
-
-	private UserEntity toUserEntity(User user) {
-    	UserEntity userEntity = new UserEntity();
-    	userEntity.setApiToken(user.getApitoken());
-    	userEntity.setName(user.getName());
-    	return userEntity;
-	}
-
-	private User toUser(UserEntity userEntity) {
-		User user = new User();
-		user.setApitoken(userEntity.getApiToken());
-		user.setName(userEntity.getName());
-		return user;
-	}
-
-	private Badge toBadge(BadgeEntity badgeEntity) {
-		Badge badge = new Badge();
-		badge.setApitoken(badgeEntity.getApiToken());
-		badge.setName(badgeEntity.getName());
-		badge.setIcon(badgeEntity.getIcon());
-		return badge;
 	}
 }

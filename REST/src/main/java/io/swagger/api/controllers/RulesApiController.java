@@ -190,6 +190,7 @@ public class RulesApiController implements RulesApi {
     	propertyEntity.setValue(property.getValue());
     	propertyEntity.setOperator(property.getOperator());
     	propertyEntity.setApiToken(apiToken);
+    	propertyEntity.setRuleName(property.getRuleName());
     	return propertyEntity;
 	}
 

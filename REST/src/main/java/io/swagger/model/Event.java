@@ -18,7 +18,7 @@ public class Event   {
   private String timestamp = null;
 
   @JsonProperty("userId")
-  private String userId = null;
+  private Long userId = null;
 
   @JsonProperty("apiToken")
   private String apiToken = null;
@@ -54,7 +54,7 @@ public class Event   {
     this.timestamp = timestamp;
   }
 
-  public Event userId(String userId) {
+  public Event userId(Long userId) {
     this.userId = userId;
     return this;
   }
@@ -66,11 +66,11 @@ public class Event   {
   @ApiModelProperty(value = "")
 
 
-  public String getUserId() {
+  public Long getUserId() {
     return userId;
   }
 
-  public void setUserId(String userId) {
+  public void setUserId(Long userId) {
     this.userId = userId;
   }
 

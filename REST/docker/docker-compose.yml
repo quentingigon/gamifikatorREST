@@ -1,0 +1,27 @@
+version: '3'
+services:
+    appserver:
+        build: 
+            context: ./images/springboot
+            args:
+              JAR_FILE: "./swagger-spring_jar.jar"
+        container_name: RESTserver
+        environment:
+            - ADMIN_PASSWORD=admin
+        restart: always
+        ports:
+            - "8081:8081"
+            - "4848:4848"
+        links:
+            - db   
+    db:
+        build: ./images/mysql
+        container_name: dbMysql
+        environment:
+            MYSQL_DATABASE: gamifikator
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - data:/var/lib/mysql
+            
+volumes:
+    data:

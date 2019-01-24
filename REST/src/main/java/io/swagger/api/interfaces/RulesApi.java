@@ -47,7 +47,7 @@ public interface RulesApi {
     @RequestMapping(value = "/rules/{ruleName}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<Rule> getRule(@ApiParam(value = "",required=true) @PathVariable("ruleName") String ruleName,@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apiToken);
+    ResponseEntity<Rule> getRule(@ApiParam(value = "",required=true) @PathVariable("ruleName") String ruleName,@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apiToken", required = true) String apiToken);
 
 
     @ApiOperation(value = "Get rules", nickname = "getRules", notes = "Returns list of rules", response = Rule.class, responseContainer = "List", tags={ "rules", })
@@ -57,7 +57,7 @@ public interface RulesApi {
     @RequestMapping(value = "/rules",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<Rule>> getRules(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apiToken);
+    ResponseEntity<List<Rule>> getRules(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apiToken", required = true) String apiToken);
 
 
     @ApiOperation(value = "Update exisiting rule", nickname = "updateRule", notes = "", tags={ "rules", })

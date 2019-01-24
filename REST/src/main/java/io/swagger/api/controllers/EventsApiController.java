@@ -51,7 +51,7 @@ public class EventsApiController implements EventsApi {
 
     public ResponseEntity<Object> addEvent(@ApiParam(value = "New event" ,required=true )  @Valid @RequestBody Event body) {
 
-        ApplicationEntity app = applicationRepository.getByApiToken(body.getApiToken());
+        ApplicationEntity app = applicationRepository.findByApiToken(body.getApiToken());
 
         // if app associated with event exists
         if (app != null) {

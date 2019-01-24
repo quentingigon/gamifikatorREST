@@ -77,10 +77,12 @@ public class RulesApiController implements RulesApi {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 
-			// save rule's badge and set badgeId in rule before saving it
-			BadgeEntity badge = toBadgeEntity(newRule.getBadge());
-			Long badgeId = badgeRepository.save(badge).getId();
-			newRuleEntity.setBadgeId(badgeId);
+			// verifiy that rule's associated badge exists
+			if (badgeRepository.findOne(newRule.getBadgeId()) == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			// set badge id to rule
+			newRuleEntity.setBadgeId(newRule.getBadgeId());
 			Long ruleId = ruleRepository.save(newRuleEntity).getId();
 
 			URI location = ServletUriComponentsBuilder
@@ -108,7 +110,7 @@ public class RulesApiController implements RulesApi {
 		}
     }
 
-    public ResponseEntity<Rule> getRule(@ApiParam(value = "", required=true) @PathVariable("ruleName") String ruleName,@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apiToken) {
+    public ResponseEntity<Rule> getRule(@ApiParam(value = "", required=true) @PathVariable("ruleName") String ruleName,@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apiToken", required = true) String apiToken) {
 
     	// find a rule by api token and rule name (both must exists)
     	RuleEntity ruleEntity = ruleRepository.getByNameAndApiToken(ruleName, apiToken);
@@ -121,9 +123,9 @@ public class RulesApiController implements RulesApi {
 
     }
 
-    public ResponseEntity<List<Rule>> getRules(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apiToken) {
+    public ResponseEntity<List<Rule>> getRules(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apiToken", required = true) String apiToken) {
 
-		ApplicationEntity appEntity = applicationRepository.getByApiToken(apiToken);
+		ApplicationEntity appEntity = applicationRepository.findByApiToken(apiToken);
 
 		// if app exists
 		if (appEntity != null) {
@@ -171,7 +173,7 @@ public class RulesApiController implements RulesApi {
 
 	private BadgeEntity toBadgeEntity(Badge badge) {
 		BadgeEntity badgeEntity = new BadgeEntity();
-		badgeEntity.setName(badge.getBadgeName());
+		badgeEntity.setName(badge.getName());
 		badgeEntity.setApiToken(badge.getApitoken());
 		badgeEntity.setIcon(badge.getImage());
 		return badgeEntity;
@@ -190,7 +192,7 @@ public class RulesApiController implements RulesApi {
 		Badge badge = new Badge();
 		badge.setImage(badgeEntity.getIcon());
 		badge.setApitoken(badgeEntity.getApiToken());
-		badge.setBadgeName(badgeEntity.getName());
+		badge.setName(badgeEntity.getName());
 		return badge;
 	}
 
@@ -200,7 +202,7 @@ public class RulesApiController implements RulesApi {
 		rule.setName(ruleEntity.getName());
 
 		BadgeEntity badgeEntity = badgeRepository.getById(ruleEntity.getBadgeId());
-		rule.setBadge(toBadge(badgeEntity));
+		rule.setBadgeId(ruleEntity.getId());
 		return rule;
 	}
 

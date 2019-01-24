@@ -20,8 +20,8 @@ public class Rule   {
   @JsonProperty("name")
   private String name = null;
 
-  @JsonProperty("badge")
-  private Badge badge = null;
+  @JsonProperty("badgeId")
+  private Long badgeId = null;
 
   @JsonProperty("property")
   @Valid
@@ -68,18 +68,18 @@ public class Rule   {
   }
 
   /**
-   * Get badge
-   * @return badge
+   * Get badgeId
+   * @return badgeId
    **/
   @ApiModelProperty(value = "")
 
 
-  public Badge getBadge() {
-    return badge;
+  public Long getBadgeId() {
+    return badgeId;
   }
 
-  public void setBadge(Badge badge) {
-    this.badge = badge;
+  public void setBadgeId(Long badgeId) {
+    this.badgeId = badgeId;
   }
 
   /**
@@ -113,7 +113,7 @@ public class Rule   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(apiToken, name, badge, property);
+    return Objects.hash(apiToken, name, badgeId, property);
   }
 
   @Override

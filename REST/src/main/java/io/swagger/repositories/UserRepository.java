@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends CrudRepository<UserEntity, String> {
+public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
@@ -18,7 +18,7 @@ public interface UserRepository extends CrudRepository<UserEntity, String> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	List<UserEntity> getEndUserEntitiesByApiToken(String apitoken);
+	List<UserEntity> getEndUserEntitiesByApiToken(String apiToken);
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional

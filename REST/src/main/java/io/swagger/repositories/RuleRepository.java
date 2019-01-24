@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface RuleRepository extends CrudRepository<RuleEntity, String> {
+public interface RuleRepository extends CrudRepository<RuleEntity, Long> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
@@ -18,11 +18,11 @@ public interface RuleRepository extends CrudRepository<RuleEntity, String> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	RuleEntity getByNameAndApiToken(String name, String apitoken);
+	RuleEntity getByNameAndApiToken(String name, String apiToken);
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	List<RuleEntity> getRuleEntitiesByApiToken(String apitoken);
+	List<RuleEntity> getRuleEntitiesByApiToken(String apiToken);
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional

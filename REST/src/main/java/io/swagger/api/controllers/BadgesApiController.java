@@ -55,27 +55,31 @@ public class BadgesApiController implements BadgesApi {
 
     public ResponseEntity<Object> createBadge(@ApiParam(value = "New badge" ,required=true )  @Valid @RequestBody Badge newBadge) {
 
-		ApplicationEntity appEntity = applicationRepository.getByApiToken(newBadge.getApitoken());
+		// ApplicationEntity appEntity = applicationRepository.findByApiToken(newBadge.getApitoken());
+		BadgeEntity badgeEntity = badgeRepository.findByApiTokenAndName(newBadge.getApitoken(), newBadge.getName());
 
-		if (appEntity != null) {
+		// if badge doesnt already exists
+		if (badgeEntity == null) {
 
-			for (BadgeEntity b : badgeRepository.getBadgeEntitiesByApiToken(newBadge.getApitoken())) {
-				if (b.getName().equals(newBadge.getBadgeName())) {
+			// TODO check why byApiToken is not working
+			//for (BadgeEntity b : badgeRepository.findBadgeEntitiesByApiToken(newBadge.getApitoken())) {
+			for (BadgeEntity b : badgeRepository.findAll()) {
+					if (b.getName().equals(newBadge.getName())) {
 					// already a badge with this name in the app
 					return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 				}
 			}
 
-			BadgeEntity badge = toBadgeEntity(newBadge);
+			BadgeEntity newBadgeEntity = toBadgeEntity(newBadge);
 			// add badge
-			Long id = badgeRepository.save(badge).getId();
+			Long id = badgeRepository.save(newBadgeEntity).getId();
 
 			URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(id)
 				.toUri();
 
-			return ResponseEntity.created(location).body(toBadge(badge));
+			return ResponseEntity.created(location).body(toBadge(newBadgeEntity));
 		}
 		else {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -84,7 +88,8 @@ public class BadgesApiController implements BadgesApi {
 
     public ResponseEntity<Object> deleteBadge(@ApiParam(value = "Badge to be deleted" ,required=true )  @Valid @RequestBody Badge badge) {
 		String apiToken = badge.getApitoken();
-    	BadgeEntity badgeEntity = badgeRepository.getByApiTokenAndName(badge.getBadgeName(), apiToken);
+    	BadgeEntity badgeEntity = badgeRepository.findByApiTokenAndName(apiToken, badge.
+			getName());
 
 		if (badgeEntity != null) {
 			// remove badge from rule
@@ -100,12 +105,12 @@ public class BadgesApiController implements BadgesApi {
     }
 
     public ResponseEntity<Badge> getBadge(@ApiParam(value = "",required=true) @PathVariable("badgeName") String badgeName,@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apiToken) {
-		ApplicationEntity appEntity = applicationRepository.getByApiToken(apiToken);
+		ApplicationEntity appEntity = applicationRepository.findByApiToken(apiToken);
 
 		if (appEntity != null) {
 
 			// get badge by apitoken and name (badge names are unique in app)
-			Badge badge = toBadge(badgeRepository.getByApiTokenAndName(apiToken, badgeName));
+			Badge badge = toBadge(badgeRepository.findByApiTokenAndName(apiToken, badgeName));
 
 			return new ResponseEntity<Badge>(badge, HttpStatus.OK);
 		}
@@ -115,14 +120,14 @@ public class BadgesApiController implements BadgesApi {
     }
 
     public ResponseEntity<List<Badge>> getBadges(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apiToken) {
-		ApplicationEntity appEntity = applicationRepository.getByApiToken(apiToken);
+		ApplicationEntity appEntity = applicationRepository.findByApiToken(apiToken);
 
 		if (appEntity != null) {
 
 			List<Badge> badges = new ArrayList<>();
 
 			// get all badges of the app
-			for (BadgeEntity badgeEntity : badgeRepository.getBadgeEntitiesByApiToken(apiToken)) {
+			for (BadgeEntity badgeEntity : badgeRepository.findBadgeEntitiesByApiToken(apiToken)) {
 				if (badgeEntity != null) {
 					badges.add(toBadge(badgeEntity));
 				}
@@ -140,7 +145,7 @@ public class BadgesApiController implements BadgesApi {
 
     	if (badgeEntity != null) {
 			badgeEntity.setIcon(newBadge.getImage());
-    		badgeEntity.setName(newBadge.getBadgeName());
+    		badgeEntity.setName(newBadge.getName());
     		badgeRepository.save(badgeEntity);
     		return new ResponseEntity<>(HttpStatus.OK);
 		}
@@ -151,7 +156,7 @@ public class BadgesApiController implements BadgesApi {
 
 	private BadgeEntity toBadgeEntity(Badge badge) {
 		BadgeEntity badgeEntity = new BadgeEntity();
-		badgeEntity.setName(badge.getBadgeName());
+		badgeEntity.setName(badge.getName());
 		badgeEntity.setApiToken(badge.getApitoken());
 		badgeEntity.setIcon(badge.getImage());
 		return badgeEntity;
@@ -160,7 +165,7 @@ public class BadgesApiController implements BadgesApi {
 	private Badge toBadge(BadgeEntity badgeEntity) {
 		Badge badge = new Badge();
 		badge.setApitoken(badgeEntity.getApiToken());
-		badge.setBadgeName(badgeEntity.getName());
+		badge.setName(badgeEntity.getName());
 		return badge;
 	}
 }

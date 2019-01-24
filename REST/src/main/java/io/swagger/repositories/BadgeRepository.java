@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface BadgeRepository extends CrudRepository<BadgeEntity, String> {
+public interface BadgeRepository extends CrudRepository<BadgeEntity, Long> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
@@ -18,7 +18,7 @@ public interface BadgeRepository extends CrudRepository<BadgeEntity, String> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	BadgeEntity getByApiTokenAndName(String apitoken, String name);
+	BadgeEntity findByApiTokenAndName(String apiToken, String name);
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
@@ -26,5 +26,5 @@ public interface BadgeRepository extends CrudRepository<BadgeEntity, String> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	List<BadgeEntity> getBadgeEntitiesByApiToken(String apitoken);
+	List<BadgeEntity> findBadgeEntitiesByApiToken(String apiToken);
 }

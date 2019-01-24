@@ -1,6 +1,6 @@
 package io.swagger.repositories;
 
-import io.swagger.entities.EndUserEntity;
+import io.swagger.entities.UserEntity;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -10,17 +10,17 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface EndUserRepository extends CrudRepository<EndUserEntity, String> {
+public interface UserRepository extends CrudRepository<UserEntity, String> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	EndUserEntity getByName(String name);
+	UserEntity getByName(String name);
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	List<EndUserEntity> getEndUserEntitiesByApiToken(String apiToken);
+	List<UserEntity> getEndUserEntitiesByApiToken(String apiToken);
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	EndUserEntity getById(Long id);
+	UserEntity getById(Long id);
 }

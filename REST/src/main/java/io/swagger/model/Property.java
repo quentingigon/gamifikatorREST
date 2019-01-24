@@ -1,28 +1,30 @@
 package io.swagger.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
- * EventProperties
+ * Property
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-04T12:18:41.464Z")
 
-public class EventProperties   {
+public class Property {
   @JsonProperty("name")
   private String name = null;
 
   @JsonProperty("value")
-  private Integer value = null;
+  private Long value = null;
 
-  public EventProperties name(String name) {
+  // can be: <, >, <=, >=, ==, !
+  @JsonProperty("operator")
+  private String operator = null;
+
+  public Property name(String name) {
     this.name = name;
     return this;
   }
@@ -43,7 +45,7 @@ public class EventProperties   {
     this.name = name;
   }
 
-  public EventProperties value(Integer value) {
+  public Property value(Long value) {
     this.value = value;
     return this;
   }
@@ -56,14 +58,21 @@ public class EventProperties   {
   @NotNull
 
 
-  public Integer getValue() {
+  public Long getValue() {
     return value;
   }
 
-  public void setValue(Integer value) {
+  public void setValue(Long value) {
     this.value = value;
   }
 
+  public String getOperator() {
+    return operator;
+  }
+
+  public void setOperator(String operator) {
+    this.operator = operator;
+  }
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -73,9 +82,9 @@ public class EventProperties   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    EventProperties eventProperties = (EventProperties) o;
-    return Objects.equals(this.name, eventProperties.name) &&
-        Objects.equals(this.value, eventProperties.value);
+    Property property = (Property) o;
+    return Objects.equals(this.name, property.name) &&
+        Objects.equals(this.value, property.value);
   }
 
   @Override
@@ -86,7 +95,7 @@ public class EventProperties   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class EventProperties {\n");
+    sb.append("class Property {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");

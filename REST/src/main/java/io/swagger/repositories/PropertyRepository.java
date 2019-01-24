@@ -1,17 +1,18 @@
 package io.swagger.repositories;
 
-import io.swagger.entities.ConditionEntity;
+import io.swagger.entities.PropertyEntity;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
-public interface ConditionRepository extends CrudRepository<ConditionEntity, String> {
+public interface PropertyRepository extends CrudRepository<PropertyEntity, String> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	ConditionEntity getById(Long id);
+	List<PropertyEntity> getPropertyEntitiesByRuleId(Long ruleId);
 }

@@ -5,8 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -28,9 +26,12 @@ public class Event   {
   @JsonProperty("ruleName")
   private String ruleName = null;
 
-  @JsonProperty("properties")
+  @JsonProperty("value")
+  private Long value = null;
+
+  @JsonProperty("propertyName")
   @Valid
-  private List<EventProperties> properties = null;
+  private Property propertyName = null;
 
   public Event timestamp(String timestamp) {
     this.timestamp = timestamp;
@@ -113,35 +114,32 @@ public class Event   {
     this.ruleName = ruleName;
   }
 
-  public Event properties(List<EventProperties> properties) {
-    this.properties = properties;
-    return this;
-  }
-
-  public Event addPropertiesItem(EventProperties propertiesItem) {
-    if (this.properties == null) {
-      this.properties = new ArrayList<EventProperties>();
-    }
-    this.properties.add(propertiesItem);
+  public Event property(Property properties) {
+    this.propertyName = propertyName;
     return this;
   }
 
   /**
-   * Get properties
-   * @return properties
+   * Get propertyName
+   * @return propertyName
   **/
   @ApiModelProperty(value = "")
 
-  @Valid
-
-  public List<EventProperties> getProperties() {
-    return properties;
+  public Property getPropertyName() {
+    return propertyName;
   }
 
-  public void setProperties(List<EventProperties> properties) {
-    this.properties = properties;
+  public void setPropertyName(Property propertyName) {
+    this.propertyName = propertyName;
   }
 
+  public Long getValue() {
+    return value;
+  }
+
+  public void setValue(Long value) {
+    this.value = value;
+  }
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -156,12 +154,12 @@ public class Event   {
         Objects.equals(this.userId, event.userId) &&
         Objects.equals(this.apiToken, event.apiToken) &&
         Objects.equals(this.ruleName, event.ruleName) &&
-        Objects.equals(this.properties, event.properties);
+        Objects.equals(this.propertyName, event.propertyName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timestamp, userId, apiToken, ruleName, properties);
+    return Objects.hash(timestamp, userId, apiToken, ruleName, propertyName);
   }
 
   @Override
@@ -173,7 +171,7 @@ public class Event   {
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    apiToken: ").append(toIndentedString(apiToken)).append("\n");
     sb.append("    ruleName: ").append(toIndentedString(ruleName)).append("\n");
-    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
+    sb.append("    propertyName: ").append(toIndentedString(propertyName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

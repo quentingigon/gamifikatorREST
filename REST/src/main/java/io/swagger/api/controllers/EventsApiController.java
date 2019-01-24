@@ -3,15 +3,9 @@ package io.swagger.api.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.api.interfaces.EventsApi;
-import io.swagger.entities.ApplicationEntity;
-import io.swagger.entities.EndUserBadgeEntity;
-import io.swagger.entities.EndUserEntity;
-import io.swagger.entities.RuleEntity;
+import io.swagger.entities.*;
 import io.swagger.model.Event;
-import io.swagger.repositories.ApplicationRepository;
-import io.swagger.repositories.EndUserBadgeRepository;
-import io.swagger.repositories.EndUserRepository;
-import io.swagger.repositories.RuleRepository;
+import io.swagger.repositories.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +26,16 @@ public class EventsApiController implements EventsApi {
     ApplicationRepository applicationRepository;
 
     @Autowired
-	EndUserBadgeRepository endUserBadgeRepository;
+	UserBadgeRepository userBadgeRepository;
 
     @Autowired
-	EndUserRepository endUserRepository;
+	UserRepository userRepository;
 
     @Autowired
 	RuleRepository ruleRepository;
+
+	@Autowired
+	PropertyRepository propertyRepository;
 
     private static final Logger log = LoggerFactory.getLogger(EventsApiController.class);
 
@@ -72,8 +69,8 @@ public class EventsApiController implements EventsApi {
 			}
 
 			// get user concerned by the event
-			EndUserEntity endUser = null;
-			for (EndUserEntity user : endUserRepository.getEndUserEntitiesByApiToken(body.getApiToken())) {
+			UserEntity endUser = null;
+			for (UserEntity user : userRepository.getEndUserEntitiesByApiToken(body.getApiToken())) {
 				if (user.getId() == Long.valueOf(body.getUserId())) {
 					endUser = user;
 					break;
@@ -83,10 +80,24 @@ public class EventsApiController implements EventsApi {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 
-			// we save the fact that the user won a badge
-			if (ruleEntity.getBadgeId() != null) {
-				EndUserBadgeEntity awardedBadge = new EndUserBadgeEntity(Long.valueOf(body.getUserId()), ruleEntity.getBadgeId());
-				endUserBadgeRepository.save(awardedBadge);
+			// get corresponding property
+			PropertyEntity propertyEntity = null;
+			for (PropertyEntity p : propertyRepository.getPropertyEntitiesByRuleId(ruleEntity.getId())) {
+				if (p.getName().equals(body.getPropertyName())) {
+					propertyEntity = p;
+				}
+			}
+			if (propertyEntity == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+
+			// check if property of rule is validated
+			if (isPropertyValidated(propertyEntity, body.getValue())) {
+				// we save the fact that the user won a badge
+				if (ruleEntity.getBadgeId() != null) {
+					UserBadgeEntity awardedBadge = new UserBadgeEntity(Long.valueOf(body.getUserId()), ruleEntity.getBadgeId());
+					userBadgeRepository.save(awardedBadge);
+				}
 			}
 
 			return new ResponseEntity<>(HttpStatus.OK);
@@ -95,4 +106,42 @@ public class EventsApiController implements EventsApi {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
     }
+
+    private boolean isPropertyValidated(PropertyEntity propertyEntity, Long eventValue) {
+
+    	// get operator and base value of property
+    	String operator = propertyEntity.getOperator();
+    	Long baseValue = propertyEntity.getValue();
+
+    	boolean result = false;
+
+    	switch (operator) {
+			case "<": if (eventValue < baseValue) {
+				result = true;
+				break;
+			}
+			case ">": if (eventValue > baseValue) {
+				result = true;
+				break;
+			}
+			case "<=": if (eventValue <= baseValue) {
+				result = true;
+				break;
+			}
+			case ">=": if (eventValue >= baseValue) {
+				result = true;
+				break;
+			}
+			case "==": if (eventValue == baseValue) {
+				result = true;
+				break;
+			}
+			case "!=": if (eventValue != baseValue) {
+				result = true;
+				break;
+			}
+			default: break;
+		}
+		return result;
+	}
 }

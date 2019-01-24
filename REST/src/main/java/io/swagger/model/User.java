@@ -2,23 +2,20 @@ package io.swagger.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.model.Badge;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
- * EndUser
+ * User
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-04T12:18:41.464Z")
 
-public class EndUser   {
+public class User {
   @JsonProperty("name")
   private String name = null;
 
@@ -29,7 +26,7 @@ public class EndUser   {
   @Valid
   private List<Badge> badges = null;
 
-  public EndUser name(String name) {
+  public User name(String name) {
     this.name = name;
     return this;
   }
@@ -49,7 +46,7 @@ public class EndUser   {
     this.name = name;
   }
 
-  public EndUser apitoken(String apitoken) {
+  public User apitoken(String apitoken) {
     this.apitoken = apitoken;
     return this;
   }
@@ -69,12 +66,12 @@ public class EndUser   {
     this.apitoken = apitoken;
   }
 
-  public EndUser badges(List<Badge> badges) {
+  public User badges(List<Badge> badges) {
     this.badges = badges;
     return this;
   }
 
-  public EndUser addBadgesItem(Badge badgesItem) {
+  public User addBadgesItem(Badge badgesItem) {
     if (this.badges == null) {
       this.badges = new ArrayList<Badge>();
     }
@@ -107,10 +104,10 @@ public class EndUser   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    EndUser endUser = (EndUser) o;
-    return Objects.equals(this.name, endUser.name) &&
-        Objects.equals(this.apitoken, endUser.apitoken) &&
-        Objects.equals(this.badges, endUser.badges);
+    User user = (User) o;
+    return Objects.equals(this.name, user.name) &&
+        Objects.equals(this.apitoken, user.apitoken) &&
+        Objects.equals(this.badges, user.badges);
   }
 
   @Override
@@ -121,7 +118,7 @@ public class EndUser   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class EndUser {\n");
+    sb.append("class User {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    apitoken: ").append(toIndentedString(apitoken)).append("\n");

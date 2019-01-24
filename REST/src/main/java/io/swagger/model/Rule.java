@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,15 +21,12 @@ public class Rule   {
   @JsonProperty("ruleName")
   private String ruleName = null;
 
-  @JsonProperty("conditionValue")
-  private String conditionValue = null;
-
-  // can be: <, >, <=, >=, ==, !, AND, OR
-  @JsonProperty("operator")
-  private String operator = null;
-
   @JsonProperty("badge")
   private Badge badge = null;
+
+  @JsonProperty("properties")
+  @Valid
+  private List<Property> properties = null;
 
   public Rule apitoken(String apitoken) {
     this.apitoken = apitoken;
@@ -70,36 +69,6 @@ public class Rule   {
   }
 
   /**
-   * Get conditionValue
-   * @return conditionValue
-   **/
-  @ApiModelProperty(value = "")
-
-
-  public String getConditionValue() {
-    return conditionValue;
-  }
-
-  public void setConditionValue(String conditionValue) {
-    this.conditionValue = conditionValue;
-  }
-
-  /**
-   * Get operator
-   * @return operator
-   **/
-  @ApiModelProperty(value = "")
-
-
-  public String getOperator() {
-    return operator;
-  }
-
-  public void setOperator(String operator) {
-    this.operator = operator;
-  }
-
-  /**
    * Get badge
    * @return badge
    **/
@@ -112,6 +81,21 @@ public class Rule   {
 
   public void setBadge(Badge badge) {
     this.badge = badge;
+  }
+
+  /**
+   * Get properties
+   * @return properties
+   **/
+  @ApiModelProperty(value = "")
+
+
+  public List<Property> getProperties() {
+    return properties;
+  }
+
+  public void setProperties(List<Property> properties) {
+    this.properties = properties;
   }
 
 
@@ -130,7 +114,7 @@ public class Rule   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(apitoken, ruleName, conditionValue);
+    return Objects.hash(apitoken, ruleName, badge, properties);
   }
 
   @Override

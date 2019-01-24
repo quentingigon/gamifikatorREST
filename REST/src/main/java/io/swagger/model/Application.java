@@ -2,17 +2,12 @@ package io.swagger.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.model.Badge;
-import io.swagger.model.EndUser;
-import io.swagger.model.Rule;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * Application
@@ -34,7 +29,7 @@ public class Application   {
 
   @JsonProperty("endusers")
   @Valid
-  private List<EndUser> endusers = null;
+  private List<User> endusers = null;
 
   public Application apiToken(Long apiToken) {
     this.apiToken = apiToken;
@@ -114,14 +109,14 @@ public class Application   {
     this.rules = rules;
   }
 
-  public Application endusers(List<EndUser> endusers) {
+  public Application endusers(List<User> endusers) {
     this.endusers = endusers;
     return this;
   }
 
-  public Application addEndusersItem(EndUser endusersItem) {
+  public Application addEndusersItem(User endusersItem) {
     if (this.endusers == null) {
-      this.endusers = new ArrayList<EndUser>();
+      this.endusers = new ArrayList<User>();
     }
     this.endusers.add(endusersItem);
     return this;
@@ -135,11 +130,11 @@ public class Application   {
 
   @Valid
 
-  public List<EndUser> getEndusers() {
+  public List<User> getEndusers() {
     return endusers;
   }
 
-  public void setEndusers(List<EndUser> endusers) {
+  public void setEndusers(List<User> endusers) {
     this.endusers = endusers;
   }
 

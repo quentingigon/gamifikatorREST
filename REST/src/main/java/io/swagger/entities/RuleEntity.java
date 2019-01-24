@@ -13,8 +13,8 @@ public class RuleEntity {
 	private Long id;
 	private String name;
 	private String apiToken;
-	private Long conditionId;
 	private Long badgeId;
+	private Long propertyId;
 
 	public RuleEntity() {}
 
@@ -25,14 +25,6 @@ public class RuleEntity {
 
 	public Long getId() {
 		return id;
-	}
-
-	public Long getConditionId() {
-		return conditionId;
-	}
-
-	public void setConditionId(Long conditionId) {
-		this.conditionId = conditionId;
 	}
 
 	public String getName() {
@@ -57,5 +49,13 @@ public class RuleEntity {
 
 	public void setBadgeId(Long badgeId) {
 		this.badgeId = badgeId;
+	}
+
+	public Long getPropertyId() {
+		return propertyId;
+	}
+
+	public void setPropertyId(Long propertyId) {
+		this.propertyId = propertyId;
 	}
 }

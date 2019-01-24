@@ -6,23 +6,36 @@
 package io.swagger.api.interfaces;
 
 import io.swagger.annotations.*;
-import io.swagger.model.EndUser;
+import io.swagger.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.validation.Valid;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-04T12:18:41.464Z")
 
 @Api(value = "users", description = "the users API")
 public interface UsersApi {
 
-    @ApiOperation(value = "Get user", nickname = "getUser", notes = "Returns user", response = EndUser.class, tags={ "users", })
+    @ApiOperation(value = "Get user", nickname = "getUser", notes = "Returns user", response = User.class, tags={ "users", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation", response = EndUser.class),
+        @ApiResponse(code = 200, message = "successful operation", response = User.class),
         @ApiResponse(code = 500, message = "Internal server error") })
     @RequestMapping(value = "/users/{username}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<EndUser> getUser(@ApiParam(value = "ID of the user to get",required=true) @PathVariable("username") String username);
+    ResponseEntity<User> getUser(@ApiParam(value = "ID of the user to get",required=true) @PathVariable("username") String username);
+
+    @ApiOperation(value = "Add user", nickname = "addUser", notes = "Returns user just added", response = User.class, tags={ "users", })
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "successful operation", response = User.class),
+        @ApiResponse(code = 500, message = "Internal server error") })
+    @RequestMapping(value = "/users",
+        produces = { "application/json" },
+        method = RequestMethod.POST)
+    ResponseEntity<User> addUser(@ApiParam(value = "New user to add",required=true) @Valid @RequestBody User newUser);
 
 }

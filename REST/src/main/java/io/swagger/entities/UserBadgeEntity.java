@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
-public class EndUserBadgeEntity implements Serializable {
+public class UserBadgeEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,10 +15,10 @@ public class EndUserBadgeEntity implements Serializable {
 	private Long userId;
 	private Long badgeId;
 
-	public EndUserBadgeEntity() {
+	public UserBadgeEntity() {
 	}
 
-	public EndUserBadgeEntity(Long userId, Long badgeId) {
+	public UserBadgeEntity(Long userId, Long badgeId) {
 		this.userId = userId;
 		this.badgeId = badgeId;
 	}

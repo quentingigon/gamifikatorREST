@@ -9,9 +9,9 @@ import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
 
 @Repository
-public interface ApplicationRepository extends CrudRepository<ApplicationEntity, String> {
+public interface ApplicationRepository extends CrudRepository<ApplicationEntity, Long> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	ApplicationEntity getByApiToken(String apiToken);
+	ApplicationEntity findByApiToken(String apiToken);
 }

@@ -13,11 +13,15 @@ import java.util.Objects;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-04T12:18:41.464Z")
 
 public class Badge   {
+
+  @JsonProperty("badgeId")
+  private Long badgeId = null;
+
   @JsonProperty("apiToken")
   private String apiToken = null;
 
-  @JsonProperty("badgeName")
-  private String badgeName = null;
+  @JsonProperty("name")
+  private String name = null;
 
   @JsonProperty("image")
   private String image = null;
@@ -25,6 +29,21 @@ public class Badge   {
   public Badge apiToken(String apiToken) {
     this.apiToken = apiToken;
     return this;
+  }
+
+  /**
+   * Get badgeId
+   * @return badgeId
+   **/
+  @ApiModelProperty(value = "")
+
+
+  public Long getBadgeId() {
+    return badgeId;
+  }
+
+  public void setBadgeId(Long badgeId) {
+    this.badgeId = badgeId;
   }
 
   /**
@@ -43,23 +62,23 @@ public class Badge   {
   }
 
   public Badge badgeName(String badgeName) {
-    this.badgeName = badgeName;
+    this.name = badgeName;
     return this;
   }
 
   /**
-   * Get badgeName
-   * @return badgeName
+   * Get name
+   * @return name
   **/
   @ApiModelProperty(value = "")
 
 
-  public String getBadgeName() {
-    return badgeName;
+  public String getName() {
+    return name;
   }
 
-  public void setBadgeName(String badgeName) {
-    this.badgeName = badgeName;
+  public void setName(String name) {
+    this.name = name;
   }
 
   /**
@@ -93,12 +112,12 @@ public class Badge   {
     }
     Badge badge = (Badge) o;
     return Objects.equals(this.apiToken, badge.apiToken) &&
-        Objects.equals(this.badgeName, badge.badgeName);
+        Objects.equals(this.name, badge.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(apiToken, badgeName);
+    return Objects.hash(apiToken, name);
   }
 
   @Override
@@ -107,7 +126,7 @@ public class Badge   {
     sb.append("class Badge {\n");
     
     sb.append("    apitoken: ").append(toIndentedString(apiToken)).append("\n");
-    sb.append("    badgeName: ").append(toIndentedString(badgeName)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PropertyRepository extends CrudRepository<PropertyEntity, Long> {
 
-	PropertyEntity getByNameAndApiToken(String name, String apiToken);
+	PropertyEntity getByApiTokenAndRuleNameAndName(String apiToken, String ruleName, String name);
 }

@@ -13,6 +13,7 @@ public class PropertyEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	private String ruleName;
 	private Long value;
 	private String operator; // can be >, <, ==, !=, <=, >=
 	private String apiToken;
@@ -51,5 +52,13 @@ public class PropertyEntity implements Serializable {
 
 	public void setApiToken(String apiToken) {
 		this.apiToken = apiToken;
+	}
+
+	public String getRuleName() {
+		return ruleName;
+	}
+
+	public void setRuleName(String ruleName) {
+		this.ruleName = ruleName;
 	}
 }

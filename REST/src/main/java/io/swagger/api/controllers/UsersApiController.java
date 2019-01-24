@@ -38,7 +38,7 @@ public class UsersApiController implements UsersApi {
         this.request = request;
     }
 
-    public ResponseEntity<User> getUser(@ApiParam(value = "ID of the user to get",required=true) @PathVariable("username") String username) {
+    public ResponseEntity<User> getUser(@ApiParam(value = "Name of the user to get",required=true) @PathVariable("username") String username) {
 		UserEntity userEntity = userRepository.getByName(username);
 
 		if (userEntity != null) {

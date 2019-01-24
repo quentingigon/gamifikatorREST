@@ -17,6 +17,9 @@ public class Property {
   @JsonProperty("name")
   private String name = null;
 
+  @JsonProperty("ruleName")
+  private String ruleName = null;
+
   @JsonProperty("value")
   private Long value = null;
 
@@ -48,6 +51,22 @@ public class Property {
   public Property value(Long value) {
     this.value = value;
     return this;
+  }
+
+  /**
+   * Get ruleName
+   * @return ruleName
+   **/
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
+  public String getRuleName() {
+    return ruleName;
+  }
+
+  public void setRuleName(String ruleName) {
+    this.ruleName = ruleName;
   }
 
   /**

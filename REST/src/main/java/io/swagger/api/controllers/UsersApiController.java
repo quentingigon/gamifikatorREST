@@ -52,14 +52,14 @@ public class UsersApiController implements UsersApi {
     // used for testing purposes
 	@Override
 	public ResponseEntity<User> addUser(@Valid @RequestBody User newUser) {
-		UserEntity userEntity = toUserEntitiy(newUser);
+		UserEntity userEntity = toUserEntity(newUser);
 
 		userRepository.save(userEntity);
 
 		return new ResponseEntity<User>(toUser(userEntity), HttpStatus.OK);
 	}
 
-	private UserEntity toUserEntitiy(User user) {
+	private UserEntity toUserEntity(User user) {
     	UserEntity userEntity = new UserEntity();
     	userEntity.setApiToken(user.getApitoken());
     	userEntity.setName(user.getName());

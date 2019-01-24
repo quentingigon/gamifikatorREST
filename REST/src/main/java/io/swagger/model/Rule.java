@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,7 +15,7 @@ import java.util.Objects;
 
 public class Rule   {
   @JsonProperty("apitoken")
-  private String apitoken = null;
+  private String apiToken = null;
 
   @JsonProperty("ruleName")
   private String ruleName = null;
@@ -24,12 +23,12 @@ public class Rule   {
   @JsonProperty("badge")
   private Badge badge = null;
 
-  @JsonProperty("properties")
+  @JsonProperty("property")
   @Valid
-  private List<Property> properties = null;
+  private Property property = null;
 
-  public Rule apitoken(String apitoken) {
-    this.apitoken = apitoken;
+  public Rule apiToken(String apiToken) {
+    this.apiToken = apiToken;
     return this;
   }
 
@@ -41,11 +40,11 @@ public class Rule   {
 
 
   public String getApitoken() {
-    return apitoken;
+    return apiToken;
   }
 
-  public void setApitoken(String apitoken) {
-    this.apitoken = apitoken;
+  public void setApitoken(String apiToken) {
+    this.apiToken = apiToken;
   }
 
   public Rule ruleName(String ruleName) {
@@ -84,18 +83,18 @@ public class Rule   {
   }
 
   /**
-   * Get properties
-   * @return properties
+   * Get property
+   * @return property
    **/
   @ApiModelProperty(value = "")
 
 
-  public List<Property> getProperties() {
-    return properties;
+  public Property getProperty() {
+    return property;
   }
 
-  public void setProperties(List<Property> properties) {
-    this.properties = properties;
+  public void setProperty(Property property) {
+    this.property = property;
   }
 
 
@@ -108,13 +107,13 @@ public class Rule   {
       return false;
     }
     Rule rule = (Rule) o;
-    return Objects.equals(this.apitoken, rule.apitoken) &&
+    return Objects.equals(this.apiToken, rule.apiToken) &&
         Objects.equals(this.ruleName, rule.ruleName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(apitoken, ruleName, badge, properties);
+    return Objects.hash(apiToken, ruleName, badge, property);
   }
 
   @Override
@@ -122,7 +121,7 @@ public class Rule   {
     StringBuilder sb = new StringBuilder();
     sb.append("class Rule {\n");
     
-    sb.append("    apitoken: ").append(toIndentedString(apitoken)).append("\n");
+    sb.append("    apitoken: ").append(toIndentedString(apiToken)).append("\n");
     sb.append("    ruleName: ").append(toIndentedString(ruleName)).append("\n");
     sb.append("}");
     return sb.toString();

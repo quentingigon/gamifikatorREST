@@ -20,7 +20,7 @@ public class User {
   private String name = null;
 
   @JsonProperty("apitoken")
-  private String apitoken = null;
+  private String apiToken = null;
 
   @JsonProperty("badges")
   @Valid
@@ -46,8 +46,8 @@ public class User {
     this.name = name;
   }
 
-  public User apitoken(String apitoken) {
-    this.apitoken = apitoken;
+  public User apiToken(String apiToken) {
+    this.apiToken = apiToken;
     return this;
   }
 
@@ -59,11 +59,11 @@ public class User {
 
 
   public String getApitoken() {
-    return apitoken;
+    return apiToken;
   }
 
-  public void setApitoken(String apitoken) {
-    this.apitoken = apitoken;
+  public void setApitoken(String apiToken) {
+    this.apiToken = apiToken;
   }
 
   public User badges(List<Badge> badges) {
@@ -106,13 +106,13 @@ public class User {
     }
     User user = (User) o;
     return Objects.equals(this.name, user.name) &&
-        Objects.equals(this.apitoken, user.apitoken) &&
+        Objects.equals(this.apiToken, user.apiToken) &&
         Objects.equals(this.badges, user.badges);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, apitoken, badges);
+    return Objects.hash(name, apiToken, badges);
   }
 
   @Override
@@ -121,7 +121,7 @@ public class User {
     sb.append("class User {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    apitoken: ").append(toIndentedString(apitoken)).append("\n");
+    sb.append("    apitoken: ").append(toIndentedString(apiToken)).append("\n");
     sb.append("    badges: ").append(toIndentedString(badges)).append("\n");
     sb.append("}");
     return sb.toString();

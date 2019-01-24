@@ -7,12 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Repository
 public interface PropertyRepository extends CrudRepository<PropertyEntity, String> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	List<PropertyEntity> getPropertyEntitiesByRuleId(Long ruleId);
+	PropertyEntity getByNameAndApiToken(String name, String apitoken);
 }

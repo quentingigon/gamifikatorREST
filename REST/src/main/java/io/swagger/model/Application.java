@@ -16,7 +16,7 @@ import javax.validation.Valid;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-04T12:18:41.464Z")
 
 public class Application   {
-  @JsonProperty("apiToken")
+  @JsonProperty("apitoken")
   private Long apiToken = null;
 
   @JsonProperty("badges")
@@ -37,8 +37,8 @@ public class Application   {
   }
 
   /**
-   * Get apiToken
-   * @return apiToken
+   * Get apitoken
+   * @return apitoken
   **/
   @ApiModelProperty(value = "")
 
@@ -164,7 +164,7 @@ public class Application   {
     StringBuilder sb = new StringBuilder();
     sb.append("class Application {\n");
     
-    sb.append("    apiToken: ").append(toIndentedString(apiToken)).append("\n");
+    sb.append("    apitoken: ").append(toIndentedString(apiToken)).append("\n");
     sb.append("    badges: ").append(toIndentedString(badges)).append("\n");
     sb.append("    rules: ").append(toIndentedString(rules)).append("\n");
     sb.append("    endusers: ").append(toIndentedString(endusers)).append("\n");

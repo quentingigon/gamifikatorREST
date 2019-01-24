@@ -67,18 +67,14 @@ public class RulesApiController implements RulesApi {
 		// the app doesn't have a rule of this name
 		if (rule == null) {
 			RuleEntity newRuleEntity = new RuleEntity(newRule.getRuleName(), newRule.getApitoken());
-
-			// create list of properties of rule
-			List<Long> rulePropertiesIds = new ArrayList<>();
-			for (Property property : newRule.getProperties()) {
-				if (property != null) {
-					// save rule properties ids and set them to the rule
-					rulePropertiesIds.add(propertyRepository.save(toPropertyEntity(property)).getId());
-				}
+			if (newRule.getProperty() != null) {
+				// save rule property and set its id to the rule
+				Long id = propertyRepository.save(toPropertyEntity(newRule.getProperty(), newRule.getApitoken())).getId();
+				newRuleEntity.setPropertyId(id);
 			}
 			// no properties in the new rule
-			if (rulePropertiesIds.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 
 			// save rule's badge and set badgeId in rule before saving it
@@ -112,10 +108,10 @@ public class RulesApiController implements RulesApi {
 		}
     }
 
-    public ResponseEntity<Rule> getRule(@ApiParam(value = "", required=true) @PathVariable("ruleName") String ruleName,@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apitoken) {
+    public ResponseEntity<Rule> getRule(@ApiParam(value = "", required=true) @PathVariable("ruleName") String ruleName,@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apiToken) {
 
     	// find a rule by api token and rule name (both must exists)
-    	RuleEntity ruleEntity = ruleRepository.getByNameAndApiToken(ruleName, apitoken);
+    	RuleEntity ruleEntity = ruleRepository.getByNameAndApiToken(ruleName, apiToken);
 
         if (ruleEntity != null) {
 			return new ResponseEntity<Rule>(toRule(ruleEntity), HttpStatus.OK);
@@ -125,9 +121,9 @@ public class RulesApiController implements RulesApi {
 
     }
 
-    public ResponseEntity<List<Rule>> getRules(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apitoken) {
+    public ResponseEntity<List<Rule>> getRules(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apiToken) {
 
-		ApplicationEntity appEntity = applicationRepository.getByApiToken(apitoken);
+		ApplicationEntity appEntity = applicationRepository.getByApiToken(apiToken);
 
 		// if app exists
 		if (appEntity != null) {
@@ -135,12 +131,13 @@ public class RulesApiController implements RulesApi {
 			List<Rule> rules = new ArrayList<>();
 
 			// get rules of app
-			for (RuleEntity ruleEntity : ruleRepository.getRuleEntitiesByApiToken(apitoken)) {
+			for (RuleEntity ruleEntity : ruleRepository.getRuleEntitiesByApiToken(apiToken)) {
 				if (ruleEntity != null) {
 					rules.add(toRule(ruleEntity));
 				}
 			}
 
+			// return rules
 			return new ResponseEntity<List<Rule>>(rules, HttpStatus.OK);
 		}
 		else {
@@ -149,11 +146,21 @@ public class RulesApiController implements RulesApi {
     }
 
     public ResponseEntity<Object> updateRule(@NotNull @ApiParam(value = "Old Rule name", required = true) @Valid @RequestParam(value = "oldRuleName", required = true) String oldRuleName,@ApiParam(value = "New rule" ,required=true )  @Valid @RequestBody Rule newRule) {
-		RuleEntity rule = ruleRepository.getByName(oldRuleName);
+		RuleEntity rule = ruleRepository.getByNameAndApiToken(oldRuleName, newRule.getApitoken());
+		PropertyEntity property = propertyRepository.getByNameAndApiToken(newRule.getProperty().getName(), newRule.getApitoken());
 
-		if (rule != null) {
-			// set new values
+		// when we update a rule, we also want to update the property associated
+		if (rule != null && property != null) {
+
+			// set new values for property
+			Property newProperty = newRule.getProperty();
+			property.setValue(newProperty.getValue());
+			property.setOperator(newProperty.getOperator());
+			Long newPropertyId = propertyRepository.save(property).getId();
+
+			// set new values for rule
 			rule.setName(newRule.getRuleName());
+			rule.setPropertyId(newPropertyId);
 			ruleRepository.save(rule);
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
@@ -170,11 +177,12 @@ public class RulesApiController implements RulesApi {
 		return badgeEntity;
 	}
 
-	private PropertyEntity toPropertyEntity(Property property) {
+	private PropertyEntity toPropertyEntity(Property property, String apiToken) {
     	PropertyEntity propertyEntity = new PropertyEntity();
     	propertyEntity.setName(property.getName());
     	propertyEntity.setValue(property.getValue());
     	propertyEntity.setOperator(property.getOperator());
+    	propertyEntity.setApiToken(apiToken);
     	return propertyEntity;
 	}
 
@@ -194,5 +202,22 @@ public class RulesApiController implements RulesApi {
 		BadgeEntity badgeEntity = badgeRepository.getById(ruleEntity.getBadgeId());
 		rule.setBadge(toBadge(badgeEntity));
 		return rule;
+	}
+
+	public RuleEntity toRuleEntity(Rule rule) {
+    	RuleEntity ruleEntity = new RuleEntity();
+    	ruleEntity.setName(rule.getRuleName());
+    	ruleEntity.setApiToken(rule.getApitoken());
+
+    	PropertyEntity propertyEntity = new PropertyEntity();
+    	propertyEntity.setOperator(rule.getProperty().getOperator());
+    	propertyEntity.setName(rule.getProperty().getName());
+    	propertyEntity.setValue(rule.getProperty().getValue());
+
+    	// TODO finish this function
+    	// ruleEntity.setBadgeId();
+    	// ruleEntity.setPropertyId();
+
+    	return ruleEntity;
 	}
 }

@@ -18,7 +18,7 @@ public interface UserRepository extends CrudRepository<UserEntity, String> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	List<UserEntity> getEndUserEntitiesByApiToken(String apiToken);
+	List<UserEntity> getEndUserEntitiesByApiToken(String apitoken);
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional

@@ -18,11 +18,11 @@ public interface RuleRepository extends CrudRepository<RuleEntity, String> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	RuleEntity getByNameAndApiToken(String name, String apiToken);
+	RuleEntity getByNameAndApiToken(String name, String apitoken);
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	List<RuleEntity> getRuleEntitiesByApiToken(String apiToken);
+	List<RuleEntity> getRuleEntitiesByApiToken(String apitoken);
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional

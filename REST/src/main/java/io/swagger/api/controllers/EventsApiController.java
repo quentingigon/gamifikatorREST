@@ -82,14 +82,11 @@ public class EventsApiController implements EventsApi {
 
 			// get corresponding property
 			PropertyEntity propertyEntity = null;
-			for (PropertyEntity p : propertyRepository.getPropertyEntitiesByRuleId(ruleEntity.getId())) {
-				if (p.getName().equals(body.getPropertyName())) {
-					propertyEntity = p;
-				}
+			if (propertyRepository.getByNameAndApiToken(body.getProperty().getName(), body.getApiToken()) != null) {
+				propertyEntity = propertyRepository.getByNameAndApiToken(body.getProperty().getName(), body.getApiToken());
 			}
-			if (propertyEntity == null) {
+			else
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
 
 			// check if property of rule is validated
 			if (isPropertyValidated(propertyEntity, body.getValue())) {

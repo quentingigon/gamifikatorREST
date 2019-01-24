@@ -20,7 +20,7 @@ public class Event   {
   @JsonProperty("userId")
   private String userId = null;
 
-  @JsonProperty("apiToken")
+  @JsonProperty("apitoken")
   private String apiToken = null;
 
   @JsonProperty("ruleName")
@@ -29,9 +29,9 @@ public class Event   {
   @JsonProperty("value")
   private Long value = null;
 
-  @JsonProperty("propertyName")
+  @JsonProperty("property")
   @Valid
-  private Property propertyName = null;
+  private Property property = null;
 
   public Event timestamp(String timestamp) {
     this.timestamp = timestamp;
@@ -80,8 +80,8 @@ public class Event   {
   }
 
   /**
-   * Get apiToken
-   * @return apiToken
+   * Get apitoken
+   * @return apitoken
   **/
   @ApiModelProperty(value = "")
 
@@ -115,22 +115,22 @@ public class Event   {
   }
 
   public Event property(Property properties) {
-    this.propertyName = propertyName;
+    this.property = property;
     return this;
   }
 
   /**
-   * Get propertyName
-   * @return propertyName
+   * Get property
+   * @return property
   **/
   @ApiModelProperty(value = "")
 
-  public Property getPropertyName() {
-    return propertyName;
+  public Property getProperty() {
+    return property;
   }
 
-  public void setPropertyName(Property propertyName) {
-    this.propertyName = propertyName;
+  public void setProperty(Property property) {
+    this.property = property;
   }
 
   public Long getValue() {
@@ -154,12 +154,12 @@ public class Event   {
         Objects.equals(this.userId, event.userId) &&
         Objects.equals(this.apiToken, event.apiToken) &&
         Objects.equals(this.ruleName, event.ruleName) &&
-        Objects.equals(this.propertyName, event.propertyName);
+        Objects.equals(this.property, event.property);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timestamp, userId, apiToken, ruleName, propertyName);
+    return Objects.hash(timestamp, userId, apiToken, ruleName, property);
   }
 
   @Override
@@ -169,9 +169,9 @@ public class Event   {
     
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
-    sb.append("    apiToken: ").append(toIndentedString(apiToken)).append("\n");
+    sb.append("    apitoken: ").append(toIndentedString(apiToken)).append("\n");
     sb.append("    ruleName: ").append(toIndentedString(ruleName)).append("\n");
-    sb.append("    propertyName: ").append(toIndentedString(propertyName)).append("\n");
+    sb.append("    property: ").append(toIndentedString(property)).append("\n");
     sb.append("}");
     return sb.toString();
   }

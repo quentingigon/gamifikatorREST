@@ -99,13 +99,13 @@ public class BadgesApiController implements BadgesApi {
 		}
     }
 
-    public ResponseEntity<Badge> getBadge(@ApiParam(value = "",required=true) @PathVariable("badgeName") String badgeName,@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apitoken) {
-		ApplicationEntity appEntity = applicationRepository.getByApiToken(apitoken);
+    public ResponseEntity<Badge> getBadge(@ApiParam(value = "",required=true) @PathVariable("badgeName") String badgeName,@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apiToken) {
+		ApplicationEntity appEntity = applicationRepository.getByApiToken(apiToken);
 
 		if (appEntity != null) {
 
-			// get badge by apiToken and name (badge names are unique in app)
-			Badge badge = toBadge(badgeRepository.getByApiTokenAndName(apitoken, badgeName));
+			// get badge by apitoken and name (badge names are unique in app)
+			Badge badge = toBadge(badgeRepository.getByApiTokenAndName(apiToken, badgeName));
 
 			return new ResponseEntity<Badge>(badge, HttpStatus.OK);
 		}
@@ -114,15 +114,15 @@ public class BadgesApiController implements BadgesApi {
 		}
     }
 
-    public ResponseEntity<List<Badge>> getBadges(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apitoken) {
-		ApplicationEntity appEntity = applicationRepository.getByApiToken(apitoken);
+    public ResponseEntity<List<Badge>> getBadges(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apiToken) {
+		ApplicationEntity appEntity = applicationRepository.getByApiToken(apiToken);
 
 		if (appEntity != null) {
 
 			List<Badge> badges = new ArrayList<>();
 
 			// get all badges of the app
-			for (BadgeEntity badgeEntity : badgeRepository.getBadgeEntitiesByApiToken(apitoken)) {
+			for (BadgeEntity badgeEntity : badgeRepository.getBadgeEntitiesByApiToken(apiToken)) {
 				if (badgeEntity != null) {
 					badges.add(toBadge(badgeEntity));
 				}

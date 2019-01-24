@@ -18,7 +18,7 @@ public interface BadgeRepository extends CrudRepository<BadgeEntity, String> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	BadgeEntity getByApiTokenAndName(String apiToken, String name);
+	BadgeEntity getByApiTokenAndName(String apitoken, String name);
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
@@ -26,5 +26,5 @@ public interface BadgeRepository extends CrudRepository<BadgeEntity, String> {
 
 	@Lock(LockModeType.OPTIMISTIC)
 	@Transactional
-	List<BadgeEntity> getBadgeEntitiesByApiToken(String apiToken);
+	List<BadgeEntity> getBadgeEntitiesByApiToken(String apitoken);
 }

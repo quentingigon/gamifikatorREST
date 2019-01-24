@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public class Badge   {
   @JsonProperty("apitoken")
-  private String apitoken = null;
+  private String apiToken = null;
 
   @JsonProperty("badgeName")
   private String badgeName = null;
@@ -22,8 +22,8 @@ public class Badge   {
   @JsonProperty("image")
   private String image = null;
 
-  public Badge apitoken(String apitoken) {
-    this.apitoken = apitoken;
+  public Badge apiToken(String apiToken) {
+    this.apiToken = apiToken;
     return this;
   }
 
@@ -35,11 +35,11 @@ public class Badge   {
 
 
   public String getApitoken() {
-    return apitoken;
+    return apiToken;
   }
 
-  public void setApitoken(String apitoken) {
-    this.apitoken = apitoken;
+  public void setApitoken(String apiToken) {
+    this.apiToken = apiToken;
   }
 
   public Badge badgeName(String badgeName) {
@@ -92,13 +92,13 @@ public class Badge   {
       return false;
     }
     Badge badge = (Badge) o;
-    return Objects.equals(this.apitoken, badge.apitoken) &&
+    return Objects.equals(this.apiToken, badge.apiToken) &&
         Objects.equals(this.badgeName, badge.badgeName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(apitoken, badgeName);
+    return Objects.hash(apiToken, badgeName);
   }
 
   @Override
@@ -106,7 +106,7 @@ public class Badge   {
     StringBuilder sb = new StringBuilder();
     sb.append("class Badge {\n");
     
-    sb.append("    apitoken: ").append(toIndentedString(apitoken)).append("\n");
+    sb.append("    apitoken: ").append(toIndentedString(apiToken)).append("\n");
     sb.append("    badgeName: ").append(toIndentedString(badgeName)).append("\n");
     sb.append("}");
     return sb.toString();

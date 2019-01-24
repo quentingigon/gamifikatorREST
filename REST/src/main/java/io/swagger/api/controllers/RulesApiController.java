@@ -126,6 +126,7 @@ public class RulesApiController implements RulesApi {
     public ResponseEntity<List<Rule>> getRules(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apiToken", required = true) String apiToken) {
 
 		ApplicationEntity appEntity = applicationRepository.findByApiToken(apiToken);
+		//ArrayList<RuleEntity>
 
 		// if app exists
 		if (appEntity != null) {
@@ -175,7 +176,7 @@ public class RulesApiController implements RulesApi {
 		BadgeEntity badgeEntity = new BadgeEntity();
 		badgeEntity.setName(badge.getName());
 		badgeEntity.setApiToken(badge.getApitoken());
-		badgeEntity.setIcon(badge.getImage());
+		badgeEntity.setIcon(badge.getIcon());
 		return badgeEntity;
 	}
 
@@ -190,7 +191,7 @@ public class RulesApiController implements RulesApi {
 
 	private Badge toBadge(BadgeEntity badgeEntity) {
 		Badge badge = new Badge();
-		badge.setImage(badgeEntity.getIcon());
+		badge.setIcon(badgeEntity.getIcon());
 		badge.setApitoken(badgeEntity.getApiToken());
 		badge.setName(badgeEntity.getName());
 		return badge;

@@ -80,8 +80,8 @@ public class Event   {
   }
 
   /**
-   * Get apitoken
-   * @return apitoken
+   * Get apiToken
+   * @return apiToken
   **/
   @ApiModelProperty(value = "")
 

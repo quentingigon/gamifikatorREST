@@ -24,7 +24,6 @@ public class ApplicationEntity implements Serializable {
 
 	private boolean isDeployed;
 
-
 	public ApplicationEntity() {}
 
 	public ApplicationEntity(String name, String owner, String description, String apiToken, String apiSecret, boolean isDeployed) {

@@ -33,8 +33,8 @@ public class Rule   {
   }
 
   /**
-   * Get apitoken
-   * @return apitoken
+   * Get apiToken
+   * @return apiToken
   **/
   @ApiModelProperty(value = "")
 

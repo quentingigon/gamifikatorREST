@@ -29,17 +29,6 @@ public interface BadgesApi {
     ResponseEntity<Object> createBadge(@ApiParam(value = "New badge" ,required=true )  @Valid @RequestBody Badge newBadge);
 
 
-    @ApiOperation(value = "Delete badge", nickname = "deleteBadge", notes = "Delete badge", tags={ "badges", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "The rule has been deleted"),
-        @ApiResponse(code = 400, message = "Invalid input"),
-        @ApiResponse(code = 500, message = "Internal server error") })
-    @RequestMapping(value = "/badges",
-        consumes = { "application/json" },
-        method = RequestMethod.DELETE)
-    ResponseEntity<Object> deleteBadge(@ApiParam(value = "Badge to be deleted" ,required=true )  @Valid @RequestBody Badge badge);
-
-
     @ApiOperation(value = "Get badge", nickname = "getBadge", notes = "Returns particular badge", response = Badge.class, tags={ "badges", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = Badge.class),

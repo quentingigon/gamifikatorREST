@@ -105,6 +105,7 @@ public class EventsApiController implements EventsApi {
 		}
     }
 
+    // return true if property conditon is validated
     private boolean isPropertyValidated(PropertyEntity propertyEntity, Long eventValue) {
 
     	// get operator and base value of property

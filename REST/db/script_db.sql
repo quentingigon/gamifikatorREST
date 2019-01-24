@@ -46,7 +46,7 @@ CREATE TABLE RULE_ENTITY
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
   api_token VARCHAR(100) NOT NULL,
-  badge_id INT NOT NULL,
+  badge_id INT,
   property_id INT NOT NULL,
   PRIMARY KEY (id)
 );

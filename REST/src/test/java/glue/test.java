@@ -1,8 +1,4 @@
 package glue;
-import java.awt.*;
-import java.util.concurrent.TimeUnit;
-
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -46,7 +42,7 @@ public class test {
     public void user_has_API_token() throws Throwable {
 
         jsonBadge  = new JSONObject();
-        jsonBadge.put("token", "token");
+        jsonBadge.put("apiToken", "token");
         jsonBadge.put("name", "Numero Uno");
         jsonBadge.put("icon","BadgeImage");
 

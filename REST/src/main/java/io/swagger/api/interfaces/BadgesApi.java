@@ -47,7 +47,7 @@ public interface BadgesApi {
     @RequestMapping(value = "/badges/{badgeName}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<Badge> getBadge(@ApiParam(value = "",required=true) @PathVariable("badgeName") String badgeName,@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apiToken);
+    ResponseEntity<Badge> getBadge(@ApiParam(value = "",required=true) @PathVariable("badgeName") String badgeName,@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apiToken", required = true) String apiToken);
 
 
     @ApiOperation(value = "Get badges", nickname = "getBadges", notes = "Returns list of badges", response = Badge.class, responseContainer = "List", tags={ "badges", })
@@ -57,7 +57,7 @@ public interface BadgesApi {
     @RequestMapping(value = "/badges",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<Badge>> getBadges(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apitoken", required = true) String apiToken);
+    ResponseEntity<List<Badge>> getBadges(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apiToken", required = true) String apiToken);
 
 
     @ApiOperation(value = "Update exisiting badge", nickname = "updateBadge", notes = "", tags={ "badges", })

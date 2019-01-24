@@ -23,8 +23,8 @@ public class Badge   {
   @JsonProperty("name")
   private String name = null;
 
-  @JsonProperty("image")
-  private String image = null;
+  @JsonProperty("icon")
+  private String icon = null;
 
   public Badge apiToken(String apiToken) {
     this.apiToken = apiToken;
@@ -47,8 +47,8 @@ public class Badge   {
   }
 
   /**
-   * Get apitoken
-   * @return apitoken
+   * Get apiToken
+   * @return apiToken
   **/
   @ApiModelProperty(value = "")
 
@@ -82,22 +82,22 @@ public class Badge   {
   }
 
   /**
-   * Get image
-   * @return image
+   * Get icon
+   * @return icon
    **/
   @ApiModelProperty(value = "")
 
 
-  public String getImage() {
-    return image;
+  public String getIcon() {
+    return icon;
   }
 
-  public void setImage(String image) {
-    this.image = image;
+  public void setIcon(String icon) {
+    this.icon = icon;
   }
 
-  public Badge image(String image) {
-    this.image = image;
+  public Badge icon(String icon) {
+    this.icon = icon;
     return this;
   }
 

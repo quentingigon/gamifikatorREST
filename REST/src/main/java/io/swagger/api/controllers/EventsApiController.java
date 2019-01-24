@@ -26,7 +26,7 @@ public class EventsApiController implements EventsApi {
     ApplicationRepository applicationRepository;
 
     @Autowired
-	UserBadgeRepository userBadgeRepository;
+	UserBadgesRepository userBadgesRepository;
 
     @Autowired
 	UserRepository userRepository;
@@ -93,8 +93,8 @@ public class EventsApiController implements EventsApi {
 			if (isPropertyValidated(propertyEntity, body.getValue())) {
 				// we save the fact that the user won a badge
 				if (ruleEntity.getBadgeId() != null) {
-					UserBadgeEntity awardedBadge = new UserBadgeEntity(Long.valueOf(body.getUserId()), ruleEntity.getBadgeId());
-					userBadgeRepository.save(awardedBadge);
+					UserBadgesEntity awardedBadge = new UserBadgesEntity(Long.valueOf(body.getUserId()), ruleEntity.getBadgeId());
+					userBadgesRepository.save(awardedBadge);
 				}
 			}
 

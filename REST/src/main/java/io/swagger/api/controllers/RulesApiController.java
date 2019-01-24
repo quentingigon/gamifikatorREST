@@ -3,10 +3,9 @@ package io.swagger.api.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.api.interfaces.RulesApi;
-import io.swagger.entities.ApplicationEntity;
 import io.swagger.entities.BadgeEntity;
-import io.swagger.entities.RuleEntity;
 import io.swagger.entities.PropertyEntity;
+import io.swagger.entities.RuleEntity;
 import io.swagger.model.Badge;
 import io.swagger.model.Property;
 import io.swagger.model.Rule;
@@ -125,16 +124,16 @@ public class RulesApiController implements RulesApi {
 
     public ResponseEntity<List<Rule>> getRules(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apiToken", required = true) String apiToken) {
 
-		ApplicationEntity appEntity = applicationRepository.findByApiToken(apiToken);
-		//ArrayList<RuleEntity>
+		//ApplicationEntity appEntity = applicationRepository.findByApiToken(apiToken);
+		List<RuleEntity> ruleEntities = ruleRepository.getRuleEntitiesByApiToken(apiToken);
 
-		// if app exists
-		if (appEntity != null) {
+		// if app exists and has rules
+		if (ruleEntities != null && !ruleEntities.isEmpty()) {
 
 			List<Rule> rules = new ArrayList<>();
 
 			// get rules of app
-			for (RuleEntity ruleEntity : ruleRepository.getRuleEntitiesByApiToken(apiToken)) {
+			for (RuleEntity ruleEntity : ruleEntities) {
 				if (ruleEntity != null) {
 					rules.add(toRule(ruleEntity));
 				}

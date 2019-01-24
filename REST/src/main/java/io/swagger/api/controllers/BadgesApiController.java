@@ -3,7 +3,6 @@ package io.swagger.api.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.api.interfaces.BadgesApi;
-import io.swagger.entities.ApplicationEntity;
 import io.swagger.entities.BadgeEntity;
 import io.swagger.entities.RuleEntity;
 import io.swagger.model.Badge;
@@ -121,14 +120,16 @@ public class BadgesApiController implements BadgesApi {
     }
 
     public ResponseEntity<List<Badge>> getBadges(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apiToken", required = true) String apiToken) {
-		ApplicationEntity appEntity = applicationRepository.findByApiToken(apiToken);
+		// ApplicationEntity appEntity = applicationRepository.findByApiToken(apiToken);
+		List<BadgeEntity> badgeEntities = badgeRepository.findBadgeEntitiesByApiToken(apiToken);
 
-		if (appEntity != null) {
+		// if app exists and has badges
+		if (badgeEntities != null && !badgeEntities.isEmpty()) {
 
 			List<Badge> badges = new ArrayList<>();
 
 			// get all badges of the app
-			for (BadgeEntity badgeEntity : badgeRepository.findBadgeEntitiesByApiToken(apiToken)) {
+			for (BadgeEntity badgeEntity : badgeEntities) {
 				if (badgeEntity != null) {
 					badges.add(toBadge(badgeEntity));
 				}

@@ -164,7 +164,7 @@ public class Application   {
     StringBuilder sb = new StringBuilder();
     sb.append("class Application {\n");
     
-    sb.append("    apitoken: ").append(toIndentedString(apiToken)).append("\n");
+    sb.append("    apiToken: ").append(toIndentedString(apiToken)).append("\n");
     sb.append("    badges: ").append(toIndentedString(badges)).append("\n");
     sb.append("    rules: ").append(toIndentedString(rules)).append("\n");
     sb.append("    endusers: ").append(toIndentedString(endusers)).append("\n");

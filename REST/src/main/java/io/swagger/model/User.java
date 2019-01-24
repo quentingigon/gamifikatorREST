@@ -121,7 +121,7 @@ public class User {
     sb.append("class User {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    apitoken: ").append(toIndentedString(apiToken)).append("\n");
+    sb.append("    apiToken: ").append(toIndentedString(apiToken)).append("\n");
     sb.append("    badges: ").append(toIndentedString(badges)).append("\n");
     sb.append("}");
     return sb.toString();

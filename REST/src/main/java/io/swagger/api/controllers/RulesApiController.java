@@ -3,10 +3,8 @@ package io.swagger.api.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.api.interfaces.RulesApi;
-import io.swagger.entities.BadgeEntity;
 import io.swagger.entities.PropertyEntity;
 import io.swagger.entities.RuleEntity;
-import io.swagger.model.Badge;
 import io.swagger.model.Property;
 import io.swagger.model.Rule;
 import io.swagger.repositories.ApplicationRepository;
@@ -30,6 +28,10 @@ import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+
+import static io.swagger.api.utils.Transformator.toPropertyEntity;
+import static io.swagger.api.utils.Transformator.toRule;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-01-04T12:18:41.464Z")
 
 @Controller
@@ -124,7 +126,6 @@ public class RulesApiController implements RulesApi {
 		} else {
 			return new ResponseEntity<Rule>(HttpStatus.NOT_FOUND);
 		}
-
     }
 
     public ResponseEntity<List<Rule>> getRules(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apiToken", required = true) String apiToken) {
@@ -175,57 +176,4 @@ public class RulesApiController implements RulesApi {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
     }
-
-	private BadgeEntity toBadgeEntity(Badge badge) {
-		BadgeEntity badgeEntity = new BadgeEntity();
-		badgeEntity.setName(badge.getName());
-		badgeEntity.setApiToken(badge.getApitoken());
-		badgeEntity.setIcon(badge.getIcon());
-		return badgeEntity;
-	}
-
-	private PropertyEntity toPropertyEntity(Property property, String apiToken) {
-    	PropertyEntity propertyEntity = new PropertyEntity();
-    	propertyEntity.setName(property.getName());
-    	propertyEntity.setValue(property.getValue());
-    	propertyEntity.setOperator(property.getOperator());
-    	propertyEntity.setApiToken(apiToken);
-    	propertyEntity.setRuleName(property.getRuleName());
-    	return propertyEntity;
-	}
-
-	private Badge toBadge(BadgeEntity badgeEntity) {
-		Badge badge = new Badge();
-		badge.setIcon(badgeEntity.getIcon());
-		badge.setApitoken(badgeEntity.getApiToken());
-		badge.setName(badgeEntity.getName());
-		return badge;
-	}
-
-	public Rule toRule(RuleEntity ruleEntity) {
-		Rule rule = new Rule();
-		rule.setApitoken(ruleEntity.getApiToken());
-		rule.setName(ruleEntity.getName());
-
-		BadgeEntity badgeEntity = badgeRepository.getById(ruleEntity.getBadgeId());
-		rule.setBadgeId(ruleEntity.getId());
-		return rule;
-	}
-
-	public RuleEntity toRuleEntity(Rule rule) {
-    	RuleEntity ruleEntity = new RuleEntity();
-    	ruleEntity.setName(rule.getName());
-    	ruleEntity.setApiToken(rule.getApitoken());
-
-    	PropertyEntity propertyEntity = new PropertyEntity();
-    	propertyEntity.setOperator(rule.getProperty().getOperator());
-    	propertyEntity.setName(rule.getProperty().getName());
-    	propertyEntity.setValue(rule.getProperty().getValue());
-
-    	// TODO finish this function
-    	// ruleEntity.setBadgeId();
-    	// ruleEntity.setPropertyId();
-
-    	return ruleEntity;
-	}
 }

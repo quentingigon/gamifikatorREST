@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS gamifikator;
-CREATE OR REPLACE DATABASE gamifikator;
+CREATE DATABASE IF NOT EXISTS gamifikator;
 USE gamifikator;
 
 

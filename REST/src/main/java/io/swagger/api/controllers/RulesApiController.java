@@ -66,7 +66,12 @@ public class RulesApiController implements RulesApi {
 		// the app doesn't have a rule of this name
 		if (rule == null) {
 			RuleEntity newRuleEntity = new RuleEntity(newRule.getName(), newRule.getApitoken());
-			if (newRule.getProperty() != null) {
+
+			// if new rule contains a property and property doesnt already exists in app/ruleName
+			if (newRule.getProperty() != null
+				&& propertyRepository.getByApiTokenAndRuleNameAndName(newRule.getApitoken(),
+																	  newRule.getName(),
+																	  newRule.getProperty().getName()) == null) {
 				// save rule property and set its id to the rule
 				Long id = propertyRepository.save(toPropertyEntity(newRule.getProperty(), newRule.getApitoken())).getId();
 				newRuleEntity.setPropertyId(id);
@@ -149,7 +154,7 @@ public class RulesApiController implements RulesApi {
 
     public ResponseEntity<Object> updateRule(@NotNull @ApiParam(value = "Old Rule name", required = true) @Valid @RequestParam(value = "oldRuleName", required = true) String oldRuleName,@ApiParam(value = "New rule" ,required=true )  @Valid @RequestBody Rule newRule) {
 		RuleEntity rule = ruleRepository.getByNameAndApiToken(oldRuleName, newRule.getApitoken());
-		PropertyEntity property = propertyRepository.getByNameAndApiToken(newRule.getProperty().getName(), newRule.getApitoken());
+		PropertyEntity property = propertyRepository.getByApiTokenAndRuleNameAndName(newRule.getApitoken(), newRule.getName(),newRule.getProperty().getName());
 
 		// when we update a rule, we also want to update the property associated
 		if (rule != null && property != null) {

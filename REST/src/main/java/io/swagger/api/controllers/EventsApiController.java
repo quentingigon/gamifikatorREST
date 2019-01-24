@@ -61,6 +61,7 @@ public class EventsApiController implements EventsApi {
 			for (RuleEntity rule : ruleRepository.getRuleEntitiesByApiToken(body.getApiToken())) {
 				if (rule.getName().equals(body.getRuleName())) {
 					ruleEntity = rule;
+					break;
 				}
 			}
 			// if no rule was found
@@ -82,8 +83,8 @@ public class EventsApiController implements EventsApi {
 
 			// get corresponding property
 			PropertyEntity propertyEntity = null;
-			if (propertyRepository.getByNameAndApiToken(body.getProperty().getName(), body.getApiToken()) != null) {
-				propertyEntity = propertyRepository.getByNameAndApiToken(body.getProperty().getName(), body.getApiToken());
+			if (propertyRepository.getByApiTokenAndRuleNameAndName(body.getApiToken(), body.getRuleName(), body.getProperty().getName()) != null) {
+				propertyEntity = propertyRepository.getByApiTokenAndRuleNameAndName(body.getApiToken(), body.getRuleName(), body.getProperty().getName());
 			}
 			else
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);

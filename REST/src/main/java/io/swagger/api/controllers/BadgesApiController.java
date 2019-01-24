@@ -55,14 +55,12 @@ public class BadgesApiController implements BadgesApi {
     public ResponseEntity<Object> createBadge(@ApiParam(value = "New badge" ,required=true )  @Valid @RequestBody Badge newBadge) {
 
 		BadgeEntity badgeEntity = badgeRepository.findByApiTokenAndName(newBadge.getApitoken(), newBadge.getName());
-//		ApplicationEntity appEntity = applicationRepository.findByApiToken(newBadge.getApitoken());
 
 		// if app exists and badge not
 		if (badgeEntity == null) {
 
-			// TODO check why byApiToken is not working
-			//for (BadgeEntity b : badgeRepository.findBadgeEntitiesByApiToken(newBadge.getApitoken())) {
-			for (BadgeEntity b : badgeRepository.findAll()) {
+			// check if app already contains a badge with this name
+			for (BadgeEntity b : badgeRepository.findBadgeEntitiesByApiToken(newBadge.getApitoken())) {
 					if (b.getName().equals(newBadge.getName())) {
 					// already a badge with this name in the app
 					return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -87,8 +85,7 @@ public class BadgesApiController implements BadgesApi {
 
     public ResponseEntity<Object> deleteBadge(@ApiParam(value = "Badge to be deleted" ,required=true )  @Valid @RequestBody Badge badge) {
 		String apiToken = badge.getApitoken();
-    	BadgeEntity badgeEntity = badgeRepository.findByApiTokenAndName(apiToken, badge.
-			getName());
+    	BadgeEntity badgeEntity = badgeRepository.findByApiTokenAndName(apiToken, badge.getName());
 
 		if (badgeEntity != null) {
 			// remove badge from rule

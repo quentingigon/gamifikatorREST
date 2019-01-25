@@ -73,7 +73,8 @@ public class RulesApiController implements RulesApi {
 			if (newRule.getProperty() != null
 				&& propertyRepository.getByApiTokenAndRuleNameAndName(newRule.getApitoken(),
 																	  newRule.getName(),
-																	  newRule.getProperty().getName()) == null) {
+																	  newRule.getProperty().getName()) == null
+				&& checkOperator(newRule.getProperty().getOperator())) {
 				// save rule property and set its id to the rule
 				Long id = propertyRepository.save(toPropertyEntity(newRule.getProperty(), newRule.getApitoken())).getId();
 				newRuleEntity.setPropertyId(id);
@@ -184,4 +185,18 @@ public class RulesApiController implements RulesApi {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
     }
+
+    private boolean checkOperator(String operator) {
+    	String[] operators = {"<", ">", "<=", ">=", "==", "!="};
+
+    	boolean result = false;
+
+    	for (String op : operators) {
+    		if (op.equals(operator)) {
+    			result = true;
+    			break;
+			}
+		}
+		return result;
+	}
 }

@@ -3,7 +3,9 @@ package io.swagger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,6 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @ComponentScan(basePackages = { "io.swagger", "io.swagger.api" , "io.swagger.configuration" , "io.swagger.repositories"})
 @EnableJpaRepositories(basePackages = "io.swagger")
+@EnableAutoConfiguration(exclude={MongoAutoConfiguration.class})
 public class Swagger2SpringBoot extends SpringBootServletInitializer implements CommandLineRunner {
 
     @Override

@@ -91,10 +91,11 @@ public class BadgesApiController implements BadgesApi {
 
     	BadgeEntity badgeEntity = badgeRepository.findByApiTokenAndName(apiToken, badgeName);
 
+    	// if badge exists
 		if (badgeEntity != null) {
 
 			// get badge by apiToken and name (badge names are unique in app)
-			Badge badge = toBadge(badgeRepository.findByApiTokenAndName(apiToken, badgeName));
+			Badge badge = toBadge(badgeEntity);
 
 			return new ResponseEntity<Badge>(badge, HttpStatus.OK);
 		}
@@ -104,7 +105,6 @@ public class BadgesApiController implements BadgesApi {
     }
 
     public ResponseEntity<List<Badge>> getBadges(@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "apiToken", required = true) String apiToken) {
-		// ApplicationEntity appEntity = applicationRepository.findByApiToken(apiToken);
 		List<BadgeEntity> badgeEntities = badgeRepository.findBadgeEntitiesByApiToken(apiToken);
 
 		// if app exists and has badges
@@ -130,9 +130,12 @@ public class BadgesApiController implements BadgesApi {
     	BadgeEntity badgeEntity = badgeRepository.getByName(badgeName);
 
     	if (badgeEntity != null) {
+    		// update badge infos
 			badgeEntity.setIcon(newBadge.getIcon());
     		badgeEntity.setName(newBadge.getName());
+
     		badgeRepository.save(badgeEntity);
+
     		return new ResponseEntity<>(HttpStatus.OK);
 		}
 		else {

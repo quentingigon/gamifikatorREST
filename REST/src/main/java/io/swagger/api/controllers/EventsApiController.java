@@ -76,7 +76,7 @@ public class EventsApiController implements EventsApi {
 					break;
 				}
 			}
-
+			// if no user was found
 			if (endUser == null) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}

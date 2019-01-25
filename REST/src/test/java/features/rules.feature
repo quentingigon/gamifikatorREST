@@ -9,12 +9,12 @@ Feature: Test Rules responses and sassiness
 
 
   Scenario: Get the rule
-    Given user has API token and badge
+    Given user has API token and rule
     When the rule is fetched
     Then the server should send a 200
     And the user get the previous rule
 
   Scenario: Delete the rule
-    Given user has API token and badge
+    Given user has API token and rule
     When the rule is deleted
     Then the server should send a 200

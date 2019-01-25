@@ -1,97 +1,64 @@
 DROP DATABASE IF EXISTS gamifikator;
-CREATE OR REPLACE DATABASE gamifikator;
+CREATE DATABASE IF NOT EXISTS gamifikator;
 USE gamifikator;
 
-CREATE TABLE USER
-(
-  email VARCHAR(50) NOT NULL,
-  username VARCHAR(50) NOT NULL,
-  password VARCHAR(100) NOT NULL,
-  isAdmin BOOL NOT NULL,
-  isSuspended BOOL NOT NULL,
-  isPasswordValid BOOL NOT NULL,
-  PRIMARY KEY (email)
-);
 
-CREATE TABLE ENDUSER
+
+CREATE TABLE user_entity
 (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
-  apitoken VARCHAR(100) NOT NULL,
+  api_token VARCHAR(100) NOT NULL,
   PRIMARY KEY (id)
 );
 
-CREATE TABLE ENDUSERBADGES
-(
-  id INT NOT NULL AUTO_INCREMENT,
-  userId INT NOT NULL,
-  badgeId INT NOT NULL,
-  PRIMARY KEY (id)
-);
-
-CREATE TABLE BADGE
+CREATE TABLE property_entity
 (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
-  apitoken VARCHAR(100) NOT NULL,
-  level INT NOT NULL,
+  rule_name VARCHAR(50) NOT NULL,
+  value INT NOT NULL,
+  operator VARCHAR(10) NOT NULL,
+  api_token VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE user_badges_entity
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  badge_id INT NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE badge_entity
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL,
+  api_token VARCHAR(100) NOT NULL,
+  level INT,
   icon VARCHAR(50) NOT NULL,
   PRIMARY KEY (id)
 );
 
-CREATE TABLE RULE
+CREATE TABLE rule_entity
 (
   id INT NOT NULL AUTO_INCREMENT,
-  ruleName VARCHAR(50) NOT NULL,
-  apitoken VARCHAR(100) NOT NULL,
-  conditionId INT NOT NULL,
-  badgeId INT NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  api_token VARCHAR(100) NOT NULL,
+  badge_id INT,
+  property_id INT NOT NULL,
   PRIMARY KEY (id)
 );
 
-CREATE TABLE CONDITION
+CREATE TABLE application_entity
 (
   id INT NOT NULL AUTO_INCREMENT,
-  value VARCHAR(10) NOT NULL,
-  operator VARCHAR(10) NOT NULL,
-  ruleId VARCHAR(50) NOT NULL,
-  PRIMARY KEY (id)
-);
-
-CREATE TABLE APPLICATION
-(
-  id INT NOT NULL AUTO_INCREMENT,
-  ruleName VARCHAR(50) NOT NULL,
-  creator VARCHAR(50) NOT NULL,
-  owner_email VARCHAR(50) NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  owner VARCHAR(50) NOT NULL,
   description VARCHAR(400),
-	apisecret VARCHAR(100) UNIQUE,
-  apikey VARCHAR(100) UNIQUE,
-  isDeployed BOOL NOT NULL,
-  PRIMARY KEY (id),
-	FOREIGN KEY (owner_email) REFERENCES USER(email)
-);
-
-CREATE TABLE APP_RULE
-(
-  id INT NOT NULL AUTO_INCREMENT,
-  appId INT NOT NULL,
-  ruleId INT NOT NULL,
-  PRIMARY KEY (id)
-);
-
-CREATE TABLE APP_BADGE
-(
-  id INT NOT NULL AUTO_INCREMENT,
-  appId INT NOT NULL,
-  badgeId INT NOT NULL,
-  PRIMARY KEY (id)
-);
-
-CREATE TABLE APP_ENDUSER
-(
-  id INT NOT NULL AUTO_INCREMENT,
-  appId INT NOT NULL,
-  enduserId INT NOT NULL,
+	api_secret VARCHAR(100) UNIQUE,
+  api_token VARCHAR(100) UNIQUE,
+  is_deployed BOOL NOT NULL,
   PRIMARY KEY (id)
 );

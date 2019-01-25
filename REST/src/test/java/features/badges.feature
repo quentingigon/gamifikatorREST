@@ -6,9 +6,6 @@ Feature: Test Badges quality
     Given user has API token and badge
     When a badge is created
     Then the server should send a 201
-
-
-  Scenario: Get the badge
     Given user has API token and badge
     When the badge is fetched
     Then the server should send a 200

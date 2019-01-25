@@ -20,7 +20,7 @@ public class test {
     public String pathEvents = "events/";
 
     //SETUP NEW FOR EACH RUN
-    public String BADGENAME = "Numeroz2";
+    public String BADGENAME = "Numeroz2"+Math.random();
     public String RULENAME = "Rulefinal";
     //-------
     private String token = "token";
@@ -35,7 +35,7 @@ public class test {
     public void user_has_API_token_badges() throws Throwable {
         jsonData = new JSONObject();
         jsonData.put("apiToken",token);
-        jsonData.put("name", RULENAME);
+        jsonData.put("name", BADGENAME);
         jsonData.put("icon","BadgeImage");
 
 
@@ -221,12 +221,8 @@ public class test {
         jsonData.put("apiToken",token);
         jsonData.put("name", RULENAME);
 
-        StringEntity requestEntity = new StringEntity(
-                jsonData.toJSONString(),
-                ContentType.APPLICATION_JSON);
 
         HttpDelete postMethod = new HttpDelete(URL + pathRules + RULENAME );
-    //    postMethod.setEntity(requestEntity);
 
         rawResponse = httpClient.execute(postMethod);
 

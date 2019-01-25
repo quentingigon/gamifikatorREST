@@ -103,15 +103,15 @@ public class RulesApiController implements RulesApi {
 		}
     }
 
-	public ResponseEntity<Object> deleteRule(@ApiParam(value = "Rule to be deleted" ,required=true )  @RequestBody Rule rule) {
+	public ResponseEntity<Object> deleteRule(@PathVariable("ruleName") String ruleName, @Valid @RequestParam(value = "apiToken", required = true) String apiToken) {
 
-    	RuleEntity ruleEntity = ruleRepository.getByNameAndApiToken(rule.getName(), rule.getApitoken());
+    	RuleEntity ruleEntity = ruleRepository.getByNameAndApiToken(ruleName, apiToken);
 
 		if (ruleEntity != null) {
 
 			// delete properties associated with the rule
-			if (propertyRepository.getByApiTokenAndRuleName(rule.getApitoken(), rule.getName()) != null) {
-				for (PropertyEntity property : propertyRepository.getByApiTokenAndRuleName(rule.getApitoken(), rule.getName())) {
+			if (propertyRepository.getByApiTokenAndRuleName(apiToken, ruleName) != null) {
+				for (PropertyEntity property : propertyRepository.getByApiTokenAndRuleName(apiToken, ruleName)) {
 					propertyRepository.delete(property);
 				}
 			}

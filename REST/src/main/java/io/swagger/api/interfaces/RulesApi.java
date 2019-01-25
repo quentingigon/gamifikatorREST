@@ -34,10 +34,10 @@ public interface RulesApi {
         @ApiResponse(code = 201, message = "The rule has been deleted"),
         @ApiResponse(code = 400, message = "Invalid input"),
         @ApiResponse(code = 500, message = "Internal server error") })
-    @RequestMapping(value = "/rules",
+    @RequestMapping(value = "/rules/{ruleName}",
         consumes = { "application/json" },
         method = RequestMethod.DELETE)
-    ResponseEntity<Object> deleteRule(@ApiParam(value = "Rule to be deleted" ,required=true )  @RequestBody Rule rule);
+    ResponseEntity<Object> deleteRule(@PathVariable("ruleName") String ruleName, @Valid @RequestParam(value = "apiToken", required = true) String apiToken);
 
 
     @ApiOperation(value = "Get rule", nickname = "getRule", notes = "Returns particular rule", response = Rule.class, tags={ "rules", })

@@ -15,7 +15,7 @@ public interface RuleRepository extends CrudRepository<RuleEntity, Long> {
 
 	List<RuleEntity> getRuleEntitiesByApiToken(String apiToken);
 
-	RuleEntity getByApiTokenAndBadgeId(String name, Long badgeId);
+	List<RuleEntity> getByApiTokenAndBadgeId(String name, Long badgeId);
 
 
 }

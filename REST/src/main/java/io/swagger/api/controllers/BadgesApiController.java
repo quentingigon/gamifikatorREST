@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.api.interfaces.BadgesApi;
 import io.swagger.entities.BadgeEntity;
-import io.swagger.entities.RuleEntity;
 import io.swagger.model.Badge;
 import io.swagger.repositories.ApplicationRepository;
 import io.swagger.repositories.BadgeRepository;
@@ -74,6 +73,7 @@ public class BadgesApiController implements BadgesApi {
 			BadgeEntity newBadgeEntity = toBadgeEntity(newBadge);
 			// add badge
 			Long id = badgeRepository.save(newBadgeEntity).getId();
+			newBadgeEntity.setId(id);
 
 			URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest().path("/{id}")
@@ -81,23 +81,6 @@ public class BadgesApiController implements BadgesApi {
 				.toUri();
 
 			return ResponseEntity.created(location).body(toBadge(newBadgeEntity));
-		}
-		else {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-    }
-
-    public ResponseEntity<Object> deleteBadge(@ApiParam(value = "Badge to be deleted" ,required=true )  @Valid @RequestBody Badge badge) {
-		String apiToken = badge.getApitoken();
-    	BadgeEntity badgeEntity = badgeRepository.findByApiTokenAndName(apiToken, badge.getName());
-
-		if (badgeEntity != null) {
-			// remove badge from rule
-			RuleEntity ruleEntity = ruleRepository.getByApiTokenAndBadgeId(apiToken, badgeEntity.getId());
-			ruleEntity.setBadgeId(new Long(-1));
-			badgeRepository.delete(badgeEntity);
-
-			return new ResponseEntity<>(HttpStatus.OK);
 		}
 		else {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

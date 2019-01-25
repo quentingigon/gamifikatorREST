@@ -27,6 +27,7 @@ public class Transformator {
 		badgeEntity.setName(badge.getName());
 		badgeEntity.setApiToken(badge.getApitoken());
 		badgeEntity.setIcon(badge.getIcon());
+		badgeEntity.setId(badge.getBadgeId());
 		return badgeEntity;
 	}
 
@@ -35,6 +36,7 @@ public class Transformator {
 		badge.setApitoken(badgeEntity.getApiToken());
 		badge.setName(badgeEntity.getName());
 		badge.setIcon(badgeEntity.getIcon());
+		badge.setBadgeId(badgeEntity.getId());
 		return badge;
 	}
 

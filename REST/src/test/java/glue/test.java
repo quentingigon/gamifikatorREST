@@ -20,6 +20,7 @@ public class test {
     public String URL = "http://localhost:8081/v1/";
     public String pathBadges = "badges/";
     public String pathRules = "rules/";
+    public String pathEvents = "events/";
 
     public String BADGENAME = "Numerot";
     public String RULENAME = "Rule1";
@@ -49,11 +50,12 @@ public class test {
         jsonBadge = new JSONObject();
         jsonBadge.put("apiToken",token);
         jsonBadge.put("name", RULENAME);
-        jsonBadge.put("badgeId","1");
-            JSONObject property = new JSONObject();
+        jsonBadge.put("badgeId", 1);
+        JSONObject property = new JSONObject();
             property.put("name","testProperty");
-            property.put("value","42");
-            property.put("operator","=");
+            property.put("value", 42);
+            property.put("operator","==");
+            property.put("ruleName", RULENAME);
         jsonBadge.put("property",property);
 
     }
@@ -82,6 +84,103 @@ public class test {
         rawResponse = httpClient.execute(putMethod);
 
     }
+    @When("^an event is created$")
+    public void event_creation() throws Throwable {
+
+        jsonBadge.put("value", 42);
+        jsonBadge.put("userId", 1);
+        jsonBadge.put("ruleName", RULENAME);
+        jsonBadge.put("timestamp", "12:00:00");
+
+        StringEntity requestEntity = new StringEntity(
+            jsonBadge.toJSONString(),
+            ContentType.APPLICATION_JSON);
+
+        HttpPost putMethod = new HttpPost(URL + pathEvents);
+        putMethod.setEntity(requestEntity);
+
+        rawResponse = httpClient.execute(putMethod);
+    }
+
+    @When("^an event is created with false rule name$")
+    public void event_creation_false_rule_name() throws Throwable {
+
+        jsonBadge.put("value", 42);
+        jsonBadge.put("userId", 1);
+        jsonBadge.put("ruleName", "not a real name");
+        jsonBadge.put("timestamp", "12:00:00");
+
+        StringEntity requestEntity = new StringEntity(
+            jsonBadge.toJSONString(),
+            ContentType.APPLICATION_JSON);
+
+        HttpPost putMethod = new HttpPost(URL + pathEvents);
+        putMethod.setEntity(requestEntity);
+
+        rawResponse = httpClient.execute(putMethod);
+    }
+
+    @When("^an event is created with false user id$")
+    public void event_creation_false_user_id() throws Throwable {
+
+        jsonBadge.put("value", 42);
+        jsonBadge.put("userId", 100000);
+        jsonBadge.put("ruleName", RULENAME);
+        jsonBadge.put("timestamp", "12:00:00");
+
+        StringEntity requestEntity = new StringEntity(
+            jsonBadge.toJSONString(),
+            ContentType.APPLICATION_JSON);
+
+        HttpPost putMethod = new HttpPost(URL + pathEvents);
+        putMethod.setEntity(requestEntity);
+
+        rawResponse = httpClient.execute(putMethod);
+    }
+
+    @When("^an event is created with false property name$")
+    public void event_creation_false_property_name() throws Throwable {
+
+        jsonBadge.put("value", 42);
+        jsonBadge.put("userId", 1);
+        jsonBadge.put("ruleName", RULENAME);
+        jsonBadge.put("timestamp", "12:00:00");
+
+        JSONObject property = new JSONObject();
+            property.put("name","not a property name");
+            property.put("ruleName", RULENAME);
+        jsonBadge.put("property",property);
+
+        StringEntity requestEntity = new StringEntity(
+            jsonBadge.toJSONString(),
+            ContentType.APPLICATION_JSON);
+
+        HttpPost putMethod = new HttpPost(URL + pathEvents);
+        putMethod.setEntity(requestEntity);
+
+        rawResponse = httpClient.execute(putMethod);
+    }
+
+    @When("^an event is created with false api token$")
+    public void event_creation_false_api_token() throws Throwable {
+
+        jsonBadge.put("apiToken", "not a valid token");
+        jsonBadge.put("value", 42);
+        jsonBadge.put("userId", 1);
+        jsonBadge.put("ruleName", RULENAME);
+        jsonBadge.put("timestamp", "12:00:00");
+
+        StringEntity requestEntity = new StringEntity(
+            jsonBadge.toJSONString(),
+            ContentType.APPLICATION_JSON);
+
+        HttpPost putMethod = new HttpPost(URL + pathEvents);
+        putMethod.setEntity(requestEntity);
+
+        rawResponse = httpClient.execute(putMethod);
+    }
+
+
     @When("^a rule is updated$")
     public void rule_update() throws Throwable {
         StringEntity requestEntity = new StringEntity(

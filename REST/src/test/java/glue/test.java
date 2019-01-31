@@ -20,7 +20,7 @@ public class test {
     public String pathEvents = "events/";
 
     //SETUP NEW FOR EACH RUN
-    public String BADGENAME = "Numeroz2"+Math.random();
+    public String BADGENAME = "Numeroz2";
     public String RULENAME = "Rulefinal";
     //-------
     private String token = "token";

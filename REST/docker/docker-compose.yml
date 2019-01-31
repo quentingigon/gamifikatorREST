@@ -16,12 +16,10 @@ services:
             - db   
     db:
         build: ./images/mysql
-        container_name: dbMysql
+        container_name: db
         environment:
             MYSQL_DATABASE: gamifikator
             MYSQL_ROOT_PASSWORD: root
-        volumes:
-            - data:/var/lib/mysql
-            
-volumes:
-    data:
+        restart: always
+        stdin_open: true
+        tty: true
